@@ -46,6 +46,7 @@
                 var declensionResult = result as RussianDeclensionResult;
                 if (declensionResult != null)
                 {
+                    declensionResult.Nominative = lemma;
                     return declensionResult;
                 }
                 else
@@ -78,6 +79,7 @@
                 var declensionResult = result as UkrainianDeclensionResult;
                 if (declensionResult != null)
                 {
+                    declensionResult.Nominative = lemma;
                     return declensionResult;
                 }
                 else
