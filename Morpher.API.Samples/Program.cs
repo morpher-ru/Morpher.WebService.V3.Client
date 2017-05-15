@@ -7,6 +7,7 @@
     using Morpher.API.V3;
     using Morpher.API.V3.Interfaces;
     using Morpher.API.V3.Models;
+    using Morpher.API.V3.Models.Exceptions;
 
     public class Program
     {
@@ -58,6 +59,17 @@
             Console.WriteLine("Образование прилагательных:");
             List<string> adjectives = morpherClient.Russian.Adjectivize("Мытищи");
             adjectives.ForEach(Console.WriteLine);
+
+            // Обработка ошибок сервиса
+            Console.WriteLine("\nОбработка ошибок сервиса:");
+            try
+            {
+                morpherClient.Russian.Parse("wuf");
+            }
+            catch (MorpherWebServiceException exc)
+            {
+                Console.WriteLine($"Code: {exc.Code} Message: {exc.Message}");
+            }
         }
     }
 }
