@@ -60,8 +60,11 @@
             List<string> adjectives = morpherClient.Russian.Adjectivize("Мытищи");
             adjectives.ForEach(Console.WriteLine);
 
+            // Остаток запросов
+            Console.WriteLine($"\nОстаток запросов: {morpherClient.QueriesLeftForTodat()}\n");
+
             // Обработка ошибок сервиса
-            Console.WriteLine("\nОбработка ошибок сервиса:");
+            Console.WriteLine("Обработка ошибок сервиса:");
             try
             {
                 morpherClient.Russian.Parse("wuf");
