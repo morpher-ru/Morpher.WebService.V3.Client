@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="Extensions\WebClientExtensions.cs" />
     <Compile Include="Extensions\WebExceptionExtensions.cs" />
-    <Compile Include="IMorpherClient.cs" />
+    <Compile Include="Interfaces\IMorpherClient.cs" />
+    <Compile Include="Interfaces\IRussian.cs" />
+    <Compile Include="Interfaces\IUkrainian.cs" />
     <Compile Include="Models\AdjectiveGenders.cs" />
     <Compile Include="Models\DeclensionFlags.cs" />
     <Compile Include="Models\Exceptions\MorpherWebServiceException.cs" />
@@ -59,6 +61,8 @@
     <Compile Include="Models\UkrainianNumberSpellingResult.cs" />
     <Compile Include="MorpherClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Russian.cs" />
+    <Compile Include="Ukrainian.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
