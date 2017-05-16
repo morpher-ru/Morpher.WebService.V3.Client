@@ -5,7 +5,7 @@
 
     [Flags]
     [SuppressMessage("ReSharper", "StyleCop.SA1602")]
-    public enum DeclensionFlags : byte
+    public enum DeclensionFlags
     {
         FullName = 1 << 0,
         Common = 1 << 1,
