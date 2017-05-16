@@ -1,4 +1,4 @@
-﻿namespace Morpher.API.V3
+﻿namespace Morpher.WebSerivce.V3
 {
     using System.Runtime.Serialization;
 

@@ -1,13 +1,13 @@
-﻿namespace Morpher.API.V3
+﻿namespace Morpher.WebSerivce.V3
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class RussianDeclensionForms : IEquatable<RussianDeclensionForms>
+    public class UkrainianDeclensionForms : IEquatable<UkrainianDeclensionForms>
     {
-        [DataMember(Name = "И")]
+        [DataMember(Name = "Н")]
         public string Nominative { get; set; }
 
         [DataMember(Name = "Р")]
@@ -16,40 +16,42 @@
         [DataMember(Name = "Д")]
         public string Dative { get; set; }
 
-        [DataMember(Name = "В")]
+        [DataMember(Name = "З")]
         public string Accusative { get; set; }
 
-        [DataMember(Name = "Т")]
+        [DataMember(Name = "О")]
         public string Instrumental { get; set; }
 
-        [DataMember(Name = "П")]
+        [DataMember(Name = "М")]
         public string Prepositional { get; set; }
 
-        [DataMember(Name = "П-о")]
-        public string Locative { get; set; }
+        [DataMember(Name = "К")]
+        public string Vocative { get; set; }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1126")]
-        public static bool operator ==(RussianDeclensionForms left, RussianDeclensionForms right)
+        public static bool operator ==(UkrainianDeclensionForms left, UkrainianDeclensionForms right)
         {
             return Equals(left, right);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1126")]
-        public static bool operator !=(RussianDeclensionForms left, RussianDeclensionForms right)
+        public static bool operator !=(UkrainianDeclensionForms left, UkrainianDeclensionForms right)
         {
             return !Equals(left, right);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1503")]
-        public bool Equals(RussianDeclensionForms other)
+        public bool Equals(UkrainianDeclensionForms other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(this.Nominative, other.Nominative) && string.Equals(this.Genitive, other.Genitive)
-                   && string.Equals(this.Dative, other.Dative) && string.Equals(this.Accusative, other.Accusative)
-                   && string.Equals(this.Instrumental, other.Instrumental)
-                   && string.Equals(this.Prepositional, other.Prepositional)
-                   && string.Equals(this.Locative, other.Locative);
+            return string.Equals(this.Nominative, other.Nominative) &&
+                string.Equals(this.Genitive, other.Genitive) && 
+                string.Equals(this.Dative, other.Dative) && 
+                string.Equals(this.Accusative, other.Accusative) &&
+                string.Equals(this.Instrumental, other.Instrumental) && 
+                string.Equals(this.Prepositional, other.Prepositional) && 
+                string.Equals(this.Vocative, other.Vocative);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1503")]
@@ -60,7 +62,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return this.Equals((RussianDeclensionForms)obj);
+            return this.Equals((UkrainianDeclensionForms)obj);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1119")]
@@ -69,15 +71,16 @@
         {
             unchecked
             {
-                var hashCode = this.Nominative != null ? this.Nominative.GetHashCode() : 0;
+                var hashCode = (this.Nominative != null ? this.Nominative.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (this.Genitive != null ? this.Genitive.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (this.Dative != null ? this.Dative.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (this.Accusative != null ? this.Accusative.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (this.Instrumental != null ? this.Instrumental.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (this.Prepositional != null ? this.Prepositional.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Locative != null ? this.Locative.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Vocative != null ? this.Vocative.GetHashCode() : 0);
                 return hashCode;
             }
         }
+
     }
 }

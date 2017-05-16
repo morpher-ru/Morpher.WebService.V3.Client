@@ -1,6 +1,6 @@
-﻿namespace Morpher.API.V3
+﻿namespace Morpher.WebSerivce.V3
 {
-    using Morpher.API.V3;
+    using Morpher.WebSerivce.V3;
 
     public interface IUkrainian
     {

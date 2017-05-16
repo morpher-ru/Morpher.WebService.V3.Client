@@ -1,12 +1,12 @@
-﻿namespace Morpher.API.V3
+﻿namespace Morpher.WebSerivce.V3
 {
     using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Text;
 
-    using Morpher.API.V3.Extensions;
-    using Morpher.API.V3;
+    using Morpher.WebSerivce.V3;
+    using Morpher.WebSerivce.V3.Extensions;
 
     internal class Russian : IRussian
     {
@@ -65,7 +65,6 @@
                 client.QueryString.Add("n", number.ToString());
                 client.QueryString.Add("unit", unit);
                 client.QueryString.Add("format", "json");
-
 
                 object result = client.GetObject(typeof(RussianNumberSpellingResult), $"{this.url}/russian/spell");
 

@@ -1,11 +1,11 @@
-﻿namespace Morpher.API.Samples
+﻿namespace Morpher.WebService.V3.Client.Samples
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using Morpher.API.V3;
+    using Morpher.WebSerivce.V3;
 
     public class Program
     {

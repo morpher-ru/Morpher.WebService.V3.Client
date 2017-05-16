@@ -1,11 +1,11 @@
-﻿namespace Morpher.API.V3
+﻿namespace Morpher.WebSerivce.V3
 {
     using System;
     using System.Net;
     using System.Text;
 
-    using Morpher.API.V3.Extensions;
-    using Morpher.API.V3;
+    using Morpher.WebSerivce.V3.Extensions;
+    using Morpher.WebSerivce.V3;
 
     public class MorpherClient : IMorpherClient
     {

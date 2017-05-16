@@ -1,4 +1,4 @@
-﻿namespace Morpher.API.V3.Extensions
+﻿namespace Morpher.WebSerivce.V3.Extensions
 {
     using System.IO;
     using System.Net;

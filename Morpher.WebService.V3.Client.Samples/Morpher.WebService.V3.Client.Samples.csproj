@@ -57,9 +57,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Morpher.API.V3\Morpher.API.V3.csproj">
+    <ProjectReference Include="..\Morpher.API.V3\Morpher.WebService.V3.csproj">
       <Project>{20370c9f-df27-4a28-8ede-eb5e738d74bc}</Project>
-      <Name>Morpher.API.V3</Name>
+      <Name>Morpher.WebService.V3</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
