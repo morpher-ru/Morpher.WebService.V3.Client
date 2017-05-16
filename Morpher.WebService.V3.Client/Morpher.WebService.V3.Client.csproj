@@ -7,8 +7,8 @@
     <ProjectGuid>{20370C9F-DF27-4A28-8EDE-EB5E738D74BC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Morpher.API.V3</RootNamespace>
-    <AssemblyName>Morpher.API.V3</AssemblyName>
+    <RootNamespace>Morpher.WebService.V3</RootNamespace>
+    <AssemblyName>Morpher.WebService.V3.Client</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

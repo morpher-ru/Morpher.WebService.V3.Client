@@ -1,12 +1,11 @@
-﻿namespace Morpher.WebSerivce.V3
+﻿namespace Morpher.WebService.V3
 {
     using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Text;
 
-    using Morpher.WebSerivce.V3;
-    using Morpher.WebSerivce.V3.Extensions;
+    using Morpher.WebService.V3.Extensions;
 
     internal class Russian : IRussian
     {

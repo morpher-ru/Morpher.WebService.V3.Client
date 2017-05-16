@@ -7,7 +7,7 @@
     <ProjectGuid>{2A4E0FA2-81CF-4921-934A-61AB02F5EC14}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Morpher.API.Samples</RootNamespace>
+    <RootNamespace>Morpher.WebService.V3.Client.Samples</RootNamespace>
     <AssemblyName>Morpher.API.Samples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -57,9 +57,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Morpher.API.V3\Morpher.WebService.V3.csproj">
+    <ProjectReference Include="..\Morpher.WebService.V3.Client\Morpher.WebService.V3.Client.csproj">
       <Project>{20370c9f-df27-4a28-8ede-eb5e738d74bc}</Project>
-      <Name>Morpher.WebService.V3</Name>
+      <Name>Morpher.WebService.V3.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

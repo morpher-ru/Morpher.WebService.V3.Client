@@ -1,5 +1,5 @@
 ﻿// ReSharper disable CheckNamespace
-namespace Morpher.WebSerivce.V3
+namespace Morpher.WebService.V3
 // ReSharper restore CheckNamespace
 {
     using System;

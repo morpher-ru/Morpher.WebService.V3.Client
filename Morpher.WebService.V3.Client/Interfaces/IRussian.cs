@@ -1,8 +1,6 @@
-﻿namespace Morpher.WebSerivce.V3
+﻿namespace Morpher.WebService.V3
 {
     using System.Collections.Generic;
-
-    using Morpher.WebSerivce.V3;
 
     public interface IRussian
     {

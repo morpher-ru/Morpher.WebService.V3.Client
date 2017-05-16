@@ -1,4 +1,4 @@
-﻿namespace Morpher.WebSerivce.V3
+﻿namespace Morpher.WebService.V3
 {
     using System;
     using System.Diagnostics.CodeAnalysis;

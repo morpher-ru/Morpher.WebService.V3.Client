@@ -1,7 +1,5 @@
-﻿namespace Morpher.WebSerivce.V3
+﻿namespace Morpher.WebService.V3
 {
-    using Morpher.WebSerivce.V3;
-
     public interface IUkrainian
     {
         UkrainianDeclensionResult Parse(string lemma, DeclensionFlags? flags = default(DeclensionFlags?));

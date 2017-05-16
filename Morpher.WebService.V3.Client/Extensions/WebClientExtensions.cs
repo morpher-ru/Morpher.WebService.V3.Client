@@ -1,12 +1,10 @@
-﻿namespace Morpher.WebSerivce.V3.Extensions
+﻿namespace Morpher.WebService.V3.Extensions
 {
     using System;
     using System.IO;
     using System.Net;
     using System.Runtime.Serialization.Json;
     using System.Text;
-
-    using Morpher.WebSerivce.V3;
 
     internal static class WebClientExtensions
     {
