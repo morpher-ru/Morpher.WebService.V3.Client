@@ -38,11 +38,11 @@
 
                 object result = client.GetObject(typeof(int), $"{this.url}/get_queries_left_for_today");
 
-                try
+                if (result is int)
                 {
                     return (int)result;
                 }
-                catch (InvalidCastException)
+                else
                 {
                     ServiceErrorMessage errorMessage = (ServiceErrorMessage)result;
                     throw new MorpherWebServiceException(errorMessage.Message, errorMessage.Code);

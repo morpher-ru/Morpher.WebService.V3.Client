@@ -7,7 +7,7 @@
     [SuppressMessage("ReSharper", "StyleCop.SA1602")]
     public enum DeclensionFlags
     {
-        FullName = 1 << 0,
+        Name = 1 << 0,
         Common = 1 << 1,
         Feminine = 1 << 2,
         Masculine = 1 << 3,

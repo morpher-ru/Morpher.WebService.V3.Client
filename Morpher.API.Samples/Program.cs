@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     using Morpher.API.V3;
 
@@ -32,7 +33,7 @@
             // Передача признаков для улучшения качества склонения, а так же разделение ФИО на части
             Console.WriteLine("Разделение на ФИО:");
             RussianDeclensionResult nameDeclensionResult =
-                morpherClient.Russian.Parse("Крутько Екатерина Володимировна", DeclensionFlags.FullName);
+                morpherClient.Russian.Parse("Крутько Екатерина Володимировна", DeclensionFlags.Name);
             Console.WriteLine($"Ф: {nameDeclensionResult.FullName.Surname} "
                 + $"И: {nameDeclensionResult.FullName.Name} " +
                 $"О: {nameDeclensionResult.FullName.Pantronymic}\n");

@@ -31,7 +31,7 @@
 
                 if (flags != null)
                 {
-                    client.QueryString.Add("flags", ((int)flags).ToString());
+                    client.QueryString.Add("flags", flags.ToString().Replace(" ", string.Empty));
                 }
 
                 client.QueryString.Add("format", "json");
