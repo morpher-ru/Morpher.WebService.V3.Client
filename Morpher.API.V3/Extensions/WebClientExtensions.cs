@@ -6,7 +6,7 @@
     using System.Runtime.Serialization.Json;
     using System.Text;
 
-    using Morpher.API.V3.Models;
+    using Morpher.API.V3;
 
     internal static class WebClientExtensions
     {

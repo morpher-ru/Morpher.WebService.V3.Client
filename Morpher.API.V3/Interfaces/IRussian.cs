@@ -1,8 +1,8 @@
-﻿namespace Morpher.API.V3.Interfaces
+﻿namespace Morpher.API.V3
 {
     using System.Collections.Generic;
 
-    using Morpher.API.V3.Models;
+    using Morpher.API.V3;
 
     public interface IRussian
     {

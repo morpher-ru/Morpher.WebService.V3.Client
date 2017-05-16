@@ -6,9 +6,7 @@
     using System.Text;
 
     using Morpher.API.V3.Extensions;
-    using Morpher.API.V3.Interfaces;
-    using Morpher.API.V3.Models;
-    using Morpher.API.V3.Models.Exceptions;
+    using Morpher.API.V3;
 
     internal class Russian : IRussian
     {

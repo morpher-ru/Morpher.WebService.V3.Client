@@ -1,4 +1,4 @@
-﻿namespace Morpher.API.V3.Models.Exceptions
+﻿namespace Morpher.API.V3
 {
     using System;
 

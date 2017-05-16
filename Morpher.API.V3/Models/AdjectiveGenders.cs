@@ -1,4 +1,4 @@
-﻿namespace Morpher.API.V3.Models
+﻿namespace Morpher.API.V3
 {
     using System.Runtime.Serialization;
     using System.Xml.Serialization;

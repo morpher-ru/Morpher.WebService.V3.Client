@@ -4,10 +4,8 @@
     using System.Collections.Generic;
     using System.Text;
 
+
     using Morpher.API.V3;
-    using Morpher.API.V3.Interfaces;
-    using Morpher.API.V3.Models;
-    using Morpher.API.V3.Models.Exceptions;
 
     public class Program
     {
@@ -25,8 +23,9 @@
             // Склонение русских слов.
             Console.WriteLine("Склонение русских слов:");
             RussianDeclensionResult russianDeclensionResult = morpherClient.Russian.Parse("Соединенное королевство");
-            Console.WriteLine($"Именительный падеж: {russianDeclensionResult.Nominative}, Родительный падеж: {russianDeclensionResult.Genitive}\n");
-            
+            Console.WriteLine($"Именительный падеж: {russianDeclensionResult.Nominative},"
+                + $" Родительный падеж: {russianDeclensionResult.Genitive}\n");
+
             // Поле род доступно только на платных тарифах. Подробнее http://morpher.ru/WebServiceV3.aspx
             Console.WriteLine("Род (только на платных тарифах):");
             Console.WriteLine($"Род: {russianDeclensionResult.Gender}");
@@ -35,25 +34,33 @@
             Console.WriteLine("Разделение на ФИО:");
             RussianDeclensionResult nameDeclensionResult =
                 morpherClient.Russian.Parse("Крутько Екатерина Володимировна", DeclensionFlags.FullName);
-            Console.WriteLine($"Ф: {nameDeclensionResult.FullName.Surname} И: {nameDeclensionResult.FullName.Name} О: {nameDeclensionResult.FullName.Pantronymic}\n");
+            Console.WriteLine($"Ф: {nameDeclensionResult.FullName.Surname} "
+                + $"И: {nameDeclensionResult.FullName.Name} " +
+                $"О: {nameDeclensionResult.FullName.Pantronymic}\n");
 
-            // Склонение украинских слов
-            Console.WriteLine("Склонения украинских слов:");
-            UkrainianDeclensionResult ukrainianDeclensionResult = morpherClient.Ukrainian.Parse("Собака");
-            Console.WriteLine($"Називний вiдмiнок: {ukrainianDeclensionResult.Nominative}, Родовий вiдмiнок: {ukrainianDeclensionResult.Genitive}\n");
+            // Склонение украинских ФИО
+            Console.WriteLine("Склонения украинских ФИО:");
+            UkrainianDeclensionResult ukrainianDeclensionResult = morpherClient.Ukrainian.Parse("Крутько Катерина Володимирiвна");
+            Console.WriteLine($"Називний вiдмiнок: {ukrainianDeclensionResult.Nominative}," +
+                $" Родовий вiдмiнок: {ukrainianDeclensionResult.Genitive}\n");
 
             // Сумма прописью
             Console.WriteLine("Сумма прописью на двух языках:");
             uint number = 2513;
-            RussianNumberSpellingResult russianNumberSpellingResult = morpherClient.Russian.Spell(number, "рубль");
-            Console.WriteLine($"В размере {number} ({russianNumberSpellingResult.NumberDeclension.Genitive}) {russianNumberSpellingResult.UnitDeclension.Genitive}");
+            RussianNumberSpellingResult russianNumberSpellingResult =
+                morpherClient.Russian.Spell(number, "рубль");
+            Console.WriteLine($"В размере {number} ({russianNumberSpellingResult.NumberDeclension.Genitive}) " 
+                + $"{russianNumberSpellingResult.UnitDeclension.Genitive}");
             UkrainianNumberSpellingResult ukrainianNumberSpellingResult = morpherClient.Ukrainian.Spell(number, "рубль");
-            Console.WriteLine($"У розмірі {number} ({ukrainianNumberSpellingResult.NumberDeclension.Genitive}) {ukrainianNumberSpellingResult.UnitDeclension.Genitive}\n");
+            Console.WriteLine($"У розмірі {number} ({ukrainianNumberSpellingResult.NumberDeclension.Genitive}) " 
+                + $"{ukrainianNumberSpellingResult.UnitDeclension.Genitive}\n");
 
             // Склонение прилагательных по родам
             Console.WriteLine("Склонение прилагательных по родам:");
             AdjectiveGenders adjectiveGenders = morpherClient.Russian.AdjectiveGenders("уважаемый");
-            Console.WriteLine($"Женский: {adjectiveGenders.Feminie}\nСредний: {adjectiveGenders.Neuter}\nМножественное число: {adjectiveGenders.Plural}\n");
+            Console.WriteLine($"Женский: {adjectiveGenders.Feminie}\n" 
+                + $"Средний: {adjectiveGenders.Neuter}\n" + 
+                $"Множественное число: {adjectiveGenders.Plural}\n");
 
             // Образования прилагательных
             Console.WriteLine("Образование прилагательных:");
@@ -61,7 +68,7 @@
             adjectives.ForEach(Console.WriteLine);
 
             // Остаток запросов
-            Console.WriteLine($"\nОстаток запросов: {morpherClient.QueriesLeftForTodat()}\n");
+            Console.WriteLine($"\nОстаток запросов: {morpherClient.QueriesLeftForToday()}\n");
 
             // Обработка ошибок сервиса
             Console.WriteLine("Обработка ошибок сервиса:");

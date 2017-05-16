@@ -5,9 +5,7 @@
     using System.Text;
 
     using Morpher.API.V3.Extensions;
-    using Morpher.API.V3.Interfaces;
-    using Morpher.API.V3.Models;
-    using Morpher.API.V3.Models.Exceptions;
+    using Morpher.API.V3;
 
     public class MorpherClient : IMorpherClient
     {
@@ -27,7 +25,7 @@
 
         public IUkrainian Ukrainian { get; }
 
-        public int QueriesLeftForTodat(Guid? guid = null)
+        public int QueriesLeftForToday(Guid? guid = null)
         {
             using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
             {

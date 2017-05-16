@@ -1,4 +1,6 @@
-﻿namespace Morpher.API.V3.Interfaces
+﻿// ReSharper disable CheckNamespace
+namespace Morpher.API.V3
+// ReSharper restore CheckNamespace
 {
     using System;
 
@@ -8,6 +10,6 @@
 
         IUkrainian Ukrainian { get; }
 
-        int QueriesLeftForTodat(Guid? guid = null);
+        int QueriesLeftForToday(Guid? guid = null);
     }
 }
