@@ -12,8 +12,8 @@
         {
             this.token = token;
             this.url = url ?? "http://api3.morpher.ru";
-            this.Russian = new Russian(NewClient);
-            this.Ukrainian = new Ukrainian(NewClient);
+            this.Russian = new Russian.Client(NewClient);
+            this.Ukrainian = new Ukrainian.Client(NewClient);
         }
 
         MyWebClient NewClient()
@@ -21,9 +21,9 @@
             return new MyWebClient(token, url);
         }
 
-        public Russian Russian { get; }
+        public Russian.Client Russian { get; }
 
-        public Ukrainian Ukrainian { get; }
+        public Ukrainian.Client Ukrainian { get; }
 
         public int QueriesLeftForToday(Guid? guid = null)
         {

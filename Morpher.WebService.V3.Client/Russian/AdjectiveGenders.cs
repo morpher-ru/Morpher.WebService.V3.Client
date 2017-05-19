@@ -1,8 +1,8 @@
-﻿namespace Morpher.WebService.V3
-{
-    using System.Runtime.Serialization;
-    using System.Xml.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
+namespace Morpher.WebService.V3.Russian
+{
     [DataContract]
     public class AdjectiveGenders
     {

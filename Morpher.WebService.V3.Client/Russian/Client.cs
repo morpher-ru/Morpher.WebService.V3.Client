@@ -1,18 +1,18 @@
-﻿namespace Morpher.WebService.V3
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-    public class Russian
+namespace Morpher.WebService.V3.Russian
+{
+    public class Client
     {
         readonly Func<MyWebClient> _newClient;
 
-        internal Russian(Func<MyWebClient> newClient)
+        internal Client(Func<MyWebClient> newClient)
         {
             _newClient = newClient;
         }
 
-        public RussianDeclensionResult Parse(string lemma, DeclensionFlags? flags = null)
+        public DeclensionResult Parse(string lemma, DeclensionFlags? flags = null)
         {
             using (var client = _newClient())
             {
@@ -23,7 +23,7 @@
 
                 client.AddParam("s", lemma);
 
-                var declensionResult = client.GetObject<RussianDeclensionResult>("/russian/declension");
+                var declensionResult = client.GetObject<DeclensionResult>("/russian/declension");
 
                 declensionResult.Nominative = lemma;
 
@@ -31,14 +31,14 @@
             }
         }
 
-        public RussianNumberSpellingResult Spell(uint number, string unit)
+        public NumberSpellingResult Spell(uint number, string unit)
         {
             using (var client = _newClient())
             {
                 client.AddParam("n", number.ToString());
                 client.AddParam("unit", unit);
 
-                return client.GetObject<RussianNumberSpellingResult>("/russian/spell");
+                return client.GetObject<NumberSpellingResult>("/russian/spell");
             }
         }
 

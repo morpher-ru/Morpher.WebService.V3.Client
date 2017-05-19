@@ -1,11 +1,11 @@
-﻿namespace Morpher.WebService.V3
-{
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
+namespace Morpher.WebService.V3.Ukrainian
+{
     [DataContract]
-    public class UkrainianDeclensionForms : IEquatable<UkrainianDeclensionForms>
+    public class DeclensionForms : IEquatable<DeclensionForms>
     {
         [DataMember(Name = "Н")]
         public string Nominative { get; set; }
@@ -29,19 +29,19 @@
         public string Vocative { get; set; }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1126")]
-        public static bool operator ==(UkrainianDeclensionForms left, UkrainianDeclensionForms right)
+        public static bool operator ==(DeclensionForms left, DeclensionForms right)
         {
             return Equals(left, right);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1126")]
-        public static bool operator !=(UkrainianDeclensionForms left, UkrainianDeclensionForms right)
+        public static bool operator !=(DeclensionForms left, DeclensionForms right)
         {
             return !Equals(left, right);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1503")]
-        public bool Equals(UkrainianDeclensionForms other)
+        public bool Equals(DeclensionForms other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -62,7 +62,7 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return this.Equals((UkrainianDeclensionForms)obj);
+            return this.Equals((DeclensionForms)obj);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1119")]

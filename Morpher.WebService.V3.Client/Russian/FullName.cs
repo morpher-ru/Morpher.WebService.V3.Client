@@ -1,7 +1,7 @@
-﻿namespace Morpher.WebService.V3
-{
-    using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
+namespace Morpher.WebService.V3.Russian
+{
     [DataContract]
     public class FullName
     {

@@ -19,7 +19,7 @@
             const string premium = "*****";
 
             Console.WriteLine("Склонение на русском языке:");
-            RussianDeclensionResult russianDeclensionResult = morpherClient.Russian.Parse("Соединенное королевство");
+            Russian.DeclensionResult russianDeclensionResult = morpherClient.Russian.Parse("Соединенное королевство");
             Console.WriteLine("Именительный падеж: {0}", russianDeclensionResult.Nominative);
             Console.WriteLine(" Родительный падеж: {0}", russianDeclensionResult.Genitive);
             Console.WriteLine("   Дательный падеж: {0}", russianDeclensionResult.Dative);
@@ -48,14 +48,14 @@
             Console.WriteLine();
 
             Console.WriteLine("Разделение ФИО на части:");
-            RussianDeclensionResult nameDeclensionResult = morpherClient.Russian.Parse("Полад Бюльбюль-оглы Мамедов");
+            Russian.DeclensionResult nameDeclensionResult = morpherClient.Russian.Parse("Полад Бюльбюль-оглы Мамедов");
             Console.WriteLine("Ф: " + nameDeclensionResult.FullName.Surname);
             Console.WriteLine("И: " + nameDeclensionResult.FullName.Name);
             Console.WriteLine("О: " + nameDeclensionResult.FullName.Pantronymic);
             Console.WriteLine();
 
             Console.WriteLine("Склонение ФИО на украинском языке:");
-            UkrainianDeclensionResult ukrainianDeclensionResult = morpherClient.Ukrainian.Parse("Крутько Катерина Володимирiвна");
+            Ukrainian.DeclensionResult ukrainianDeclensionResult = morpherClient.Ukrainian.Parse("Крутько Катерина Володимирiвна");
             Console.WriteLine(" Називний вiдмiнок: " + ukrainianDeclensionResult.Nominative);
             Console.WriteLine("  Родовий вiдмiнок: " + ukrainianDeclensionResult.Genitive);
             Console.WriteLine("Давальний вiдмiнок: " + ukrainianDeclensionResult.Dative);
@@ -71,18 +71,18 @@
 
             Console.WriteLine("Сумма прописью на двух языках:");
             uint number = 2513;
-            RussianNumberSpellingResult russianNumberSpellingResult = morpherClient.Russian.Spell(number, "рубль");
+            Russian.NumberSpellingResult russianNumberSpellingResult = morpherClient.Russian.Spell(number, "рубль");
             Console.WriteLine("В размере {0} ({1}) {2}", number,
                     russianNumberSpellingResult.NumberDeclension.Genitive,
                     russianNumberSpellingResult.UnitDeclension.Genitive);
-            UkrainianNumberSpellingResult ukrainianNumberSpellingResult = morpherClient.Ukrainian.Spell(number, "рубль");
+            Ukrainian.NumberSpellingResult ukrainianNumberSpellingResult = morpherClient.Ukrainian.Spell(number, "рубль");
             Console.WriteLine("У розмірі {0} ({1}) {2}", number,
                     ukrainianNumberSpellingResult.NumberDeclension.Genitive,
                     ukrainianNumberSpellingResult.UnitDeclension.Genitive);
             Console.WriteLine();
 
             Console.WriteLine("Склонение прилагательных по родам:");
-            AdjectiveGenders adjectiveGenders = morpherClient.Russian.AdjectiveGenders("уважаемый");
+            Russian.AdjectiveGenders adjectiveGenders = morpherClient.Russian.AdjectiveGenders("уважаемый");
             Console.WriteLine("Женский род:         " + adjectiveGenders.Feminie);
             Console.WriteLine("Средний род:         " + adjectiveGenders.Neuter);
             Console.WriteLine("Множественное число: " + adjectiveGenders.Plural);

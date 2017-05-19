@@ -1,8 +1,8 @@
-﻿namespace Morpher.WebService.V3
-{
-    using System;
-    using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
+namespace Morpher.WebService.V3.Russian
+{
     [Flags]
     [SuppressMessage("ReSharper", "StyleCop.SA1602")]
     public enum DeclensionFlags
