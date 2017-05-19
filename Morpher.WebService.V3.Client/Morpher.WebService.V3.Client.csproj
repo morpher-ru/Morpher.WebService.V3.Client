@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\WebClientExtensions.cs" />
-    <Compile Include="Extensions\WebExceptionExtensions.cs" />
     <Compile Include="Models\AdjectiveGenders.cs" />
     <Compile Include="Models\DeclensionFlags.cs" />
     <Compile Include="Models\Exceptions\MorpherWebServiceException.cs" />

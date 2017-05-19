@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
-using Morpher.WebService.V3.Extensions;
 
 namespace Morpher.WebService.V3
 {
@@ -28,7 +29,39 @@ namespace Morpher.WebService.V3
 
         public T GetObject<T>(string relativeUrl)
         {
-            return _webClient.GetObject<T>(_baseUrl + relativeUrl);
+            try
+            {
+                string response = _webClient.DownloadString(_baseUrl + relativeUrl);
+                return Deserialize<T>(response);
+            }
+            catch (WebException exc)
+            {
+                string response = GetResponseText(exc);
+                if (response == null) throw;
+                var error = Deserialize<ServiceErrorMessage>(response);
+                throw new MorpherWebServiceException(error.Message, error.Code);
+            }
+        }
+
+        static T Deserialize<T>(string response)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                return (T) serializer.ReadObject(memoryStream);
+            }
+        }
+
+        static string GetResponseText(WebException exception)
+        {
+            Stream responseStream = exception.Response.GetResponseStream();
+
+            if (responseStream == null) return null;
+
+            using (var reader = new StreamReader(responseStream))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public void Dispose()
