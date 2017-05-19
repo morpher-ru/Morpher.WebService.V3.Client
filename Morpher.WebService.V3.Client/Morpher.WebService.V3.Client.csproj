@@ -45,9 +45,6 @@
   <ItemGroup>
     <Compile Include="Extensions\WebClientExtensions.cs" />
     <Compile Include="Extensions\WebExceptionExtensions.cs" />
-    <Compile Include="Interfaces\IMorpherClient.cs" />
-    <Compile Include="Interfaces\IRussian.cs" />
-    <Compile Include="Interfaces\IUkrainian.cs" />
     <Compile Include="Models\AdjectiveGenders.cs" />
     <Compile Include="Models\DeclensionFlags.cs" />
     <Compile Include="Models\Exceptions\MorpherWebServiceException.cs" />

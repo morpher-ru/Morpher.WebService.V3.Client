@@ -15,7 +15,7 @@
             // Если вы используете Морфер.Сервер, вы можете указать в качестве url адрес вашего локального сервера.
             // string url = "http://api3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
-            IMorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             const string premium = "*****";
 
             Console.WriteLine("Склонение на русском языке:");

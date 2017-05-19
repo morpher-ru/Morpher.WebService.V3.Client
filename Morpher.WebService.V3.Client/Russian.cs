@@ -7,7 +7,7 @@
 
     using Morpher.WebService.V3.Extensions;
 
-    internal class Russian : IRussian
+    public class Russian
     {
         private readonly Guid? token = null;
 

@@ -6,7 +6,7 @@
 
     using Morpher.WebService.V3.Extensions;
 
-    internal class Ukrainian : IUkrainian
+    public class Ukrainian
     {
         private readonly Guid? token = null;
 

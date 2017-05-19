@@ -6,7 +6,7 @@
 
     using Morpher.WebService.V3.Extensions;
 
-    public class MorpherClient : IMorpherClient
+    public class MorpherClient
     {
         private readonly string url;
 
@@ -20,9 +20,9 @@
             this.Ukrainian = new Ukrainian(this.url, this.token);
         }
 
-        public IRussian Russian { get; }
+        public Russian Russian { get; }
 
-        public IUkrainian Ukrainian { get; }
+        public Ukrainian Ukrainian { get; }
 
         public int QueriesLeftForToday(Guid? guid = null)
         {
