@@ -25,7 +25,7 @@
 
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(type);
+                var serializer = new DataContractJsonSerializer(type);
                 return serializer.ReadObject(memoryStream);
             }
         }
