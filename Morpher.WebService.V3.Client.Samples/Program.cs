@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Text;
 
-    using Morpher.WebService.V3;
-
     public class Program
     {
         private static void Main(string[] args)
