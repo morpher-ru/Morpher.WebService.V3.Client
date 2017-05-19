@@ -26,7 +26,7 @@
         public string Prepositional { get; set; }
 
         [DataMember(Name = "П-о")]
-        public string Locative { get; set; }
+        public string PrepositionalWithO { get; set; }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1126")]
         public static bool operator ==(RussianDeclensionForms left, RussianDeclensionForms right)
@@ -49,7 +49,7 @@
                    && string.Equals(this.Dative, other.Dative) && string.Equals(this.Accusative, other.Accusative)
                    && string.Equals(this.Instrumental, other.Instrumental)
                    && string.Equals(this.Prepositional, other.Prepositional)
-                   && string.Equals(this.Locative, other.Locative);
+                   && string.Equals(this.PrepositionalWithO, other.PrepositionalWithO);
         }
 
         [SuppressMessage("ReSharper", "StyleCop.SA1503")]
@@ -75,7 +75,7 @@
                 hashCode = (hashCode * 397) ^ (Accusative?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (Instrumental?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (Prepositional?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (Locative?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (PrepositionalWithO?.GetHashCode() ?? 0);
                 return hashCode;
             }
         }

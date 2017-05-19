@@ -26,7 +26,7 @@
             Console.WriteLine(" Винительный падеж: {0}", russianDeclensionResult.Accusative);
             Console.WriteLine("Творительный падеж: {0}", russianDeclensionResult.Instrumental);
             Console.WriteLine("  Предложный падеж: {0}", russianDeclensionResult.Prepositional);
-            Console.WriteLine("     Местный падеж: {0}", russianDeclensionResult.Locative ?? premium);
+            Console.WriteLine("     Местный падеж: {0}", russianDeclensionResult.PrepositionalWithO ?? premium);
             Console.WriteLine("               Где? {0}", russianDeclensionResult.Where    ?? premium);
             Console.WriteLine("              Куда? {0}", russianDeclensionResult.To       ?? premium);
             Console.WriteLine("            Откуда? {0}", russianDeclensionResult.From     ?? premium);
@@ -38,7 +38,7 @@
                 Console.WriteLine(" Винительный падеж: {0}", russianDeclensionResult.Plural.Accusative);
                 Console.WriteLine("Творительный падеж: {0}", russianDeclensionResult.Plural.Instrumental);
                 Console.WriteLine("  Предложный падеж: {0}", russianDeclensionResult.Plural.Prepositional);
-                Console.WriteLine("     Местный падеж: {0}", russianDeclensionResult.Plural.Locative ?? premium);
+                Console.WriteLine("     Местный падеж: {0}", russianDeclensionResult.Plural.PrepositionalWithO ?? premium);
             }
             Console.WriteLine();
 
