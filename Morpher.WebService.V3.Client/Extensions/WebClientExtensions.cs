@@ -8,25 +8,28 @@
 
     internal static class WebClientExtensions
     {
-        public static object GetObject(this WebClient client, Type type, string url)
+        public static T GetObject<T>(this WebClient client, string url)
         {
-            string response;
-
             try
             {
-                response = client.DownloadString(url);
+                string response = client.DownloadString(url);
+                return Deserialize<T>(response);
             }
             catch (WebException exc)
             {
-                type = typeof(ServiceErrorMessage);
-                response = exc.GetResponseText();
+                string response = exc.GetResponseText();
                 if (response == null) throw;
+                var error = Deserialize<ServiceErrorMessage>(response);
+                throw new MorpherWebServiceException(error.Message, error.Code);
             }
+        }
 
+        static T Deserialize<T>(string response)
+        {
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
             {
-                var serializer = new DataContractJsonSerializer(type);
-                return serializer.ReadObject(memoryStream);
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                return (T) serializer.ReadObject(memoryStream);
             }
         }
     }
