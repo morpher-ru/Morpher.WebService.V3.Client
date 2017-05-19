@@ -14,4 +14,7 @@
     <copyright>Copyright 2017 morpher.ru</copyright>
     <tags>declension pluralization russian ukrainian grammar morphology</tags>
   </metadata>
+  <files>
+        <file src="bin\Release\Morpher.WebService.V3.Client.dll" target="lib\Morpher.WebService.V3.Client.dll" />
+  </files>
 </package>
