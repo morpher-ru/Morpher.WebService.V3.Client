@@ -20,6 +20,7 @@
             {
                 type = typeof(ServiceErrorMessage);
                 response = exc.GetResponseText();
+                if (response == null) throw;
             }
 
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))

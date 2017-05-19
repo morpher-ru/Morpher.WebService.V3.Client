@@ -7,7 +7,11 @@
     {
         public static string GetResponseText(this WebException exception)
         {
-            using (var reader = new StreamReader(exception.Response.GetResponseStream()))
+            Stream responseStream = exception.Response.GetResponseStream();
+
+            if (responseStream == null) return null;
+
+            using (var reader = new StreamReader(responseStream))
             {
                 return reader.ReadToEnd();
             }
