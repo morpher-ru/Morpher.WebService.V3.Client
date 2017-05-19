@@ -9,7 +9,7 @@
 
     public class Russian
     {
-        private readonly Guid? token = null;
+        private readonly Guid? token;
 
         private readonly string url;
 
