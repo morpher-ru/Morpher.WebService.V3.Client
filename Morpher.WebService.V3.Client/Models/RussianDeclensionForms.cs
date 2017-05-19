@@ -69,13 +69,13 @@
         {
             unchecked
             {
-                var hashCode = this.Nominative != null ? this.Nominative.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (this.Genitive != null ? this.Genitive.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Dative != null ? this.Dative.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Accusative != null ? this.Accusative.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Instrumental != null ? this.Instrumental.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Prepositional != null ? this.Prepositional.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Locative != null ? this.Locative.GetHashCode() : 0);
+                var hashCode = Nominative?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ (Genitive?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Dative?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Accusative?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Instrumental?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Prepositional?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Locative?.GetHashCode() ?? 0);
                 return hashCode;
             }
         }
