@@ -54,7 +54,7 @@ namespace Morpher.WebService.V3
 
         static string GetResponseText(WebException exception)
         {
-            Stream responseStream = exception.Response.GetResponseStream();
+            Stream responseStream = exception.Response?.GetResponseStream();
 
             if (responseStream == null) return null;
 
