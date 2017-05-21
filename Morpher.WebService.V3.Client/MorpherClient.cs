@@ -11,7 +11,7 @@
         public MorpherClient(Guid? token = null, string url = null)
         {
             this.token = token;
-            this.url = url ?? "http://api3.morpher.ru";
+            this.url = url ?? "http://ws3.morpher.ru";
             this.Russian = new Russian.Client(NewClient);
             this.Ukrainian = new Ukrainian.Client(NewClient);
         }

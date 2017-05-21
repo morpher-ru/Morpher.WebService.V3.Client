@@ -13,7 +13,7 @@
             // Вы можете передать токен в качестве аргумента конструктора.
             // Guid token = Guid.Parse("17ce56c3-934f-453a-9ef7-cc1feec4e344");
             // Если вы используете Морфер.Сервер, вы можете указать в качестве url адрес вашего локального сервера.
-            // string url = "http://api3.morpher.ru"
+            // string url = "http://ws3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
             var morpherClient = new MorpherClient();
             const string premium = "*****";
@@ -42,7 +42,6 @@
             }
             Console.WriteLine();
 
-            // Поле род доступно только на платных тарифах. Подробнее http://morpher.ru/WebServiceV3.aspx
             Console.WriteLine("Определение рода на русском языке:");
             Console.WriteLine("Род: {0}", russianDeclensionResult.Gender ?? premium);
             Console.WriteLine();
@@ -107,7 +106,7 @@
             Console.WriteLine("Остаток запросов на сегодня: " + morpherClient.QueriesLeftForToday());
             Console.WriteLine();
 
-            Console.WriteLine(premium + " означает, что функция доступна на платных тарифах.");
+            Console.WriteLine(premium + " означает, что функция доступна на платных тарифах. Подробнее http://morpher.ru/WebServiceV3.aspx#premium");
         }
     }
 }
