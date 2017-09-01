@@ -12,7 +12,8 @@
 
             // Вы можете передать токен в качестве аргумента конструктора.
             // Guid token = Guid.Parse("17ce56c3-934f-453a-9ef7-cc1feec4e344");
-            // Если вы используете Морфер.Сервер, вы можете указать в качестве url адрес вашего локального сервера.
+            // Если вы используете "Морфер.Сервер" (http://morpher.ru/webservice/local/), 
+            // то вы можете указать в качестве url адрес вашего локального сервера:
             // string url = "http://ws3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
             var morpherClient = new MorpherClient();
