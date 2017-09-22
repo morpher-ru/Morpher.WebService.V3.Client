@@ -1,6 +1,6 @@
 # .NET-клиент веб-сервиса ws3.morpher.ru
 
-[![Build status](https://ci.appveyor.com/api/projects/status/01fm74e17iee76kv?svg=true)](https://ci.appveyor.com/project/SergeyFilenko/morpher-api)
+[![Build status](https://ci.appveyor.com/api/projects/status/3h0xsyon7x2tkh7c/branch/master?svg=true)](https://ci.appveyor.com/project/morpher/morpher-webservice-v3-client/branch/master)
 
 ## Установка
 
