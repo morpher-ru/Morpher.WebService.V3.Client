@@ -2,7 +2,7 @@
 {
     using System.Runtime.Serialization;
 
-    [DataContract(Name = "singular")]
+    [DataContract]
     public class CorrectionForms
     {
         [DataMember(Name = "И")] public string Nominative { get; set; }

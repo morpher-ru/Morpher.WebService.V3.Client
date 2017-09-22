@@ -12,6 +12,6 @@
         public CorrectionForms Plural { get; set; }
 
         [DataMember(Name = "gender")]
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
     }
 }

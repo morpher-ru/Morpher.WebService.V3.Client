@@ -72,11 +72,11 @@ namespace Morpher.WebService.V3.Russian
             throw new NotImplementedException();
         }
 
-        public CorrectionEntry GetAllCorrections()
+        public IEnumerable<CorrectionEntry> GetAllCorrections()
         {
             using (var client = _newClient())
             {
-                return client.GetObject<CorrectionEntry>("/russian/userdict");
+                return client.GetObject<IEnumerable<CorrectionEntry>>("/russian/userdict");
             }
         }
     }
