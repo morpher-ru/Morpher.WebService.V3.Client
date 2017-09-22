@@ -61,5 +61,23 @@ namespace Morpher.WebService.V3.Russian
                 return client.GetObject<List<string>>("/russian/adjectivize");
             }
         }
+
+        public void AddOrUpdateCorrection()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveCorrection()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CorrectionEntry GetAllCorrections()
+        {
+            using (var client = _newClient())
+            {
+                return client.GetObject<CorrectionEntry>("/russian/userdict");
+            }
+        }
     }
 }

@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Russian\Gender.cs" />
     <Compile Include="Russian\AdjectiveGenders.cs" />
+    <Compile Include="Russian\CorrectionEntry.cs" />
+    <Compile Include="Russian\CorrectionForms.cs" />
     <Compile Include="Russian\DeclensionFlags.cs" />
     <Compile Include="MorpherWebServiceException.cs" />
     <Compile Include="Russian\FullName.cs" />
