@@ -10,7 +10,10 @@ namespace Morpher.WebService.V3.Russian
         internal Client(Func<MyWebClient> newClient)
         {
             _newClient = newClient;
+            UserDict = new UserDict(_newClient);
         }
+
+        public UserDict UserDict { get; }
 
         public DeclensionResult Parse(string lemma, DeclensionFlags? flags = null)
         {
@@ -60,43 +63,6 @@ namespace Morpher.WebService.V3.Russian
 
                 return client.GetObject<List<string>>("/russian/adjectivize");
             }
-        }
-
-        public void AddOrUpdateCorrection(CorrectionEntry entry)
-        {
-            if (string.IsNullOrWhiteSpace(entry.Singular.Nominative))
-            {
-                throw new ArgumentException("Нужно указать именительную форму единственного числа.", nameof(entry.Singular.Nominative));
-            }
-
-            var collection = entry.ToNameValueCollection();
-            if (collection.Count <= 1)
-            {
-                throw new ArgumentException("Нужно указать как минимум одну форму кроме именительного падежа.", nameof(entry));
-
-            }
-
-            using (var client = _newClient())
-            { 
-                client.UploadValues("/russian/userdict", collection); 
-            }
-        }
-
-        public bool RemoveCorrection(string nominativeForm)
-        {
-            using (var client = _newClient())
-            {
-                client.AddParam("s", nominativeForm);
-                return client.DeleteRequest<bool>("/russian/userdict");
-            }
-        }
-
-        public IEnumerable<CorrectionEntry> GetAllCorrections()
-        {
-            using (var client = _newClient())
-            {
-                return client.GetObject<IEnumerable<CorrectionEntry>>("/russian/userdict");
-            }
-        }
+        }      
     }
 }

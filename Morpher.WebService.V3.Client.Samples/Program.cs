@@ -95,29 +95,29 @@
             Console.WriteLine();
 
 
-            // Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
+            //Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
             // Для local сервиса токен не нужен.
             // Добавляем новое пользоватеслькое исправление
-            //CorrectionEntry entry = new CorrectionEntry()
-            //{
-            //    Singular = new CorrectionForms()
-            //    {
-            //        Nominative = "Кошка",
-            //        Dative = "Пантере"
-            //    },
-            //    Plural =
-            //    {
-            //        Dative = "Пантерам"
-            //    }
-            //};
-            //morpherClient.Russian.AddOrUpdateCorrection(entry);
+            CorrectionEntry entry = new CorrectionEntry()
+            {
+                Singular = new CorrectionForms()
+                {
+                    Nominative = "Кошка",
+                    Dative = "Пантере"
+                },
+                Plural = new CorrectionForms()
+                {
+                    Dative = "Пантерам"
+                }
+            };
+            morpherClient.Russian.UserDict.AddOrUpdate(entry);
 
-            //// Получаем список всех исправлений
-            //IEnumerable<CorrectionEntry> corrections = morpherClient.Russian.GetAllCorrections();
+            // Получаем список всех исправлений
+            IEnumerable<CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
 
-            //// Удаляем исправление
-            //// True если исправление было удалено успешно, false если исправление не найдено в бд.
-            //bool success = morpherClient.Russian.RemoveCorrection("Кошка");
+            // Удаляем исправление
+            // True если исправление было удалено успешно, false если исправление не найдено в бд.
+            bool success = morpherClient.Russian.UserDict.Remove("Кошка");
 
             Console.WriteLine("Обработка ошибок сервиса:");
             try

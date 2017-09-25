@@ -53,6 +53,7 @@
     <Compile Include="Russian\DeclensionForms.cs" />
     <Compile Include="Russian\DeclensionResult.cs" />
     <Compile Include="Russian\NumberSpellingResult.cs" />
+    <Compile Include="Russian\UserDict.cs" />
     <Compile Include="ServiceErrorMessage.cs" />
     <Compile Include="Ukrainian\DeclensionForms.cs" />
     <Compile Include="Ukrainian\DeclensionResult.cs" />
