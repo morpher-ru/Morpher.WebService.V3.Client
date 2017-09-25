@@ -6,6 +6,8 @@ using System.Text;
 
 namespace Morpher.WebService.V3
 {
+    using System.Collections.Specialized;
+
     class MyWebClient : IDisposable
     {
         readonly string _baseUrl;
@@ -19,7 +21,9 @@ namespace Morpher.WebService.V3
             {
                 AddParam("token", token.ToString());
             }
+
             AddParam("format", "json");
+            
         }
 
         public void AddParam(string name, string value)
@@ -33,6 +37,21 @@ namespace Morpher.WebService.V3
             {
                 string response = _webClient.DownloadString(_baseUrl + relativeUrl);
                 return Deserialize<T>(response);
+            }
+            catch (WebException exc)
+            {
+                string response = GetResponseText(exc);
+                if (response == null) throw;
+                var error = Deserialize<ServiceErrorMessage>(response);
+                throw new MorpherWebServiceException(error.Message, error.Code);
+            }
+        }
+
+        public void DeleteRequest(string relativeUrl)
+        {
+            try
+            {
+                _webClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
             }
             catch (WebException exc)
             {

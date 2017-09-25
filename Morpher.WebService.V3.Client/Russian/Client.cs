@@ -67,9 +67,13 @@ namespace Morpher.WebService.V3.Russian
             throw new NotImplementedException();
         }
 
-        public void RemoveCorrection()
+        public void RemoveCorrection(string nominativeForm)
         {
-            throw new NotImplementedException();
+            using (var client = _newClient())
+            {
+                client.AddParam("s", nominativeForm);
+                client.DeleteRequest("/russian/userdict");
+            }
         }
 
         public IEnumerable<CorrectionEntry> GetAllCorrections()
