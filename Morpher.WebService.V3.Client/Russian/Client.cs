@@ -82,12 +82,12 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
-        public void RemoveCorrection(string nominativeForm)
+        public bool RemoveCorrection(string nominativeForm)
         {
             using (var client = _newClient())
             {
                 client.AddParam("s", nominativeForm);
-                client.DeleteRequest("/russian/userdict");
+                return client.DeleteRequest<bool>("/russian/userdict");
             }
         }
 

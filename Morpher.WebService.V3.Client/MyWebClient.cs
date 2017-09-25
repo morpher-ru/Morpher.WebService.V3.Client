@@ -51,7 +51,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                _webClient.UploadValues(_baseUrl + relativeUrl, collection);          
+                var response = _webClient.UploadValues(_baseUrl + relativeUrl, collection);
             }
             catch (WebException exc)
             {
@@ -62,11 +62,12 @@ namespace Morpher.WebService.V3
             }
         }
 
-        public void DeleteRequest(string relativeUrl)
+        public T DeleteRequest<T>(string relativeUrl)
         {
             try
             {
-                _webClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
+                var response = _webClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
+                return Deserialize<T>(response);
             }
             catch (WebException exc)
             {
@@ -74,16 +75,21 @@ namespace Morpher.WebService.V3
                 if (response == null) throw;
                 var error = Deserialize<ServiceErrorMessage>(response);
                 throw new MorpherWebServiceException(error.Message, error.Code);
+            }
+        }
+
+        static T Deserialize<T>(byte[] response)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(response))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                return (T)serializer.ReadObject(memoryStream);
             }
         }
 
         static T Deserialize<T>(string response)
         {
-            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-                return (T) serializer.ReadObject(memoryStream);
-            }
+            return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
         static string GetResponseText(WebException exception)
