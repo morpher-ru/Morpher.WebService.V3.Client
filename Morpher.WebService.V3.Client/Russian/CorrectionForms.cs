@@ -11,6 +11,6 @@
         [DataMember(Name = "В")] public string Accusative { get; set; }
         [DataMember(Name = "Т")] public string Instrumental { get; set; }
         [DataMember(Name = "П")] public string Prepositional { get; set; }
-        [DataMember(Name = "М")] public string PrepositionalWithO { get; set; }
+        [DataMember(Name = "М")] public string Locative { get; set; }
     }
 }

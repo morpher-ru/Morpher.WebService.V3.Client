@@ -47,6 +47,21 @@ namespace Morpher.WebService.V3
             }
         }
 
+        public void UploadValues(string relativeUrl, NameValueCollection collection)
+        {
+            try
+            {
+                _webClient.UploadValues(_baseUrl + relativeUrl, collection);          
+            }
+            catch (WebException exc)
+            {
+                string response = GetResponseText(exc);
+                if (response == null) throw;
+                var error = Deserialize<ServiceErrorMessage>(response);
+                throw new MorpherWebServiceException(error.Message, error.Code);
+            }
+        }
+
         public void DeleteRequest(string relativeUrl)
         {
             try
