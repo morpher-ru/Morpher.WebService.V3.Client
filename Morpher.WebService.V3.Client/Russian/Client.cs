@@ -62,9 +62,24 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
-        public void AddOrUpdateCorrection()
+        public void AddOrUpdateCorrection(CorrectionEntry entry)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(entry.Singular.Nominative))
+            {
+                throw new ArgumentException("Нужно указать именительную форму единственного числа.", nameof(entry.Singular.Nominative));
+            }
+
+            var collection = entry.ToNameValueCollection();
+            if (collection.Count <= 1)
+            {
+                throw new ArgumentException("Нужно указать как минимум одну форму кроме именительного падежа.", nameof(entry));
+
+            }
+
+            using (var client = _newClient())
+            { 
+                client.UploadValues("/russian/userdict", collection); 
+            }
         }
 
         public void RemoveCorrection(string nominativeForm)
