@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Russian;
 
     public class Program
     {
@@ -16,8 +17,7 @@
             // то вы можете указать в качестве url адрес вашего локального сервера:
             // string url = "http://ws3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
-            var morpherClient = new MorpherClient(Guid.Parse("afbb2784-6c02-43fe-93e6-5874e39a3cfd"));
-            var result = morpherClient.Russian.GetAllCorrections();
+            var morpherClient = new MorpherClient();
             const string premium = "*****";
 
             Console.WriteLine("Склонение на русском языке:");
@@ -93,6 +93,31 @@
             List<string> adjectives = morpherClient.Russian.Adjectivize("Мытищи");
             adjectives.ForEach(Console.WriteLine);
             Console.WriteLine();
+
+
+            // Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
+            // Для local сервиса токен не нужен.
+            // Добавляем новое пользоватеслькое исправление
+            //CorrectionEntry entry = new CorrectionEntry()
+            //{
+            //    Singular = new CorrectionForms()
+            //    {
+            //        Nominative = "Кошка",
+            //        Dative = "Пантере"
+            //    },
+            //    Plural =
+            //    {
+            //        Dative = "Пантерам"
+            //    }
+            //};
+            //morpherClient.Russian.AddOrUpdateCorrection(entry);
+
+            //// Получаем список всех исправлений
+            //IEnumerable<CorrectionEntry> corrections = morpherClient.Russian.GetAllCorrections();
+
+            //// Удаляем исправление
+            //// True если исправление было удалено успешно, false если исправление не найдено в бд.
+            //bool success = morpherClient.Russian.RemoveCorrection("Кошка");
 
             Console.WriteLine("Обработка ошибок сервиса:");
             try
