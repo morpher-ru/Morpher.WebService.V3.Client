@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Russian;
 
     public class Program
     {
@@ -99,14 +98,14 @@
             //Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
             // Для local сервиса токен не нужен.
             // Добавляем новое пользоватеслькое исправление
-            CorrectionEntry entry = new CorrectionEntry()
+            Russian.CorrectionEntry entry = new Russian.CorrectionEntry()
             {
-                Singular = new CorrectionForms()
+                Singular = new Russian.CorrectionForms()
                 {
                     Nominative = "Кошка",
                     Dative = "Пантере"
                 },
-                Plural = new CorrectionForms()
+                Plural = new Russian.CorrectionForms()
                 {
                     Dative = "Пантерам"
                 }
@@ -121,7 +120,7 @@
             Console.WriteLine();
             
             Console.WriteLine("Получаем список всех исправлений:");
-            IEnumerable<CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
+            IEnumerable<Russian.CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
 
             foreach (var correctionEntry in corrections)
             {
