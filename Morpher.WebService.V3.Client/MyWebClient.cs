@@ -7,13 +7,14 @@ using System.Text;
 namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
+    using Newtonsoft.Json;
 
     class MyWebClient : IDisposable
     {
         readonly string _baseUrl;
         readonly WebClient _webClient;
 
-        public MyWebClient (Guid? token, string baseUrl)
+        public MyWebClient(Guid? token, string baseUrl)
         {
             _baseUrl = baseUrl;
             _webClient = new WebClient { Encoding = Encoding.UTF8 };
@@ -23,7 +24,7 @@ namespace Morpher.WebService.V3
             }
 
             AddParam("format", "json");
-            
+
         }
 
         public void AddParam(string name, string value)
@@ -81,9 +82,10 @@ namespace Morpher.WebService.V3
         static T Deserialize<T>(byte[] response)
         {
             using (MemoryStream memoryStream = new MemoryStream(response))
+            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
             {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-                return (T)serializer.ReadObject(memoryStream);
+                var serializer = new JsonSerializer();
+                return (T)serializer.Deserialize(reader, typeof(T));
             }
         }
 

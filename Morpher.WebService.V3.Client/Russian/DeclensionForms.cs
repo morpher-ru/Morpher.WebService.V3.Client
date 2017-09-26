@@ -11,6 +11,6 @@ namespace Morpher.WebService.V3.Russian
         [DataMember(Name = "В")] public string Accusative { get; set; }
         [DataMember(Name = "Т")] public string Instrumental { get; set; }
         [DataMember(Name = "П")] public string Prepositional { get; set; }
-        [DataMember(Name = "П-о")] public string PrepositionalWithO { get; set; }
+        [DataMember(Name = "П_о")] public string PrepositionalWithO { get; set; }
    }
 }

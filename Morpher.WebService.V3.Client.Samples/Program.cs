@@ -18,7 +18,7 @@
             // string url = "http://ws3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
             // !!! Не используйте этот токен в production !!!
-            var morpherClient = new MorpherClient(Guid.Parse("a8dab5fe-7a47-4c17-84ea-46facb7d19fe"));
+            var morpherClient = new MorpherClient(Guid.Parse("afbb2784-6c02-43fe-93e6-5874e39a3cfd"));
             const string premium = "*****";
 
             Console.WriteLine("Склонение на русском языке:");
@@ -46,7 +46,7 @@
             Console.WriteLine();
 
             Console.WriteLine("Определение рода на русском языке:");
-            Console.WriteLine("Род: {0}", russianDeclensionResult.Gender ?? premium);
+            Console.WriteLine("Род: {0}", russianDeclensionResult.Gender.ToString() ?? premium);
             Console.WriteLine();
 
             Console.WriteLine("Разделение ФИО на части:");
@@ -68,7 +68,7 @@
             Console.WriteLine();
 
             Console.WriteLine("Определение рода на украинском языке:");
-            Console.WriteLine("Род: {0}", ukrainianDeclensionResult.Gender ?? premium);
+            Console.WriteLine("Род: {0}", ukrainianDeclensionResult.Gender?.ToString() ?? premium);
             Console.WriteLine();
 
             Console.WriteLine("Сумма прописью на двух языках:");
