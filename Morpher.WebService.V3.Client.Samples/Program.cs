@@ -45,7 +45,7 @@
             Console.WriteLine();
 
             Console.WriteLine("Определение рода на русском языке:");
-            Console.WriteLine("Род: {0}", russianDeclensionResult.Gender.ToString() ?? premium);
+            Console.WriteLine("Род: {0}", russianDeclensionResult.Gender?.ToString() ?? premium);
             Console.WriteLine();
 
             Console.WriteLine("Разделение ФИО на части:");
