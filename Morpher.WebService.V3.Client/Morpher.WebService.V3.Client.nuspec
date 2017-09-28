@@ -13,6 +13,9 @@
     <releaseNotes>First release</releaseNotes>
     <copyright>Copyright 2017 morpher.ru</copyright>
     <tags>declension pluralization russian ukrainian grammar morphology</tags>
+	<dependencies>
+		<dependency id="Newtonsoft.Json" version="3.5.8"/>
+	</dependencies>
   </metadata>
   <files>
         <file src="bin\Release\Morpher.WebService.V3.Client.dll" target="lib\Morpher.WebService.V3.Client.dll" />
