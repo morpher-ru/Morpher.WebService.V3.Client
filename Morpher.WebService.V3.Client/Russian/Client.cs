@@ -10,7 +10,10 @@ namespace Morpher.WebService.V3.Russian
         internal Client(Func<MyWebClient> newClient)
         {
             _newClient = newClient;
+            UserDict = new UserDict(_newClient);
         }
+
+        public UserDict UserDict { get; }
 
         public DeclensionResult Parse(string lemma, DeclensionFlags? flags = null)
         {
@@ -60,6 +63,6 @@ namespace Morpher.WebService.V3.Russian
 
                 return client.GetObject<List<string>>("/russian/adjectivize");
             }
-        }
+        }      
     }
 }
