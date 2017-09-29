@@ -8,7 +8,7 @@ namespace Morpher.WebService.V3
     using System.Collections.Specialized;
     using Newtonsoft.Json;
 
-    class MyWebClient : IDisposable
+    public class MyWebClient : IDisposable
     {
         readonly string _baseUrl;
         IWebClient _webClient;
@@ -28,7 +28,7 @@ namespace Morpher.WebService.V3
 
         public IWebClient WebClient
         {
-            get { return _webClient; }
+            get { return _webClient ?? (_webClient = new MorpherWebClient() {Encoding = Encoding.UTF8}); }
             set
             {
                 if (value == null)

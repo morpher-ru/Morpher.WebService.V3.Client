@@ -2,7 +2,7 @@
 {
     using System.Collections.Specialized;
 
-    interface IWebClient
+    public interface IWebClient
     {
         NameValueCollection QueryString { get; set; }
 
