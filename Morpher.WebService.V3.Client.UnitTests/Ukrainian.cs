@@ -44,17 +44,7 @@
     }
 }";
 
-        public string ExceptionTextUseSpell { get; } = @"
-{
-  ""code"": 4,
-  ""message"": ""Склонение числительных в declension не поддерживается. Используйте метод spell.""
-}";
 
-        public string ExceptionTextMissedParameter { get; } = @"
-{
-  ""code"": 6,
-  ""message"": ""Не указан обязательный параметр: unit""
-}";
 
         [TestMethod]
         public void Parse_Success()
@@ -124,7 +114,7 @@
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)495,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionTextUseSpell))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.UseSpell))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             MorpherClient morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
@@ -144,7 +134,7 @@
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)400,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionTextMissedParameter))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             MorpherClient morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)

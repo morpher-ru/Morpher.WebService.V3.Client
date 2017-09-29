@@ -68,6 +68,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExceptionText.cs" />
+    <Compile Include="Russian.cs" />
     <Compile Include="Ukrainian.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
