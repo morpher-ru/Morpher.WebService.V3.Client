@@ -13,5 +13,11 @@
   ""code"": 6,
   ""message"": ""Не указан обязательный параметр: unit""
 }";
+
+        public static string ServerError { get; } = @"
+{
+  ""code"": 11,
+  ""message"": ""Ошибка сервера.""
+}";
     }
 }

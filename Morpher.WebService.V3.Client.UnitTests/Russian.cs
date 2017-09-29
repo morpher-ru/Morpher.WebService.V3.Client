@@ -1,6 +1,10 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.IO;
+    using System.Net;
+    using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using V3.Russian;
@@ -71,6 +75,29 @@
   ""neuter"": ""уважаемое"",
   ""plural"": ""уважаемые""
 }";
+
+        public string AdjectivizeResultText { get; } = @"
+[
+  ""мытищинский"",
+  ""мытищенский""
+]";
+
+        public MorpherClient ExceptionClient()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
+                WebResponseMock.CreateWebResponse((HttpStatusCode)400,
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            return morpherClient;
+        }
 
         [TestMethod]
         public void Parse_Success()
@@ -183,6 +210,51 @@
             Assert.AreEqual("уважаемые", adjectiveGenders.Plural);
         }
 
+        [TestMethod]
+        public void Adjectivize_Success()
+        {
 
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(AdjectivizeResultText);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            List<string> adjList = morpherClient.Russian.Adjectivize("мытыщи");
+            Assert.IsNotNull(adjList);
+            Assert.AreEqual("мытищинский", adjList[0]);
+            Assert.AreEqual("мытищенский", adjList[1]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void Parse_Exception()
+        {
+            ExceptionClient().Russian.Parse("exception here");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void Spell_Exception()
+        {
+            ExceptionClient().Russian.Spell(1, "exception here");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void Genders_Exception()
+        {
+            ExceptionClient().Russian.AdjectiveGenders("exception here");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void Adjectivize_Exception()
+        {
+            ExceptionClient().Russian.Adjectivize("exception here");
+        }
     }
 }
