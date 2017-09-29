@@ -16,7 +16,6 @@ namespace Morpher.WebService.V3
         public MyWebClient(Guid? token, string baseUrl)
         {
             _baseUrl = baseUrl;
-            WebClient = new MorpherWebClient { Encoding = Encoding.UTF8 };
             if (token != null)
             {
                 AddParam("token", token.ToString());
