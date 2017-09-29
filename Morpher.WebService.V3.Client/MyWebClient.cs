@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace Morpher.WebService.V3
@@ -12,12 +11,12 @@ namespace Morpher.WebService.V3
     class MyWebClient : IDisposable
     {
         readonly string _baseUrl;
-        readonly WebClient _webClient;
+        IWebClient _webClient;
 
         public MyWebClient(Guid? token, string baseUrl)
         {
             _baseUrl = baseUrl;
-            _webClient = new WebClient { Encoding = Encoding.UTF8 };
+            WebClient = new MorpherWebClient { Encoding = Encoding.UTF8 };
             if (token != null)
             {
                 AddParam("token", token.ToString());
@@ -27,16 +26,30 @@ namespace Morpher.WebService.V3
 
         }
 
+        public IWebClient WebClient
+        {
+            get { return _webClient; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _webClient = value;
+            }
+        }
+
         public void AddParam(string name, string value)
         {
-            _webClient.QueryString.Add(name, value);
+            WebClient.QueryString.Add(name, value);
         }
 
         public T GetObject<T>(string relativeUrl)
         {
             try
             {
-                string response = _webClient.DownloadString(_baseUrl + relativeUrl);
+                string response = WebClient.DownloadString(_baseUrl + relativeUrl);
                 return Deserialize<T>(response);
             }
             catch (WebException exc)
@@ -52,7 +65,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                var response = _webClient.UploadValues(_baseUrl + relativeUrl, collection);
+                WebClient.UploadValues(_baseUrl + relativeUrl, collection);
             }
             catch (WebException exc)
             {
@@ -67,7 +80,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                var response = _webClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
+                var response = WebClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
                 return Deserialize<T>(response);
             }
             catch (WebException exc)
@@ -108,7 +121,7 @@ namespace Morpher.WebService.V3
 
         public void Dispose()
         {
-            _webClient.Dispose();
+            WebClient.Dispose();
         }
     }
 }

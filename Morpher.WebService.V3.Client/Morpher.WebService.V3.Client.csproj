@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWebClient.cs" />
+    <Compile Include="MorpherWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Russian\Gender.cs" />
     <Compile Include="Russian\AdjectiveGenders.cs" />
     <Compile Include="Russian\CorrectionEntry.cs" />

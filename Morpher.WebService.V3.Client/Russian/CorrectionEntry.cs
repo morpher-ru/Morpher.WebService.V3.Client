@@ -2,7 +2,6 @@
 {
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
-    using System.Text;
 
     [DataContract]
     public class CorrectionEntry
