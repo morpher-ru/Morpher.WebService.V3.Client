@@ -39,8 +39,7 @@
         ""Д"": ""десяти"",
         ""В"": ""десять"",
         ""Т"": ""десятью"",
-        ""П"": ""десяти"",
-        ""П_о"": ""десяти""
+        ""П"": ""десяти""
     },
     ""unit"": {
         ""И"": ""рублей"",
@@ -48,9 +47,29 @@
         ""Д"": ""рублям"",
         ""В"": ""рублей"",
         ""Т"": ""рублями"",
-        ""П"": ""рублях"",
-        ""П_о"": ""рублях""
+        ""П"": ""рублях""
     }
+}";
+
+        public string FioSplit { get; } = @"
+{
+  ""Р"": ""Александра Пушкина"",
+  ""Д"": ""Александру Пушкину"",
+  ""В"": ""Александра Пушкина"",
+  ""Т"": ""Александром Пушкиным"",
+  ""П"": ""Александре Пушкине"",
+  ""ФИО"": {
+    ""Ф"": ""Пушкин"",
+    ""И"": ""Александр"",
+    ""О"": ""Сергеевич""
+  }
+}";
+
+        public string GendersResultText { get; } = @"
+{
+  ""feminine"": ""уважаемая"",
+  ""neuter"": ""уважаемое"",
+  ""plural"": ""уважаемые""
 }";
 
         [TestMethod]
@@ -90,5 +109,80 @@
 
             Assert.AreEqual(Gender.Masculine, declensionResult.Gender);
         }
+
+        [TestMethod]
+        public void SplitFio_Success()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(FioSplit);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            DeclensionResult declensionResult = morpherClient.Russian.Parse("Александр Пушкин Сергеевич");
+            Assert.IsNotNull(declensionResult);
+            Assert.IsNotNull(declensionResult.FullName);
+            Assert.AreEqual("Пушкин", declensionResult.FullName.Surname);
+            Assert.AreEqual("Александр", declensionResult.FullName.Name);
+            Assert.AreEqual("Сергеевич", declensionResult.FullName.Pantronymic);
+        }
+
+        [TestMethod]
+        public void Spell_Success()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellResultText);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            NumberSpellingResult declensionResult = morpherClient.Russian.Spell(10, "рубль");
+            Assert.IsNotNull(declensionResult);
+
+            // number
+            Assert.AreEqual("десять", declensionResult.NumberDeclension.Nominative);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Genitive);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Dative);
+            Assert.AreEqual("десять", declensionResult.NumberDeclension.Accusative);
+            Assert.AreEqual("десятью", declensionResult.NumberDeclension.Instrumental);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Prepositional);
+           
+
+            // unit
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Nominative);
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Genitive);
+            Assert.AreEqual("рублям", declensionResult.UnitDeclension.Dative);
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Accusative);
+            Assert.AreEqual("рублями", declensionResult.UnitDeclension.Instrumental);
+            Assert.AreEqual("рублях", declensionResult.UnitDeclension.Prepositional);
+        }
+
+        [TestMethod]
+        public void Genders_Success()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(GendersResultText);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            AdjectiveGenders adjectiveGenders = morpherClient.Russian.AdjectiveGenders("уважаемый");
+            Assert.IsNotNull(adjectiveGenders);
+
+            Assert.AreEqual("уважаемая", adjectiveGenders.Feminie);
+            Assert.AreEqual("уважаемое", adjectiveGenders.Neuter);
+            Assert.AreEqual("уважаемые", adjectiveGenders.Plural);
+        }
+
+
     }
 }
