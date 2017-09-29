@@ -44,10 +44,16 @@
     }
 }";
 
-        public string ExceptionText { get; } = @"
+        public string ExceptionTextUseSpell { get; } = @"
 {
   ""code"": 4,
   ""message"": ""Склонение числительных в declension не поддерживается. Используйте метод spell.""
+}";
+
+        public string ExceptionTextMissedParameter { get; } = @"
+{
+  ""code"": 6,
+  ""message"": ""Не указан обязательный параметр: unit""
 }";
 
         [TestMethod]
@@ -108,6 +114,7 @@
             Assert.AreEqual("рублів", declensionResult.UnitDeclension.Vocative);
         }
 
+
         [TestMethod]
         [ExpectedException(typeof(MorpherWebServiceException),
             "Склонение числительных в declension не поддерживается. Используйте метод spell.")]
@@ -117,7 +124,27 @@
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)495,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionTextUseSpell))));
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            morpherClient.Ukrainian.Parse("exception here");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException),
+            "Не указан обязательный параметр: unit")]
+        public void Spell_MorpherWebServiceException()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
+                WebResponseMock.CreateWebResponse((HttpStatusCode)400,
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionTextMissedParameter))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             MorpherClient morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
