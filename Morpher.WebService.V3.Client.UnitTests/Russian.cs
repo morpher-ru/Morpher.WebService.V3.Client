@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -81,6 +82,31 @@
   ""мытищинский"",
   ""мытищенский""
 ]";
+
+        public string UserDictGetAllText { get; } = @"
+[
+    {
+        ""singular"": {
+            ""И"": ""Кошка"",
+            ""Р"": ""Пантеры"",
+            ""Д"": ""Пантере"",
+            ""В"": ""Пантеру"",
+            ""Т"": ""Пантерой"",
+            ""П"": ""о Пантере"",
+            ""М"": ""в Пантере""
+        },
+        ""plural"": {
+            ""И"": ""Пантеры"",
+            ""Р"": ""Пантер"",
+            ""Д"": ""Пантерам"",
+            ""В"": ""Пантер"",
+            ""Т"": ""Пантерами"",
+            ""П"": ""о Пантерах"",
+            ""М"": ""в Пантерах""
+        }
+    }
+]";
+
 
         public MorpherClient ExceptionClient()
         {
@@ -255,6 +281,90 @@
         public void Adjectivize_Exception()
         {
             ExceptionClient().Russian.Adjectivize("exception here");
+        }
+
+        [TestMethod]
+        public void UserDictRemove_Success()
+        {
+            NameValueCollection @params = new NameValueCollection();
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(@params);
+            webClient.Setup(client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
+                .Returns(Encoding.UTF8.GetBytes("true"));
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            bool found = morpherClient.Russian.UserDict.Remove("кошка");
+
+            Assert.IsTrue(found);
+            Assert.AreEqual("кошка", @params.Get("s"));            
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void UserDictRemove_Exception()
+        {
+            NameValueCollection @params = new NameValueCollection();
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(@params);
+            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
+                WebResponseMock.CreateWebResponse((HttpStatusCode)400,
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
+            webClient.Setup(
+                    client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
+                .Throws(exception);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            morpherClient.Russian.UserDict.Remove("exception here");
+        }
+
+        [TestMethod]
+        public void UserDictGetAll_Success()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(UserDictGetAllText);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll();
+
+            Assert.IsNotNull(correctionEntries);
+            Assert.AreEqual(1, correctionEntries.Count());
+            CorrectionEntry entry = correctionEntries.First();
+
+            Assert.AreEqual("Кошка", entry.Singular.Nominative);
+            Assert.AreEqual("Пантеры", entry.Singular.Genitive);
+            Assert.AreEqual("Пантере", entry.Singular.Dative);
+            Assert.AreEqual("Пантеру", entry.Singular.Accusative);
+            Assert.AreEqual("Пантерой", entry.Singular.Instrumental);
+            Assert.AreEqual("о Пантере", entry.Singular.Prepositional);
+            Assert.AreEqual("в Пантере", entry.Singular.Locative);
+
+            Assert.AreEqual("Пантеры", entry.Plural.Nominative);
+            Assert.AreEqual("Пантер", entry.Plural.Genitive);
+            Assert.AreEqual("Пантерам", entry.Plural.Dative);
+            Assert.AreEqual("Пантер", entry.Plural.Accusative);
+            Assert.AreEqual("Пантерами", entry.Plural.Instrumental);
+            Assert.AreEqual("о Пантерах", entry.Plural.Prepositional);
+            Assert.AreEqual("в Пантерах", entry.Plural.Locative);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        public void UserDictGetAll_Exception()
+        {
+            ExceptionClient().Russian.UserDict.GetAll();
         }
     }
 }
