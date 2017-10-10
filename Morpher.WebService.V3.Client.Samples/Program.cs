@@ -71,7 +71,7 @@
             Console.WriteLine();
 
             Console.WriteLine("Сумма прописью на двух языках:");
-            uint number = 2513;
+            decimal number = 2513;
             Russian.NumberSpellingResult russianNumberSpellingResult = morpherClient.Russian.Spell(number, "рубль");
             Console.WriteLine("В размере {0} ({1}) {2}", number,
                     russianNumberSpellingResult.NumberDeclension.Genitive,
