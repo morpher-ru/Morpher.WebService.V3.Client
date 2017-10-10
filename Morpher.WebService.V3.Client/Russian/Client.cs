@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Morpher.WebService.V3.Russian
 {
+    using System.Globalization;
+
     public class Client
     {
         readonly Func<MyWebClient> _newClient;
@@ -34,11 +36,11 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
-        public NumberSpellingResult Spell(uint number, string unit)
+        public NumberSpellingResult Spell(decimal number, string unit)
         {
             using (var client = _newClient())
             {
-                client.AddParam("n", number.ToString());
+                client.AddParam("n", number.ToString(new CultureInfo("en-US")));
                 client.AddParam("unit", unit);
 
                 return client.GetObject<NumberSpellingResult>("/russian/spell");
