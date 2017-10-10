@@ -53,11 +53,7 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                if (IsInternalServerError(error)) throw;
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                throw HandleException(exc);
             }
         }
 
@@ -69,10 +65,7 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                throw HandleException(exc);
             }
         }
 
@@ -85,11 +78,7 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                if (IsInternalServerError(error)) throw;
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                throw HandleException(exc);
             }
         }
 
@@ -120,9 +109,20 @@ namespace Morpher.WebService.V3
             }
         }
 
-        // Code 11 - Internal server Error http://morpher.ru/ws3/#errors
-        private bool IsInternalServerError(ServiceErrorMessage message) => message.Code == 11;
+        private MorpherWebServiceException HandleException(WebException exc)
+        {
+            var httpWebResponse = exc.Response as HttpWebResponse;
+            if (httpWebResponse != null
+                &&
+                httpWebResponse.StatusCode == HttpStatusCode.InternalServerError)
+                throw exc;
 
+            string response = GetResponseText(exc);
+            if (response == null) throw exc;
+            var error = Deserialize<ServiceErrorMessage>(response);
+            return new MorpherWebServiceException(error.Message, error.Code);
+        }
+ 
         public void Dispose()
         {
             WebClient.Dispose();

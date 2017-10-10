@@ -108,12 +108,12 @@
 ]";
 
 
-        public MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter)
+        public MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
-                WebResponseMock.CreateWebResponse((HttpStatusCode)400,
+                WebResponseMock.CreateWebResponse(statusCode,
                     new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             MorpherClient morpherClient = new MorpherClient();
@@ -370,7 +370,7 @@
         [Test]
         public void InternalServerError()
         {
-            Assert.Throws<WebException>(() => ExceptionClient(ExceptionText.ServerError).Russian.UserDict.GetAll());
+            Assert.Throws<WebException>(() => ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
         }
     }
 }
