@@ -1,7 +1,9 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,6 +46,20 @@
     }
 }";
 
+        public string UserDictGetAllText { get; } = @"
+[
+    {
+        ""singular"": {
+            ""Н"": ""Тест"",
+            ""Р"": ""ТестР"",
+            ""Д"": ""ТестД"",
+            ""З"": ""ТестЗ"",
+            ""О"": ""ТестО"",
+            ""М"": ""ТестМ"",
+            ""К"": ""ТестК""
+        }
+    }
+]";
 
 
         [TestMethod]
@@ -143,6 +159,53 @@
             };
 
             morpherClient.Ukrainian.Parse("exception here");
+        }
+
+        [TestMethod]
+        public void UserDictRemove_Success()
+        {
+            NameValueCollection @params = new NameValueCollection();
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(@params);
+            webClient.Setup(client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
+                .Returns(Encoding.UTF8.GetBytes("true"));
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            bool found = morpherClient.Ukrainian.UserDict.Remove("тест");
+
+            Assert.IsTrue(found);
+            Assert.AreEqual("тест", @params.Get("s"));
+        }
+
+        [TestMethod]
+        public void UserDictGetAll_Success()
+        {
+            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(UserDictGetAllText);
+            MorpherClient morpherClient = new MorpherClient();
+            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
+            {
+                WebClient = webClient.Object
+            };
+
+            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Ukrainian.UserDict.GetAll();
+
+            Assert.IsNotNull(correctionEntries);
+            Assert.AreEqual(1, correctionEntries.Count());
+            CorrectionEntry entry = correctionEntries.First();
+
+            Assert.AreEqual("Тест", entry.Singular.Nominative);
+            Assert.AreEqual("ТестР", entry.Singular.Genitive);
+            Assert.AreEqual("ТестД", entry.Singular.Dative);
+            Assert.AreEqual("ТестЗ", entry.Singular.Accusative);
+            Assert.AreEqual("ТестО", entry.Singular.Instrumental);
+            Assert.AreEqual("ТестМ", entry.Singular.Prepositional);
+            Assert.AreEqual("ТестК", entry.Singular.Vocative);
         }
     }
 }
