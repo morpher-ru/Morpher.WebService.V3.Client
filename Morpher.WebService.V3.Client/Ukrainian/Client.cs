@@ -9,7 +9,10 @@ namespace Morpher.WebService.V3.Ukrainian
         internal Client(Func<MyWebClient> newClient)
         {
             _newClient = newClient;
+            UserDict = new UserDict(_newClient);
         }
+
+        public UserDict UserDict { get; }
 
         public DeclensionResult Parse(string lemma)
         {

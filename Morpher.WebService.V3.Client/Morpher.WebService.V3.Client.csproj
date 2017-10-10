@@ -63,6 +63,8 @@
     <Compile Include="Russian\NumberSpellingResult.cs" />
     <Compile Include="Russian\UserDict.cs" />
     <Compile Include="ServiceErrorMessage.cs" />
+    <Compile Include="Ukrainian\CorrectionEntry.cs" />
+    <Compile Include="Ukrainian\CorrectionForms.cs" />
     <Compile Include="Ukrainian\DeclensionForms.cs" />
     <Compile Include="Ukrainian\DeclensionResult.cs" />
     <Compile Include="Ukrainian\Gender.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Russian\Client.cs" />
     <Compile Include="Ukrainian\Client.cs" />
+    <Compile Include="Ukrainian\UserDict.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

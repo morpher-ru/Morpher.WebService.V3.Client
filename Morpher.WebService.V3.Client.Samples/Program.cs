@@ -93,51 +93,94 @@
             List<string> adjectives = morpherClient.Russian.Adjectivize("Мытищи");
             adjectives.ForEach(Console.WriteLine);
             Console.WriteLine();
-
-
-            //Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
-            // Для local сервиса токен не нужен.
-            // Добавляем новое пользоватеслькое исправление
-            Russian.CorrectionEntry entry = new Russian.CorrectionEntry()
+            
             {
-                Singular = new Russian.CorrectionForms()
+                //Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
+                // Для local сервиса токен не нужен.
+                // Русский язык
+                // Добавляем новое пользоватеслькое исправление
+                Russian.CorrectionEntry entry = new Russian.CorrectionEntry()
                 {
-                    Nominative = "Кошка",
-                    Dative = "Пантере"
-                },
-                Plural = new Russian.CorrectionForms()
+                    Singular = new Russian.CorrectionForms()
+                    {
+                        Nominative = "Кошка",
+                        Dative = "Пантере"
+                    },
+                    Plural = new Russian.CorrectionForms()
+                    {
+                        Dative = "Пантерам"
+                    }
+                };
+                morpherClient.Russian.UserDict.AddOrUpdate(entry);
+
+                Console.WriteLine("Склонение с исправлением:");
+                Russian.DeclensionResult spellWithCorrection = morpherClient.Russian.Parse("Кошка");
+                Console.WriteLine("           Именительный падеж: {0}", spellWithCorrection.Nominative);
+                Console.WriteLine("              Дательный падеж: {0}", spellWithCorrection.Dative);
+                Console.WriteLine("Дательный падеж множсетвенное: {0}", spellWithCorrection.Plural.Dative);
+                Console.WriteLine();
+
+                Console.WriteLine("Получаем список всех исправлений:");
+                IEnumerable<Russian.CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
+
+                foreach (var correctionEntry in corrections)
                 {
-                    Dative = "Пантерам"
+                    Console.WriteLine(correctionEntry.Singular.Nominative);
                 }
-            };
-            morpherClient.Russian.UserDict.AddOrUpdate(entry);
 
-            Console.WriteLine("Склонение с исправлением:");
-            Russian.DeclensionResult spellWithCorrection = morpherClient.Russian.Parse("Кошка");
-            Console.WriteLine("           Именительный падеж: {0}", spellWithCorrection.Nominative);
-            Console.WriteLine("              Дательный падеж: {0}", spellWithCorrection.Dative);
-            Console.WriteLine("Дательный падеж множсетвенное: {0}", spellWithCorrection.Plural.Dative);
-            Console.WriteLine();
-            
-            Console.WriteLine("Получаем список всех исправлений:");
-            IEnumerable<Russian.CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
+                Console.WriteLine();
+                // Удаляем исправление
+                // True если исправление было удалено успешно, false если исправление не найдено в бд.
+                bool success = morpherClient.Russian.UserDict.Remove("Кошка");
 
-            foreach (var correctionEntry in corrections)
-            {
-                Console.WriteLine(correctionEntry.Singular.Nominative);
+                Console.WriteLine("Склонение после удаления исправления:");
+                Russian.DeclensionResult spellWithoutCorrection = morpherClient.Russian.Parse("Кошка");
+                Console.WriteLine("           Именительный падеж: {0}", spellWithoutCorrection.Nominative);
+                Console.WriteLine("              Дательный падеж: {0}", spellWithoutCorrection.Dative);
+                Console.WriteLine("Дательный падеж множсетвенное: {0}", spellWithoutCorrection.Plural.Dative);
+                Console.WriteLine();
             }
-            
-            Console.WriteLine();
-            // Удаляем исправление
-            // True если исправление было удалено успешно, false если исправление не найдено в бд.
-            bool success = morpherClient.Russian.UserDict.Remove("Кошка");
 
-            Console.WriteLine("Склонение после удаления исправления:");
-            Russian.DeclensionResult spellWithoutCorrection = morpherClient.Russian.Parse("Кошка");
-            Console.WriteLine("           Именительный падеж: {0}", spellWithoutCorrection.Nominative);
-            Console.WriteLine("              Дательный падеж: {0}", spellWithoutCorrection.Dative);
-            Console.WriteLine("Дательный падеж множсетвенное: {0}", spellWithoutCorrection.Plural.Dative);
-            Console.WriteLine();
+            {
+                //Работа с пользовательским словарем для ws3.morpher.ru работает только при наличии токена
+                // Для local сервиса токен не нужен.
+                // Украинский язык
+                // Добавляем новое пользоватеслькое исправление
+                Ukrainian.CorrectionEntry entry = new Ukrainian.CorrectionEntry()
+                {
+                    Singular = new Ukrainian.CorrectionForms()
+                    {
+                        Nominative = "Сергій",
+                        Prepositional = "Сергієві"
+                    }
+                };
+                morpherClient.Ukrainian.UserDict.AddOrUpdate(entry);
+
+                Console.WriteLine("Склонение с исправлением:");
+                Ukrainian.DeclensionResult spellWithCorrection = morpherClient.Ukrainian.Parse("Сергій");
+                Console.WriteLine("Називний вiдмiнок: {0}", spellWithCorrection.Nominative);
+                Console.WriteLine("Мiсцевий вiдмiнок: {0}", spellWithCorrection.Prepositional);
+                Console.WriteLine();
+
+                Console.WriteLine("Получаем список всех исправлений:");
+                IEnumerable<Ukrainian.CorrectionEntry> corrections = morpherClient.Ukrainian.UserDict.GetAll();
+
+                foreach (var correctionEntry in corrections)
+                {
+                    Console.WriteLine(correctionEntry.Singular.Nominative);
+                }
+
+                Console.WriteLine();
+                // Удаляем исправление
+                // True если исправление было удалено успешно, false если исправление не найдено в бд.
+                bool success = morpherClient.Russian.UserDict.Remove("Сергій");
+
+                Console.WriteLine("Склонение после удаления исправления:");
+                Ukrainian.DeclensionResult spellWithoutCorrection = morpherClient.Ukrainian.Parse("Сергій");
+                Console.WriteLine("Називний вiдмiнок: {0}", spellWithoutCorrection.Nominative);
+                Console.WriteLine("Мiсцевий вiдмiнок: {0}", spellWithoutCorrection.Prepositional);
+                Console.WriteLine();
+            }
 
             Console.WriteLine("Обработка ошибок сервиса:");
             try
