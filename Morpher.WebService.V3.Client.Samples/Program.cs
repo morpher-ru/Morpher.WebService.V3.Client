@@ -116,7 +116,7 @@
             Russian.DeclensionResult spellWithCorrection = morpherClient.Russian.Parse("Кошка");
             Console.WriteLine("           Именительный падеж: {0}", spellWithCorrection.Nominative);
             Console.WriteLine("              Дательный падеж: {0}", spellWithCorrection.Dative);
-            Console.WriteLine("Дательный падеж множсетвенное: {0}", spellWithCorrection.Plural.Dative);
+            Console.WriteLine("Дательный падеж множественное: {0}", spellWithCorrection.Plural.Dative);
             Console.WriteLine();
             
             Console.WriteLine("Получаем список всех исправлений:");
