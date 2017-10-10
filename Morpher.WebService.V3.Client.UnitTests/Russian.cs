@@ -1,5 +1,6 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
@@ -108,20 +109,35 @@
 ]";
 
 
-        public MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
+        MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
-            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse(statusCode,
                     new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
+            return ExceptionClient(exception);
+        }
+
+        static MorpherClient ExceptionClient(Exception exception)
+        {
+            IWebClient webClient = BuildWebClientThatThrows(exception);
+            return NewMorpherClientInject(webClient);
+        }
+
+        static IWebClient BuildWebClientThatThrows(Exception exception)
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
-            MorpherClient morpherClient = new MorpherClient();
+            return webClient.Object;
+        }
+
+        static MorpherClient NewMorpherClientInject(IWebClient webClient)
+        {
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
-                WebClient = webClient.Object
+                WebClient = webClient
             };
-
             return morpherClient;
         }
 
@@ -371,6 +387,15 @@
         public void InternalServerError()
         {
             Assert.Throws<WebException>(() => ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
+        }
+
+        /// <summary>
+        /// Сервис не должен маскировать исключения, которые выбрасывает IWebClient (кроме WebException).
+        /// </summary>
+        [Test]
+        public void ArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
         }
     }
 }
