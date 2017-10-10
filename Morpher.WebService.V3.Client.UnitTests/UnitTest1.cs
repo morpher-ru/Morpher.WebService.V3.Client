@@ -1,15 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Morpher.WebService.V3.Client.UnitTests
+﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
-    [TestClass]
+    using System.Net;
+    using NUnit.Framework;
+
+    [TestFixture]
     public class UnitTest1
     {
-        [TestMethod]
-        [ExpectedException(typeof(System.Net.WebException))]
+        [Test]
         public void InvalidUrlThrows()
         {
-            new MorpherClient(null, "http://dns-error-fjeqweWe3cu.com").Russian.Parse("кошка");
+            Assert.Throws<WebException>(() => new MorpherClient(null, "http://dns-error-fjeqweWe3cu.com").Russian.Parse("кошка"));
         }
     }
 }

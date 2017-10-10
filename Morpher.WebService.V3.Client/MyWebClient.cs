@@ -56,6 +56,7 @@ namespace Morpher.WebService.V3
                 string response = GetResponseText(exc);
                 if (response == null) throw;
                 var error = Deserialize<ServiceErrorMessage>(response);
+                if (IsInternalServerError(error)) throw;
                 throw new MorpherWebServiceException(error.Message, error.Code);
             }
         }
@@ -87,6 +88,7 @@ namespace Morpher.WebService.V3
                 string response = GetResponseText(exc);
                 if (response == null) throw;
                 var error = Deserialize<ServiceErrorMessage>(response);
+                if (IsInternalServerError(error)) throw;
                 throw new MorpherWebServiceException(error.Message, error.Code);
             }
         }
@@ -117,6 +119,9 @@ namespace Morpher.WebService.V3
                 return reader.ReadToEnd();
             }
         }
+
+        // Code 11 - Internal server Error http://morpher.ru/ws3/#errors
+        private bool IsInternalServerError(ServiceErrorMessage message) => message.Code == 11;
 
         public void Dispose()
         {

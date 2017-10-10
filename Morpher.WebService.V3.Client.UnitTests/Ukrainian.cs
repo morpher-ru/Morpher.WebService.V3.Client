@@ -4,11 +4,11 @@
     using System.IO;
     using System.Net;
     using System.Text;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using NUnit.Framework;
     using V3.Ukrainian;
 
-    [TestClass]
+    [TestFixture]
     public class Ukrainian
     {
         public string DeclensionResultText { get; } = @"
@@ -46,7 +46,7 @@
 
 
 
-        [TestMethod]
+        [Test]
         public void Parse_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -70,7 +70,7 @@
             Assert.AreEqual(Gender.Masculine, declensionResult.Gender);
         }
 
-        [TestMethod]
+        [Test]
         public void Spell_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -105,9 +105,7 @@
         }
 
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException),
-            "Склонение числительных в declension не поддерживается. Используйте метод spell.")]
+        [Test]
         public void Parse_MorpherWebServiceException()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -122,12 +120,12 @@
                 WebClient = webClient.Object
             };
 
-            morpherClient.Ukrainian.Parse("exception here");
+            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Ukrainian.Parse("exception here"));
+            Assert.AreEqual("Склонение числительных в declension не поддерживается. Используйте метод spell.", expectedException.Message);
+
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException),
-            "Не указан обязательный параметр: unit")]
+        [Test]
         public void Spell_MorpherWebServiceException()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -142,7 +140,8 @@
                 WebClient = webClient.Object
             };
 
-            morpherClient.Ukrainian.Parse("exception here");
+            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Ukrainian.Parse("exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
         }
     }
 }

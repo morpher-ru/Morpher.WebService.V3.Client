@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using NUnit.Framework;
     using V3.Russian;
 
-    [TestClass]
+    [TestFixture]
     public class Russian
     {
         public string DeclensionResultText { get; } = @"
@@ -108,13 +108,13 @@
 ]";
 
 
-        public MorpherClient ExceptionClient()
+        public MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter)
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)400,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             MorpherClient morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
@@ -125,7 +125,7 @@
             return morpherClient;
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -163,7 +163,7 @@
             Assert.AreEqual(Gender.Masculine, declensionResult.Gender);
         }
 
-        [TestMethod]
+        [Test]
         public void SplitFio_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -183,7 +183,7 @@
             Assert.AreEqual("Сергеевич", declensionResult.FullName.Pantronymic);
         }
 
-        [TestMethod]
+        [Test]
         public void Spell_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -205,7 +205,7 @@
             Assert.AreEqual("десять", declensionResult.NumberDeclension.Accusative);
             Assert.AreEqual("десятью", declensionResult.NumberDeclension.Instrumental);
             Assert.AreEqual("десяти", declensionResult.NumberDeclension.Prepositional);
-           
+
 
             // unit
             Assert.AreEqual("рублей", declensionResult.UnitDeclension.Nominative);
@@ -216,7 +216,7 @@
             Assert.AreEqual("рублях", declensionResult.UnitDeclension.Prepositional);
         }
 
-        [TestMethod]
+        [Test]
         public void Genders_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -236,7 +236,7 @@
             Assert.AreEqual("уважаемые", adjectiveGenders.Plural);
         }
 
-        [TestMethod]
+        [Test]
         public void Adjectivize_Success()
         {
 
@@ -255,35 +255,35 @@
             Assert.AreEqual("мытищенский", adjList[1]);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void Parse_Exception()
         {
-            ExceptionClient().Russian.Parse("exception here");
+            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Parse("exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void Spell_Exception()
         {
-            ExceptionClient().Russian.Spell(1, "exception here");
+            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Spell(1, "exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void Genders_Exception()
         {
-            ExceptionClient().Russian.AdjectiveGenders("exception here");
+            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.AdjectiveGenders("exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void Adjectivize_Exception()
         {
-            ExceptionClient().Russian.Adjectivize("exception here");
+            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Adjectivize("exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void UserDictRemove_Success()
         {
             NameValueCollection @params = new NameValueCollection();
@@ -300,11 +300,10 @@
             bool found = morpherClient.Russian.UserDict.Remove("кошка");
 
             Assert.IsTrue(found);
-            Assert.AreEqual("кошка", @params.Get("s"));            
+            Assert.AreEqual("кошка", @params.Get("s"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void UserDictRemove_Exception()
         {
             NameValueCollection @params = new NameValueCollection();
@@ -322,10 +321,11 @@
                 WebClient = webClient.Object
             };
 
-            morpherClient.Russian.UserDict.Remove("exception here");
+            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
+            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void UserDictGetAll_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -360,11 +360,17 @@
             Assert.AreEqual("в Пантерах", entry.Plural.Locative);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException), "Ошибка сервера.")]
+        [Test]
         public void UserDictGetAll_Exception()
         {
-            ExceptionClient().Russian.UserDict.GetAll();
+            var expectedException = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.UserDict.GetAll());
+            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
+        }
+
+        [Test]
+        public void InternalServerError()
+        {
+            Assert.Throws<WebException>(() => ExceptionClient(ExceptionText.ServerError).Russian.UserDict.GetAll());
         }
     }
 }
