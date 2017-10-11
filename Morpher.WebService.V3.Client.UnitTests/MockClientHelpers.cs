@@ -7,7 +7,7 @@
     using System.Text;
     using Moq;
 
-    public class MockExceptionClient
+    public static class MockClientHelpers
     {
         public static MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
         {
@@ -16,6 +16,7 @@
                     new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
             return ExceptionClient(exception);
         }
+
 
         public static MorpherClient ExceptionClient(Exception exception)
         {

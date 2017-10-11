@@ -75,7 +75,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockExceptionClient.cs" />
+    <Compile Include="MockClientHelpers.cs" />
     <Compile Include="ExceptionText.cs" />
     <Compile Include="Russian.cs" />
     <Compile Include="Ukrainian.cs" />

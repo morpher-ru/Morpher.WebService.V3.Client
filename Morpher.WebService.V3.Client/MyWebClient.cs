@@ -89,11 +89,18 @@ namespace Morpher.WebService.V3
         static T Deserialize<T>(byte[] response)
         {
             using (MemoryStream memoryStream = new MemoryStream(response))
-            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
-            {
-                var serializer = new JsonSerializer();
-                return (T)serializer.Deserialize(reader, typeof(T));
-            }
+                try
+                {
+                    using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
+                    {
+                        var serializer = new JsonSerializer();
+                        return (T) serializer.Deserialize(reader, typeof(T));
+                    }
+                }
+                catch (JsonReaderException)
+                {
+                    throw new InvalidServerResponseException();
+                }
         }
 
         static T Deserialize<T>(string response)

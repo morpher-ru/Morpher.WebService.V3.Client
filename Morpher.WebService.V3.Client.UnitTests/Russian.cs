@@ -246,28 +246,28 @@
         public void Parse_Exception()
         {
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
-            MockExceptionClient.ExceptionClient().Russian.Parse("exception here"));
+            MockClientHelpers.ExceptionClient().Russian.Parse("exception here"));
         }
 
         [Test]
         public void Spell_Exception()
         {
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
-            MockExceptionClient.ExceptionClient().Russian.Spell(1, "exception here"));
+            MockClientHelpers.ExceptionClient().Russian.Spell(1, "exception here"));
         }
 
         [Test]
         public void Genders_Exception()
         {
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
-            MockExceptionClient.ExceptionClient().Russian.AdjectiveGenders("exception here"));
+            MockClientHelpers.ExceptionClient().Russian.AdjectiveGenders("exception here"));
         }
 
         [Test]
         public void Adjectivize_Exception()
         {
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
-            MockExceptionClient.ExceptionClient().Russian.Adjectivize("exception here"));
+            MockClientHelpers.ExceptionClient().Russian.Adjectivize("exception here"));
         }
 
         [Test]
@@ -350,14 +350,14 @@
         public void UserDictGetAll_Exception()
         {
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
-            MockExceptionClient.ExceptionClient().Russian.UserDict.GetAll());
+            MockClientHelpers.ExceptionClient().Russian.UserDict.GetAll());
         }
 
         [Test]
         public void InternalServerError()
         {
             Assert.Throws<WebException>(() => 
-            MockExceptionClient.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
+            MockClientHelpers.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
         }
 
         /// <summary>
@@ -367,7 +367,7 @@
         public void ArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => 
-            MockExceptionClient.ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
+            MockClientHelpers.ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
         }
     }
 }
