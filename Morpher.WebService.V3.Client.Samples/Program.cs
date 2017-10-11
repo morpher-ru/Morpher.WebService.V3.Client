@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Exceptions;
 
     public class Program
     {
@@ -144,9 +145,9 @@
             {
                 morpherClient.Russian.Parse("wuf");
             }
-            catch (MorpherWebServiceException exc)
+            catch (RussianWordsNotFoundException exc)
             {
-                Console.WriteLine("Code: {0} Message: {1}", exc.Code, exc.Message);
+                Console.WriteLine("Message: {0}", exc.Message);
             }
             Console.WriteLine();
 

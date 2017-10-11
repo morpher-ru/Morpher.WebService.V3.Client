@@ -6,6 +6,7 @@ using System.Text;
 namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
+    using Exceptions;
     using Newtonsoft.Json;
 
     public class MyWebClient : IDisposable
@@ -53,7 +54,8 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                throw HandleException(exc);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
@@ -65,7 +67,8 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                throw HandleException(exc);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
@@ -78,7 +81,8 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                throw HandleException(exc);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
@@ -97,30 +101,27 @@ namespace Morpher.WebService.V3
             return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
-        static string GetResponseText(WebException exception)
-        {
-            Stream responseStream = exception.Response?.GetResponseStream();
-
-            if (responseStream == null) return null;
-
-            using (var reader = new StreamReader(responseStream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        private MorpherWebServiceException HandleException(WebException exc)
+        private void TryToThrowMorpherException(WebException exc)
         {
             var httpWebResponse = exc.Response as HttpWebResponse;
-            if (httpWebResponse != null
-                &&
-                httpWebResponse.StatusCode == HttpStatusCode.InternalServerError)
-                throw exc;
-
-            string response = GetResponseText(exc);
-            if (response == null) throw exc;
-            var error = Deserialize<ServiceErrorMessage>(response);
-            return new MorpherWebServiceException(error.Message, error.Code);
+           
+            if (httpWebResponse != null 
+                && (int)httpWebResponse.StatusCode >= 400 
+                && (int)httpWebResponse.StatusCode < 500)
+            {
+                switch ((int)httpWebResponse.StatusCode)
+                {
+                    case 402: throw new ExceededDailyLimitException();
+                    case 403: throw new IpBlockedException();
+                    case 495: throw new NumeralsDeclensionNotSupportedException();
+                    case 496: throw new RussianWordsNotFoundException();
+                    case 400: throw new RequiredParameterIsNotSpecifiedException();
+                    case 498: throw new TokenNotFoundException();
+                    case 497: throw new InvalidTokenFormatException();
+                    case 494: throw new InvalidFlagsException();
+                    default: throw new InvalidServerResponseException();
+                }
+            }
         }
  
         public void Dispose()
