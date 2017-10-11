@@ -24,5 +24,12 @@
             var morpherClient = MockClientHelpers.NewMorpherClientInject(webClient.Object);
             Assert.Throws<InvalidServerResponseException>(() => morpherClient.Russian.Parse("кошка"));
         }
+
+        [Test]
+        public void InvalidServerResponseException()
+        {
+            Assert.Throws<InvalidServerResponseException>(() =>
+                MockClientHelpers.ExceptionClient("Any", (HttpStatusCode)401).Russian.UserDict.GetAll());
+        }
     }
 }
