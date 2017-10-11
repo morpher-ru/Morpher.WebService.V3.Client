@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Net;
     using System.Text;
+    using Exceptions;
     using Moq;
     using NUnit.Framework;
     using V3.Russian;
@@ -274,29 +275,25 @@
         [Test]
         public void Parse_Exception()
         {
-            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Parse("exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Parse("exception here"));
         }
 
         [Test]
         public void Spell_Exception()
         {
-            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Spell(1, "exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Spell(1, "exception here"));
         }
 
         [Test]
         public void Genders_Exception()
         {
-            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.AdjectiveGenders("exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.AdjectiveGenders("exception here"));
         }
 
         [Test]
         public void Adjectivize_Exception()
         {
-            var exception = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.Adjectivize("exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", exception.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Adjectivize("exception here"));
         }
 
         [Test]
@@ -337,8 +334,7 @@
                 WebClient = webClient.Object
             };
 
-            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
         }
 
         [Test]
@@ -379,8 +375,7 @@
         [Test]
         public void UserDictGetAll_Exception()
         {
-            var expectedException = Assert.Throws<MorpherWebServiceException>(() => ExceptionClient().Russian.UserDict.GetAll());
-            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.UserDict.GetAll());
         }
 
         [Test]

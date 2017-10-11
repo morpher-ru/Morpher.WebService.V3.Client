@@ -4,6 +4,7 @@
     using System.IO;
     using System.Net;
     using System.Text;
+    using Exceptions;
     using Moq;
     using NUnit.Framework;
     using V3.Ukrainian;
@@ -120,9 +121,7 @@
                 WebClient = webClient.Object
             };
 
-            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Ukrainian.Parse("exception here"));
-            Assert.AreEqual("Склонение числительных в declension не поддерживается. Используйте метод spell.", expectedException.Message);
-
+            Assert.Throws<NumeralsDeclensionNotSupportedException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
 
         [Test]
@@ -140,8 +139,7 @@
                 WebClient = webClient.Object
             };
 
-            var expectedException = Assert.Throws<MorpherWebServiceException>(() => morpherClient.Ukrainian.Parse("exception here"));
-            Assert.AreEqual("Не указан обязательный параметр:", expectedException.Message);
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
     }
 }
