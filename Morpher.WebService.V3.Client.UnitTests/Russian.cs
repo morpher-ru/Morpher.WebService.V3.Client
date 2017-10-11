@@ -110,37 +110,7 @@
 ]";
 
 
-        MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
-        {
-            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
-                WebResponseMock.CreateWebResponse(statusCode,
-                    new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
-            return ExceptionClient(exception);
-        }
-
-        static MorpherClient ExceptionClient(Exception exception)
-        {
-            IWebClient webClient = BuildWebClientThatThrows(exception);
-            return NewMorpherClientInject(webClient);
-        }
-
-        static IWebClient BuildWebClientThatThrows(Exception exception)
-        {
-            var webClient = new Mock<IWebClient>();
-            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
-            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
-            return webClient.Object;
-        }
-
-        static MorpherClient NewMorpherClientInject(IWebClient webClient)
-        {
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient
-            };
-            return morpherClient;
-        }
+        
 
         [Test]
         public void Parse_Success()
@@ -275,25 +245,29 @@
         [Test]
         public void Parse_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Parse("exception here"));
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            MockExceptionClient.ExceptionClient().Russian.Parse("exception here"));
         }
 
         [Test]
         public void Spell_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Spell(1, "exception here"));
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            MockExceptionClient.ExceptionClient().Russian.Spell(1, "exception here"));
         }
 
         [Test]
         public void Genders_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.AdjectiveGenders("exception here"));
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            MockExceptionClient.ExceptionClient().Russian.AdjectiveGenders("exception here"));
         }
 
         [Test]
         public void Adjectivize_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.Adjectivize("exception here"));
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            MockExceptionClient.ExceptionClient().Russian.Adjectivize("exception here"));
         }
 
         [Test]
@@ -375,13 +349,15 @@
         [Test]
         public void UserDictGetAll_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => ExceptionClient().Russian.UserDict.GetAll());
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            MockExceptionClient.ExceptionClient().Russian.UserDict.GetAll());
         }
 
         [Test]
         public void InternalServerError()
         {
-            Assert.Throws<WebException>(() => ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
+            Assert.Throws<WebException>(() => 
+            MockExceptionClient.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
         }
 
         /// <summary>
@@ -390,7 +366,8 @@
         [Test]
         public void ArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
+            Assert.Throws<ArgumentNullException>(() => 
+            MockExceptionClient.ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
         }
     }
 }

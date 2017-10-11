@@ -11,5 +11,7 @@
         {
             Assert.Throws<WebException>(() => new MorpherClient(null, "http://dns-error-fjeqweWe3cu.com").Russian.Parse("кошка"));
         }
+
+
     }
 }
