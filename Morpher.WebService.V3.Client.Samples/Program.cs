@@ -99,7 +99,7 @@
                 // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
                 // Для local сервиса токен не нужен.
                 // Русский язык
-                // Добавляем новое пользоватеслькое исправление
+                // Добавляем новое пользовательское исправление
                 Russian.CorrectionEntry entry = new Russian.CorrectionEntry()
                 {
                     Singular = new Russian.CorrectionForms()
@@ -146,7 +146,7 @@
                 // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
                 // Для local сервиса токен не нужен.
                 // Украинский язык
-                // Добавляем новое пользоватеслькое исправление
+                // Добавляем новое пользовательское исправление
                 Ukrainian.CorrectionEntry entry = new Ukrainian.CorrectionEntry()
                 {
                     Singular = new Ukrainian.CorrectionForms()
