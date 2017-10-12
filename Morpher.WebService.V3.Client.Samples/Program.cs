@@ -180,7 +180,7 @@
                 Console.WriteLine();
                 // Удаляем исправление
                 // True если исправление было удалено успешно, false если исправление не найдено в бд.
-                bool found = russian.UserDict.Remove("Сергій");
+                bool found = ukrainian.UserDict.Remove("Сергій");
                 Console.WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
 
                 Console.WriteLine("Склонение после удаления исправления:");
