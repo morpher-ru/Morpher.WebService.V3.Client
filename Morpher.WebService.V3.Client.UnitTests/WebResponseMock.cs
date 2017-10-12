@@ -23,7 +23,6 @@
                 listener.BeginGetContext((ar) =>
                 {
                     HttpListenerContext context = listener.EndGetContext(ar);
-                    HttpListenerRequest request = context.Request;
 
                     // Obtain a response object.
                     HttpListenerResponse response = context.Response;
@@ -43,7 +42,6 @@
                     response.Close();
                 }, null);
 
-                WebClient client = new WebClient();
                 try
                 {
                     WebRequest request = WebRequest.Create(prefix);
@@ -59,8 +57,6 @@
             {
                 listener.Stop();
             }
-
-            return null;
         }
     }
 }
