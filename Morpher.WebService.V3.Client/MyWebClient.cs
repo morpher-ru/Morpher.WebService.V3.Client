@@ -6,7 +6,6 @@ using System.Text;
 namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
-    using Exceptions;
     using Newtonsoft.Json;
 
     public class MyWebClient : IDisposable
@@ -120,8 +119,8 @@ namespace Morpher.WebService.V3
                 {
                     case 402: throw new DailyLimitExceededException();
                     case 403: throw new IpBlockedException();
-                    case 495: throw new NumeralsDeclensionNotSupportedException();
-                    case 496: throw new ArgumentNotRussianException();
+                    case 495: throw new Russian.NumeralsDeclensionNotSupportedException();
+                    case 496: throw new Russian.ArgumentNotRussianException();
                     case 400: throw new RequiredParameterIsNotSpecifiedException();
                     case 498: throw new TokenNotFoundException();
                     case 497: // "Неправильный формат токена". 

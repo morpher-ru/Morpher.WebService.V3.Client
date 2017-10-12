@@ -1,4 +1,4 @@
-﻿namespace Morpher.WebService.V3.Exceptions
+﻿namespace Morpher.WebService.V3
 {
     public class DailyLimitExceededException : AccessDeniedException
     {

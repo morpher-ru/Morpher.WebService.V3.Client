@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Exceptions;
 
     public class Program
     {
@@ -35,7 +34,7 @@
                 Console.WriteLine("Провоцируем ошибку:");
                 russian.Parse("wuf");
             }
-            catch (ArgumentNotRussianException exc)
+            catch (Russian.ArgumentNotRussianException exc)
             {
                 Console.WriteLine("Ошибка: {0}", exc.Message);
             }

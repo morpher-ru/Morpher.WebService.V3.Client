@@ -1,7 +1,7 @@
-﻿namespace Morpher.WebService.V3.Exceptions
-{
-    using System;
+﻿using System;
 
+namespace Morpher.WebService.V3
+{
     public class MorpherException : Exception
     {
         public MorpherException()

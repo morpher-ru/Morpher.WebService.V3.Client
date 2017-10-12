@@ -1,4 +1,4 @@
-﻿namespace Morpher.WebService.V3.Exceptions
+﻿namespace Morpher.WebService.V3.Russian
 {
     public class NumeralsDeclensionNotSupportedException : MorpherException
     {

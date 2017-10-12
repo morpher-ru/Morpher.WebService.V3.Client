@@ -47,16 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\AccessDeniedException.cs" />
-    <Compile Include="Exceptions\DailyLimitExceededException.cs" />
-    <Compile Include="Exceptions\InvalidFlagsException.cs" />
-    <Compile Include="Exceptions\InvalidServerResponseException.cs" />
-    <Compile Include="Exceptions\IpBlockedException.cs" />
-    <Compile Include="Exceptions\MorpherException.cs" />
-    <Compile Include="Exceptions\NumeralsDeclensionNotSupportedException.cs" />
-    <Compile Include="Exceptions\RequiredParameterIsNotSpecifiedException.cs" />
-    <Compile Include="Exceptions\ArgumentNotRussianException.cs" />
-    <Compile Include="Exceptions\TokenNotFoundException.cs" />
+    <Compile Include="AccessDeniedException.cs" />
+    <Compile Include="DailyLimitExceededException.cs" />
+    <Compile Include="InvalidFlagsException.cs" />
+    <Compile Include="InvalidServerResponseException.cs" />
+    <Compile Include="IpBlockedException.cs" />
+    <Compile Include="MorpherException.cs" />
+    <Compile Include="Russian\NumeralsDeclensionNotSupportedException.cs" />
+    <Compile Include="RequiredParameterIsNotSpecifiedException.cs" />
+    <Compile Include="Russian\ArgumentNotRussianException.cs" />
+    <Compile Include="TokenNotFoundException.cs" />
     <Compile Include="IWebClient.cs" />
     <Compile Include="MorpherWebClient.cs">
       <SubType>Component</SubType>
