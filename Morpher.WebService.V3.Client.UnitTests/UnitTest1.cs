@@ -10,12 +10,6 @@
     public class UnitTest1
     {
         [Test]
-        public void InvalidUrlThrows()
-        {
-            Assert.Throws<WebException>(() => new MorpherClient(null, "http://dns-error-fjeqweWe3cu.com").Russian.Parse("кошка"));
-        }
-
-        [Test]
         public void GarbageInResponseBody()
         {
             var webClient = new Mock<IWebClient>();
