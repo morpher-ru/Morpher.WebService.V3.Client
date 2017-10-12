@@ -133,7 +133,8 @@
                 Console.WriteLine();
                 // Удаляем исправление
                 // True если исправление было удалено успешно, false если исправление не найдено в бд.
-                bool success = morpherClient.Russian.UserDict.Remove("Кошка");
+                bool found = morpherClient.Russian.UserDict.Remove("Кошка");
+                Console.WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
 
                 Console.WriteLine("Склонение после удаления исправления:");
                 Russian.DeclensionResult spellWithoutCorrection = morpherClient.Russian.Parse("Кошка");
@@ -175,7 +176,8 @@
                 Console.WriteLine();
                 // Удаляем исправление
                 // True если исправление было удалено успешно, false если исправление не найдено в бд.
-                bool success = morpherClient.Russian.UserDict.Remove("Сергій");
+                bool found = morpherClient.Russian.UserDict.Remove("Сергій");
+                Console.WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
 
                 Console.WriteLine("Склонение после удаления исправления:");
                 Ukrainian.DeclensionResult spellWithoutCorrection = morpherClient.Ukrainian.Parse("Сергій");
