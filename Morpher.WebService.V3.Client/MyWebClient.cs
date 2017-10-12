@@ -123,7 +123,7 @@ namespace Morpher.WebService.V3
                     case 403: throw new IpBlockedException();
                     case 495: throw new Russian.NumeralsDeclensionNotSupportedException();
                     case 496: throw new Russian.ArgumentNotRussianException();
-                    case 400: throw new RequiredParameterIsNotSpecifiedException();
+                    case 400: throw new ArgumentEmptyException();
                     case 498: throw new TokenNotFoundException();
                     case 497: // "Неправильный формат токена". 
                         // Если мы такое получили, значит, ошибка в коде клиента или сервиса,

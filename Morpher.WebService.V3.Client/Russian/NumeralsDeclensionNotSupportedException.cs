@@ -1,9 +1,9 @@
 ﻿namespace Morpher.WebService.V3.Russian
 {
-    public class NumeralsDeclensionNotSupportedException : MorpherException
+    public class NumeralsDeclensionNotSupportedException : InvalidArgumentException
     {
         private static readonly string ErrorMessage =
-            "Склонение числительных в declension не поддерживается. Используйте метод spell.";
+            "Склонение числительных методом parse не поддерживается. Используйте метод spell.";
 
         public NumeralsDeclensionNotSupportedException()
             : base(ErrorMessage)

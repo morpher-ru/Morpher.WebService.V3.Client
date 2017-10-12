@@ -34,14 +34,27 @@
                 Console.WriteLine("Провоцируем ошибку:");
                 russian.Parse("wuf");
             }
-            catch (Russian.ArgumentNotRussianException exc)
+            catch (InvalidArgumentException ex)
             {
-                Console.WriteLine("Ошибка: {0}", exc.Message);
+                Console.WriteLine("Ошибка: {0}", ex.Message);
             }
-            catch (AccessDeniedException exc)
+            catch (AccessDeniedException ex)
             {
-                Console.WriteLine("Ошибка: {0}", exc.Message);
+                Console.WriteLine("Ошибка: {0}", ex.Message);
             }
+            catch (System.Net.WebException ex)
+            {
+                Console.WriteLine("Ошибка: {0}", ex.Message);
+            }
+            // На этом список исключений, которые стоит обрабатывать, исчерпывается.
+            // InvalidArgumentException имеет подтипы:
+            // - ArgumentEmptyException
+            // - Russian.ArgumentNotRussianException
+            // - InvalidFlagsException и др.
+            // AccessDeniedException имеет подтипы:
+            // - DailyLimitExceededException
+            // - IpBlockedException
+            // - TokenNotFoundException
 
             Console.WriteLine();
             Console.WriteLine(premium + " означает, что функция доступна на платных тарифах. Подробнее http://morpher.ru/ws3#premium");

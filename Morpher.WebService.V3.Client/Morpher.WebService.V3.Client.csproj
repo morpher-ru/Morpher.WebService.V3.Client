@@ -52,9 +52,9 @@
     <Compile Include="InvalidFlagsException.cs" />
     <Compile Include="InvalidServerResponseException.cs" />
     <Compile Include="IpBlockedException.cs" />
-    <Compile Include="MorpherException.cs" />
+    <Compile Include="InvalidArgumentException.cs" />
     <Compile Include="Russian\NumeralsDeclensionNotSupportedException.cs" />
-    <Compile Include="RequiredParameterIsNotSpecifiedException.cs" />
+    <Compile Include="ArgumentEmptyException.cs" />
     <Compile Include="Russian\ArgumentNotRussianException.cs" />
     <Compile Include="TokenNotFoundException.cs" />
     <Compile Include="IWebClient.cs" />

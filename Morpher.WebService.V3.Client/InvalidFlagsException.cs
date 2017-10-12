@@ -1,6 +1,6 @@
 ﻿namespace Morpher.WebService.V3
 {
-    public class InvalidFlagsException : MorpherException
+    public class InvalidFlagsException : InvalidArgumentException
     {
         private static readonly string ErrorMessage =
             "Указаны неправильные флаги.";

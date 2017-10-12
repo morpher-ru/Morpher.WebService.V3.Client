@@ -156,7 +156,7 @@ namespace Morpher.WebService.V3.Client.UnitTests
                 WebClient = webClient.Object
             };
 
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Ukrainian.Parse("exception here"));
+            Assert.Throws<ArgumentEmptyException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
 
         [Test]
