@@ -16,7 +16,7 @@
             // Если вы используете "Морфер.Сервер" (http://morpher.ru/webservice/local/), 
             // то вы можете указать в качестве url адрес вашего локального сервера:
             // string url = "http://ws3.morpher.ru"
-            // IMorpherClient morpherClient = new MorpherClient(token, url);
+            // MorpherClient morpherClient = new MorpherClient(token, url);
             // !!! Не используйте этот токен в production !!!
             Guid token = Guid.Parse("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
             var morpherClient = new MorpherClient(token);
