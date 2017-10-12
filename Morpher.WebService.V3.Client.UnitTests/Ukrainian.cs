@@ -1,4 +1,6 @@
-﻿namespace Morpher.WebService.V3.Client.UnitTests
+﻿using Morpher.WebService.V3.Russian;
+
+namespace Morpher.WebService.V3.Client.UnitTests
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
@@ -6,7 +8,6 @@
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Exceptions;
     using Moq;
     using NUnit.Framework;
     using V3.Ukrainian;

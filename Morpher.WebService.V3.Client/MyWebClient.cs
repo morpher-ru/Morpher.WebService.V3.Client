@@ -88,6 +88,7 @@ namespace Morpher.WebService.V3
         static T Deserialize<T>(byte[] response)
         {
             using (MemoryStream memoryStream = new MemoryStream(response))
+            {
                 try
                 {
                     using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
@@ -100,6 +101,7 @@ namespace Morpher.WebService.V3
                 {
                     throw new InvalidServerResponseException();
                 }
+            }
         }
 
         static T Deserialize<T>(string response)

@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Exceptions;
     using Moq;
     using NUnit.Framework;
     using V3.Russian;
