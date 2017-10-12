@@ -7,7 +7,7 @@
 
     public class Program
     {
-        private static void Main()
+        static void Main()
         {
             Console.OutputEncoding = Encoding.UTF8;
 
