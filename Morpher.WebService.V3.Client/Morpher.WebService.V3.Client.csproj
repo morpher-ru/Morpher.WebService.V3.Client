@@ -56,7 +56,7 @@
     <Compile Include="Exceptions\NotPayedException.cs" />
     <Compile Include="Exceptions\NumeralsDeclensionNotSupportedException.cs" />
     <Compile Include="Exceptions\RequiredParameterIsNotSpecifiedException.cs" />
-    <Compile Include="Exceptions\RussianWordsNotFoundException.cs" />
+    <Compile Include="Exceptions\ArgumentNotRussianException.cs" />
     <Compile Include="Exceptions\TokenNotFoundException.cs" />
     <Compile Include="IWebClient.cs" />
     <Compile Include="MorpherWebClient.cs">

@@ -121,7 +121,7 @@ namespace Morpher.WebService.V3
                     case 402: throw new ExceededDailyLimitException();
                     case 403: throw new IpBlockedException();
                     case 495: throw new NumeralsDeclensionNotSupportedException();
-                    case 496: throw new RussianWordsNotFoundException();
+                    case 496: throw new ArgumentNotRussianException();
                     case 400: throw new RequiredParameterIsNotSpecifiedException();
                     case 498: throw new TokenNotFoundException();
                     case 497: throw new InvalidTokenFormatException();

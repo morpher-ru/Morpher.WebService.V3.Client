@@ -189,7 +189,7 @@
             {
                 morpherClient.Russian.Parse("wuf");
             }
-            catch (RussianWordsNotFoundException exc)
+            catch (ArgumentNotRussianException exc)
             {
                 Console.WriteLine("Message: {0}", exc.Message);
             }
