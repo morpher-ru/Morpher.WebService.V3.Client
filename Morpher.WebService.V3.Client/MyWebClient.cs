@@ -118,7 +118,7 @@ namespace Morpher.WebService.V3
             {
                 switch ((int)httpWebResponse.StatusCode)
                 {
-                    case 402: throw new ExceededDailyLimitException();
+                    case 402: throw new DailyLimitExceededException();
                     case 403: throw new IpBlockedException();
                     case 495: throw new NumeralsDeclensionNotSupportedException();
                     case 496: throw new ArgumentNotRussianException();
