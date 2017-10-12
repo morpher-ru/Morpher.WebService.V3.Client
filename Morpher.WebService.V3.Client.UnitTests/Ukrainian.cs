@@ -158,7 +158,7 @@
             Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
 
-        [TestMethod]
+        [Test]
         public void UserDictRemove_Success()
         {
             NameValueCollection @params = new NameValueCollection();
@@ -178,7 +178,7 @@
             Assert.AreEqual("тест", @params.Get("s"));
         }
 
-        [TestMethod]
+        [Test]
         public void UserDictGetAll_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();

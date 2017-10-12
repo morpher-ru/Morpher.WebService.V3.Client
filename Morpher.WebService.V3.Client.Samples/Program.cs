@@ -170,19 +170,7 @@
                 {
                     Console.WriteLine(correctionEntry.Singular.Nominative);
                 }
-            };
-            morpherClient.Russian.UserDict.AddOrUpdate(entry);
-
-            Console.WriteLine("Склонение с исправлением:");
-            Russian.DeclensionResult spellWithCorrection = morpherClient.Russian.Parse("Кошка");
-            Console.WriteLine("           Именительный падеж: {0}", spellWithCorrection.Nominative);
-            Console.WriteLine("              Дательный падеж: {0}", spellWithCorrection.Dative);
-            Console.WriteLine("Дательный падеж множественное: {0}", spellWithCorrection.Plural.Dative);
-            Console.WriteLine();
-            
-            Console.WriteLine("Получаем список всех исправлений:");
-            IEnumerable<Russian.CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
-
+           
                 Console.WriteLine();
                 // Удаляем исправление
                 // True если исправление было удалено успешно, false если исправление не найдено в бд.
