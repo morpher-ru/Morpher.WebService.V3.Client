@@ -1,11 +1,11 @@
 ﻿namespace Morpher.WebService.V3.Exceptions
 {
-    public class NotPayedException : MorpherException
+    public class PaymentRequiredException : MorpherException
     {
         private static readonly string ErrorMessage =
             "Необходимо оплатить услугу.";
 
-        public NotPayedException()
+        public PaymentRequiredException()
             : base(ErrorMessage)
         {
         }

@@ -53,7 +53,7 @@
     <Compile Include="Exceptions\InvalidTokenFormatException.cs" />
     <Compile Include="Exceptions\IpBlockedException.cs" />
     <Compile Include="Exceptions\MorpherException.cs" />
-    <Compile Include="Exceptions\NotPayedException.cs" />
+    <Compile Include="Exceptions\PaymentRequiredException.cs" />
     <Compile Include="Exceptions\NumeralsDeclensionNotSupportedException.cs" />
     <Compile Include="Exceptions\RequiredParameterIsNotSpecifiedException.cs" />
     <Compile Include="Exceptions\ArgumentNotRussianException.cs" />
