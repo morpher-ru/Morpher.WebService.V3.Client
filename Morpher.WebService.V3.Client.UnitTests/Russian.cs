@@ -337,7 +337,7 @@
                 WebClient = webClient.Object
             };
 
-            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll();
+            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll()?.ToList();
 
             Assert.IsNotNull(correctionEntries);
             Assert.AreEqual(1, correctionEntries.Count());
