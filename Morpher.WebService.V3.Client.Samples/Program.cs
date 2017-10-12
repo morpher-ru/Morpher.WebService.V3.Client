@@ -18,7 +18,8 @@
             // string url = "http://ws3.morpher.ru"
             // IMorpherClient morpherClient = new MorpherClient(token, url);
             // !!! Не используйте этот токен в production !!!
-            var morpherClient = new MorpherClient(Guid.Parse("a8dab5fe-7a47-4c17-84ea-46facb7d19fe"));
+            Guid token = Guid.Parse("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
+            var morpherClient = new MorpherClient(token);
             const string premium = "*****";
 
             Console.WriteLine("Склонение на русском языке:");
