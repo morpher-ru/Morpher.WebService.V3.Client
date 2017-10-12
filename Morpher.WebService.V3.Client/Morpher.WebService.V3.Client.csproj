@@ -50,7 +50,6 @@
     <Compile Include="Exceptions\DailyLimitExceededException.cs" />
     <Compile Include="Exceptions\InvalidFlagsException.cs" />
     <Compile Include="Exceptions\InvalidServerResponseException.cs" />
-    <Compile Include="Exceptions\InvalidTokenFormatException.cs" />
     <Compile Include="Exceptions\IpBlockedException.cs" />
     <Compile Include="Exceptions\MorpherException.cs" />
     <Compile Include="Exceptions\NumeralsDeclensionNotSupportedException.cs" />

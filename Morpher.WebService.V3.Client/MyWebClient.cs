@@ -124,7 +124,10 @@ namespace Morpher.WebService.V3
                     case 496: throw new ArgumentNotRussianException();
                     case 400: throw new RequiredParameterIsNotSpecifiedException();
                     case 498: throw new TokenNotFoundException();
-                    case 497: throw new InvalidTokenFormatException();
+                    case 497: // "Неправильный формат токена". 
+                        // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
+                        // но никак не ошибка пользователя.
+                        throw new InvalidServerResponseException();
                     case 494: throw new InvalidFlagsException();
                     default: throw new InvalidServerResponseException();
                 }
