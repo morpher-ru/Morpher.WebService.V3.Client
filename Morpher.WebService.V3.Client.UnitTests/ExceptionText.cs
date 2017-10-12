@@ -2,19 +2,19 @@
 {
     internal class ExceptionText
     {
-        public static string UseSpell { get; } = @"
+        public const string UseSpell = @"
 {
   ""code"": 4,
   ""message"": ""Склонение числительных в declension не поддерживается. Используйте метод spell.""
 }";
 
-        public static string MissedParameter { get; } = @"
+        public const string MissedParameter = @"
 {
   ""code"": 6,
-  ""message"": ""Не указан обязательный параметр: unit""
+  ""message"": ""Не указан обязательный параметр:""
 }";
 
-        public static string ServerError { get; } = @"
+        public const string ServerError = @"
 {
   ""code"": 11,
   ""message"": ""Ошибка сервера.""

@@ -6,6 +6,7 @@ using System.Text;
 namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
+    using Exceptions;
     using Newtonsoft.Json;
 
     public class MyWebClient : IDisposable
@@ -53,10 +54,8 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
@@ -68,10 +67,8 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
@@ -84,21 +81,26 @@ namespace Morpher.WebService.V3
             }
             catch (WebException exc)
             {
-                string response = GetResponseText(exc);
-                if (response == null) throw;
-                var error = Deserialize<ServiceErrorMessage>(response);
-                throw new MorpherWebServiceException(error.Message, error.Code);
+                TryToThrowMorpherException(exc);
+                throw;
             }
         }
 
         static T Deserialize<T>(byte[] response)
         {
             using (MemoryStream memoryStream = new MemoryStream(response))
-            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
-            {
-                var serializer = new JsonSerializer();
-                return (T)serializer.Deserialize(reader, typeof(T));
-            }
+                try
+                {
+                    using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
+                    {
+                        var serializer = new JsonSerializer();
+                        return (T) serializer.Deserialize(reader, typeof(T));
+                    }
+                }
+                catch (JsonReaderException)
+                {
+                    throw new InvalidServerResponseException();
+                }
         }
 
         static T Deserialize<T>(string response)
@@ -106,18 +108,29 @@ namespace Morpher.WebService.V3
             return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
-        static string GetResponseText(WebException exception)
+        private void TryToThrowMorpherException(WebException exc)
         {
-            Stream responseStream = exception.Response?.GetResponseStream();
-
-            if (responseStream == null) return null;
-
-            using (var reader = new StreamReader(responseStream))
+            var httpWebResponse = exc.Response as HttpWebResponse;
+           
+            if (httpWebResponse != null 
+                && (int)httpWebResponse.StatusCode >= 400 
+                && (int)httpWebResponse.StatusCode < 500)
             {
-                return reader.ReadToEnd();
+                switch ((int)httpWebResponse.StatusCode)
+                {
+                    case 402: throw new ExceededDailyLimitException();
+                    case 403: throw new IpBlockedException();
+                    case 495: throw new NumeralsDeclensionNotSupportedException();
+                    case 496: throw new RussianWordsNotFoundException();
+                    case 400: throw new RequiredParameterIsNotSpecifiedException();
+                    case 498: throw new TokenNotFoundException();
+                    case 497: throw new InvalidTokenFormatException();
+                    case 494: throw new InvalidFlagsException();
+                    default: throw new InvalidServerResponseException();
+                }
             }
         }
-
+ 
         public void Dispose()
         {
             WebClient.Dispose();

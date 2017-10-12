@@ -6,11 +6,12 @@
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Exceptions;
     using Moq;
+    using NUnit.Framework;
     using V3.Ukrainian;
 
-    [TestClass]
+    [TestFixture]
     public class Ukrainian
     {
         public string DeclensionResultText { get; } = @"
@@ -62,7 +63,7 @@
 ]";
 
 
-        [TestMethod]
+        [Test]
         public void Parse_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -86,7 +87,7 @@
             Assert.AreEqual(Gender.Masculine, declensionResult.Gender);
         }
 
-        [TestMethod]
+        [Test]
         public void Spell_Success()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -121,9 +122,7 @@
         }
 
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException),
-            "Склонение числительных в declension не поддерживается. Используйте метод spell.")]
+        [Test]
         public void Parse_MorpherWebServiceException()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -138,12 +137,10 @@
                 WebClient = webClient.Object
             };
 
-            morpherClient.Ukrainian.Parse("exception here");
+            Assert.Throws<NumeralsDeclensionNotSupportedException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(MorpherWebServiceException),
-            "Не указан обязательный параметр: unit")]
+        [Test]
         public void Spell_MorpherWebServiceException()
         {
             Mock<IWebClient> webClient = new Mock<IWebClient>();
@@ -158,7 +155,7 @@
                 WebClient = webClient.Object
             };
 
-            morpherClient.Ukrainian.Parse("exception here");
+            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Ukrainian.Parse("exception here"));
         }
 
         [TestMethod]

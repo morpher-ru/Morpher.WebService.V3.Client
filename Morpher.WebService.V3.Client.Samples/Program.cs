@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Exceptions;
 
     public class Program
     {
@@ -169,6 +170,18 @@
                 {
                     Console.WriteLine(correctionEntry.Singular.Nominative);
                 }
+            };
+            morpherClient.Russian.UserDict.AddOrUpdate(entry);
+
+            Console.WriteLine("Склонение с исправлением:");
+            Russian.DeclensionResult spellWithCorrection = morpherClient.Russian.Parse("Кошка");
+            Console.WriteLine("           Именительный падеж: {0}", spellWithCorrection.Nominative);
+            Console.WriteLine("              Дательный падеж: {0}", spellWithCorrection.Dative);
+            Console.WriteLine("Дательный падеж множественное: {0}", spellWithCorrection.Plural.Dative);
+            Console.WriteLine();
+            
+            Console.WriteLine("Получаем список всех исправлений:");
+            IEnumerable<Russian.CorrectionEntry> corrections = morpherClient.Russian.UserDict.GetAll();
 
                 Console.WriteLine();
                 // Удаляем исправление
@@ -187,9 +200,9 @@
             {
                 morpherClient.Russian.Parse("wuf");
             }
-            catch (MorpherWebServiceException exc)
+            catch (RussianWordsNotFoundException exc)
             {
-                Console.WriteLine("Code: {0} Message: {1}", exc.Code, exc.Message);
+                Console.WriteLine("Message: {0}", exc.Message);
             }
             Console.WriteLine();
 

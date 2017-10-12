@@ -47,6 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ExceededDailyLimitException.cs" />
+    <Compile Include="Exceptions\InvalidFlagsException.cs" />
+    <Compile Include="Exceptions\InvalidServerResponseException.cs" />
+    <Compile Include="Exceptions\InvalidTokenFormatException.cs" />
+    <Compile Include="Exceptions\IpBlockedException.cs" />
+    <Compile Include="Exceptions\MorpherException.cs" />
+    <Compile Include="Exceptions\NotPayedException.cs" />
+    <Compile Include="Exceptions\NumeralsDeclensionNotSupportedException.cs" />
+    <Compile Include="Exceptions\RequiredParameterIsNotSpecifiedException.cs" />
+    <Compile Include="Exceptions\RussianWordsNotFoundException.cs" />
+    <Compile Include="Exceptions\TokenNotFoundException.cs" />
     <Compile Include="IWebClient.cs" />
     <Compile Include="MorpherWebClient.cs">
       <SubType>Component</SubType>
@@ -56,7 +67,6 @@
     <Compile Include="Russian\CorrectionEntry.cs" />
     <Compile Include="Russian\CorrectionForms.cs" />
     <Compile Include="Russian\DeclensionFlags.cs" />
-    <Compile Include="MorpherWebServiceException.cs" />
     <Compile Include="Russian\FullName.cs" />
     <Compile Include="Russian\DeclensionForms.cs" />
     <Compile Include="Russian\DeclensionResult.cs" />
