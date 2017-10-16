@@ -19,6 +19,13 @@
         }
 
         [Test]
+        public void GarbageInExceptionBody()
+        {
+            var morpherClient = MockClientHelpers.ExceptionClient("< !DOCTYPE html>", (HttpStatusCode) 402);
+            Assert.Throws<DailyLimitExceededException>(() => morpherClient.Russian.Parse("exception here"));
+        }
+
+        [Test]
         public void InvalidServerResponseException()
         {
             Assert.Throws<InvalidServerResponseException>(() =>
