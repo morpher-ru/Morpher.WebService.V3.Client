@@ -1,6 +1,6 @@
-﻿namespace Morpher.WebService.V3.Exceptions
+﻿namespace Morpher.WebService.V3
 {
-    public class TokenNotFoundException : MorpherException
+    public class TokenNotFoundException : AccessDeniedException
     {
         private static readonly string ErrorMessage = "Данный token не найден.";
 

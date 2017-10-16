@@ -6,7 +6,6 @@ using System.Text;
 namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
-    using Exceptions;
     using Newtonsoft.Json;
 
     public class MyWebClient : IDisposable
@@ -89,6 +88,7 @@ namespace Morpher.WebService.V3
         static T Deserialize<T>(byte[] response)
         {
             using (MemoryStream memoryStream = new MemoryStream(response))
+            {
                 try
                 {
                     using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
@@ -101,6 +101,7 @@ namespace Morpher.WebService.V3
                 {
                     throw new InvalidServerResponseException();
                 }
+            }
         }
 
         static T Deserialize<T>(string response)
@@ -118,13 +119,16 @@ namespace Morpher.WebService.V3
             {
                 switch ((int)httpWebResponse.StatusCode)
                 {
-                    case 402: throw new ExceededDailyLimitException();
+                    case 402: throw new DailyLimitExceededException();
                     case 403: throw new IpBlockedException();
-                    case 495: throw new NumeralsDeclensionNotSupportedException();
-                    case 496: throw new RussianWordsNotFoundException();
-                    case 400: throw new RequiredParameterIsNotSpecifiedException();
+                    case 495: throw new Russian.NumeralsDeclensionNotSupportedException();
+                    case 496: throw new Russian.ArgumentNotRussianException();
+                    case 400: throw new ArgumentEmptyException();
                     case 498: throw new TokenNotFoundException();
-                    case 497: throw new InvalidTokenFormatException();
+                    case 497: // "Неправильный формат токена". 
+                        // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
+                        // но никак не ошибка пользователя.
+                        throw new InvalidServerResponseException();
                     case 494: throw new InvalidFlagsException();
                     default: throw new InvalidServerResponseException();
                 }

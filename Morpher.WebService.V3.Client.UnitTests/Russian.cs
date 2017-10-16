@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Exceptions;
     using Moq;
     using NUnit.Framework;
     using V3.Russian;
@@ -245,28 +244,28 @@
         [Test]
         public void Parse_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.Parse("exception here"));
         }
 
         [Test]
         public void Spell_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.Spell(1, "exception here"));
         }
 
         [Test]
         public void Genders_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.AdjectiveGenders("exception here"));
         }
 
         [Test]
         public void Adjectivize_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.Adjectivize("exception here"));
         }
 
@@ -308,7 +307,7 @@
                 WebClient = webClient.Object
             };
 
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
+            Assert.Throws<ArgumentEmptyException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
         }
 
         [Test]
@@ -323,7 +322,7 @@
                 WebClient = webClient.Object
             };
 
-            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll();
+            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll()?.ToList();
 
             Assert.IsNotNull(correctionEntries);
             Assert.AreEqual(1, correctionEntries.Count());
@@ -349,7 +348,7 @@
         [Test]
         public void UserDictGetAll_Exception()
         {
-            Assert.Throws<RequiredParameterIsNotSpecifiedException>(() => 
+            Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.UserDict.GetAll());
         }
 

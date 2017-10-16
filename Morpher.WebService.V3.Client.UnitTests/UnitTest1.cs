@@ -2,7 +2,6 @@
 {
     using System.Collections.Specialized;
     using System.Net;
-    using Exceptions;
     using Moq;
     using NUnit.Framework;
 

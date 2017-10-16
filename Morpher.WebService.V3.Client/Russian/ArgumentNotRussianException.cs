@@ -1,10 +1,10 @@
-﻿namespace Morpher.WebService.V3.Exceptions
+﻿namespace Morpher.WebService.V3.Russian
 {
-    public class RussianWordsNotFoundException : MorpherException
+    public class ArgumentNotRussianException : InvalidArgumentException
     {
         private static readonly string ErrorMessage = "Не найдено русских слов.";
 
-        public RussianWordsNotFoundException()
+        public ArgumentNotRussianException()
             : base(ErrorMessage)
         {
         }

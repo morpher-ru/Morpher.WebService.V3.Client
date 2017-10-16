@@ -1,6 +1,6 @@
-﻿namespace Morpher.WebService.V3.Exceptions
+﻿namespace Morpher.WebService.V3
 {
-    public class IpBlockedException : MorpherException
+    public class IpBlockedException : AccessDeniedException
     {
         private static readonly string ErrorMessage =
             "IP заблокирован.";
