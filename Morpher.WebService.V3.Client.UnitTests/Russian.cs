@@ -368,5 +368,16 @@
             Assert.Throws<ArgumentNullException>(() => 
             MockClientHelpers.ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
         }
+
+        [Test]
+        public void NullGenitive()
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(wc => wc.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(wc => wc.DownloadString(It.IsAny<string>())).Returns("{\"Д\": \"теляти\",\"В\": \"теля\"}");
+            var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
+            string genitive = morpher.Russian.Parse("теля").Genitive;
+            Assert.IsNull(genitive);
+        }
     }
 }
