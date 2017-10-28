@@ -2,12 +2,7 @@
 {
     public class ArgumentEmptyException : InvalidArgumentException
     {
-        private static readonly string ErrorMessage =
+        public override string Message =>
             "Сервису передана пустая строка.";
-
-        public ArgumentEmptyException()
-            : base(ErrorMessage)
-        {
-        }
     }
 }

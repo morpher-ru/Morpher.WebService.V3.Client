@@ -2,12 +2,7 @@
 {
     public class IpBlockedException : AccessDeniedException
     {
-        private static readonly string ErrorMessage =
+        public override string Message =>
             "IP заблокирован.";
-
-        public IpBlockedException()
-            : base(ErrorMessage)
-        {
-        }
     }
 }

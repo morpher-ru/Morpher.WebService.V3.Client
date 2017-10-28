@@ -2,11 +2,7 @@
 {
     public class ArgumentNotRussianException : InvalidArgumentException
     {
-        private static readonly string ErrorMessage = "Не найдено русских слов.";
-
-        public ArgumentNotRussianException()
-            : base(ErrorMessage)
-        {
-        }
+        public override string Message =>
+            "Не найдено русских слов.";
     }
 }

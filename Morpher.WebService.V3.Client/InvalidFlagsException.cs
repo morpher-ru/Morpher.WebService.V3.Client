@@ -2,12 +2,7 @@
 {
     public class InvalidFlagsException : InvalidArgumentException
     {
-        private static readonly string ErrorMessage =
+        public override string Message =>
             "Указаны неправильные флаги.";
-
-        public InvalidFlagsException()
-            : base(ErrorMessage)
-        {
-        }
     }
 }

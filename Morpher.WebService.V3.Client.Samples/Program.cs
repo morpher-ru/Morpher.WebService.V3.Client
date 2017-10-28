@@ -50,7 +50,8 @@
             // InvalidArgumentException имеет подтипы:
             // - ArgumentEmptyException
             // - Russian.ArgumentNotRussianException
-            // - InvalidFlagsException и др.
+            // - Russian.NumeralsDeclensionNotSupportedException
+            // - InvalidFlagsException
             // AccessDeniedException имеет подтипы:
             // - DailyLimitExceededException
             // - IpBlockedException

@@ -2,12 +2,7 @@
 {
     public class DailyLimitExceededException : AccessDeniedException
     {
-        private static readonly string ErrorMessage =
+        public override string Message =>
             "Превышен лимит на количество запросов в сутки. Перейдите на следующий тарифный план.";
-
-        public DailyLimitExceededException()
-            : base(ErrorMessage)
-        {
-        }
     }
 }
