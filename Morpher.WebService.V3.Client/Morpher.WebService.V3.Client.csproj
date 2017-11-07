@@ -53,6 +53,7 @@
     <Compile Include="InvalidServerResponseException.cs" />
     <Compile Include="IpBlockedException.cs" />
     <Compile Include="InvalidArgumentException.cs" />
+    <Compile Include="Russian\ResultOrError.cs" />
     <Compile Include="Russian\NumeralsDeclensionNotSupportedException.cs" />
     <Compile Include="ArgumentEmptyException.cs" />
     <Compile Include="Russian\ArgumentNotRussianException.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
@@ -378,6 +379,69 @@
             var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
             string genitive = morpher.Russian.Parse("теля").Genitive;
             Assert.IsNull(genitive);
+        }
+
+
+        [Test]
+        public void DeclensionList()
+        {
+            #region JsonResult
+
+            string jsonResult = @"[
+    {
+        ""DeclensionResult"": {
+            ""Р"": ""собаки"",
+            ""Д"": ""собаке"",
+            ""В"": ""собаку"",
+            ""Т"": ""собакой"",
+            ""П"": ""собаке"",
+            ""множественное"": {
+                ""И"": ""собаки"",
+                ""Р"": ""собак"",
+                ""Д"": ""собакам"",
+                ""В"": ""собак"",
+                ""Т"": ""собаками"",
+                ""П"": ""собаках""
+            }
+        }
+    },
+    {
+        ""Error"": {
+            ""code"": 4,
+            ""message"": ""Склонение числительных в declension не поддерживается. Используйте метод spell.""
+        }
+    },
+    {
+        ""DeclensionResult"": {
+            ""Р"": ""пса"",
+            ""Д"": ""псу"",
+            ""В"": ""пса"",
+            ""Т"": ""псом"",
+            ""П"": ""псе"",
+            ""множественное"": {
+                ""И"": ""псы"",
+                ""Р"": ""псов"",
+                ""Д"": ""псам"",
+                ""В"": ""псов"",
+                ""Т"": ""псами"",
+                ""П"": ""псах""
+            }
+        }
+    }
+]";
+            #endregion
+
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(wc => wc.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(wc => wc.UploadString(It.IsAny<string>(), It.IsAny<string>())).Returns(jsonResult);
+            var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
+            List<ResultOrError> result = morpher.Russian.Parse(new[] { "some vals" }).ToList();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.NotNull(result[0].Result);
+            Assert.NotNull(result[1].Error);
+            Assert.NotNull(result[2].Result);
         }
     }
 }
