@@ -434,6 +434,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(wc => wc.QueryString).Returns(new NameValueCollection());
             webClient.Setup(wc => wc.UploadString(It.IsAny<string>(), It.IsAny<string>())).Returns(jsonResult);
+            webClient.Setup(wc => wc.Headers).Returns(new WebHeaderCollection());
             var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
             List<ResultOrError> result = morpher.Russian.Parse(new[] { "some vals" }).ToList();
 
