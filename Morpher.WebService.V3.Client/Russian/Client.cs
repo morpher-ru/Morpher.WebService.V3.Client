@@ -5,6 +5,7 @@ namespace Morpher.WebService.V3.Russian
 {
     using System.Globalization;
     using System.Linq;
+    using System.Net;
 
     public class Client
     {
@@ -48,6 +49,7 @@ namespace Morpher.WebService.V3.Russian
                     client.AddParam("flags", flags.ToString().Replace(" ", string.Empty));
                 }
 
+                client.AddHeader(HttpRequestHeader.ContentType, "text/plain");
                 return client.UploadString<IEnumerable<ResultOrError>>("/russian/declension",
                     string.Join("\n", words));
             }

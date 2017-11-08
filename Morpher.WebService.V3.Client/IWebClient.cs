@@ -1,6 +1,7 @@
 ﻿namespace Morpher.WebService.V3
 {
     using System.Collections.Specialized;
+    using System.Net;
 
     public interface IWebClient
     {
@@ -11,5 +12,6 @@
         byte[] UploadValues(string address, string method, NameValueCollection data);
         string UploadString(string address, string data);
         void Dispose();
+        WebHeaderCollection Headers { get; set; }
     }
 }
