@@ -71,6 +71,26 @@ namespace Morpher.WebService.V3
             }
         }
 
+        public void AddHeader(HttpRequestHeader header, string value)
+        {
+            WebClient.Headers.Add(header, value);
+        }
+
+        public T UploadString<T>(string relativeUrl, string data)
+        {
+            try
+            {
+                var response = WebClient.UploadString(_baseUrl + relativeUrl, data);
+                
+                return Deserialize<T>(response);
+            }
+            catch (WebException exc)
+            {
+                TryToThrowMorpherException(exc);
+                throw;
+            }
+        }
+
         public T DeleteRequest<T>(string relativeUrl)
         {
             try

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 namespace Morpher.WebService.V3.Russian
 {
     using System.Globalization;
+    using System.Linq;
+    using System.Net;
 
     public class Client
     {
@@ -36,6 +38,23 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
+        public IEnumerable<ResultOrError> Parse(
+            IEnumerable<string> words,
+            DeclensionFlags? flags = null)
+        {
+            using (var client = _newClient())
+            {
+                if (flags != null)
+                {
+                    client.AddParam("flags", flags.ToString().Replace(" ", string.Empty));
+                }
+
+                client.AddHeader(HttpRequestHeader.ContentType, "text/plain");
+                return client.UploadString<IEnumerable<ResultOrError>>("/russian/declension",
+                    string.Join("\n", words));
+            }
+        }
+
         public NumberSpellingResult Spell(decimal number, string unit)
         {
             using (var client = _newClient())
@@ -65,6 +84,6 @@ namespace Morpher.WebService.V3.Russian
 
                 return client.GetObject<List<string>>("/russian/adjectivize");
             }
-        }      
+        }
     }
 }
