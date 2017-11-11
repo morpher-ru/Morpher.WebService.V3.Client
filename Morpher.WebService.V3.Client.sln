@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Morpher.WebService.V3.Clien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.UnitTests", "Morpher.WebService.V3.Client.UnitTests\Morpher.WebService.V3.Client.UnitTests.csproj", "{65BF4415-2EB1-4AC3-ACF1-EF1284FCF0A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.Samples", "Morpher.WebService.V3.Client.Samples\Morpher.WebService.V3.Client.Samples.csproj", "{0F46BD52-730A-4F87-B4B6-B23D610F23CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.Samples", "Morpher.WebService.V3.Client.Samples\Morpher.WebService.V3.Client.Samples.csproj", "{D9DA08C8-E722-4A3F-A695-30650446E73C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{65BF4415-2EB1-4AC3-ACF1-EF1284FCF0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65BF4415-2EB1-4AC3-ACF1-EF1284FCF0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65BF4415-2EB1-4AC3-ACF1-EF1284FCF0A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F46BD52-730A-4F87-B4B6-B23D610F23CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F46BD52-730A-4F87-B4B6-B23D610F23CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F46BD52-730A-4F87-B4B6-B23D610F23CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F46BD52-730A-4F87-B4B6-B23D610F23CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9DA08C8-E722-4A3F-A695-30650446E73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DA08C8-E722-4A3F-A695-30650446E73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9DA08C8-E722-4A3F-A695-30650446E73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9DA08C8-E722-4A3F-A695-30650446E73C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
