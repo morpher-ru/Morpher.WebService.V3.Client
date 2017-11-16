@@ -8,7 +8,6 @@
     <Description>Simple wrapper for Morpher.ru web service.</Description>
     <Copyright>Copyright 2017 morpher.ru</Copyright>
     <PackageTags>declension pluralization russian ukrainian grammar morphology</PackageTags>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
