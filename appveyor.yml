@@ -8,5 +8,5 @@ build:
 after_build:
 - cmd: dotnet pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.csproj --no-build -c Release
 artifacts:
-- path: '*.nupkg'
+- path: '**\*.nupkg'
   name: Nuget
