@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <PackageId>Morpher.WebService.V3.Client</PackageId>
-    <PackageVersion>$version$</PackageVersion>
+    <PackageVersion>$(version)</PackageVersion>
     <Authors>Morpher.ru</Authors>
     <Description>Simple wrapper for Morpher.ru web service.</Description>
     <Copyright>Copyright 2017 morpher.ru</Copyright>
