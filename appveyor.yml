@@ -7,8 +7,6 @@ build:
   verbosity: minimal
 after_build:
 # - cmd: nuget pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.nuspec -Version %appveyor_build_version%
-test_script:
-- ps: dotnet test Morpher.WebService.V3.Client.UnitTests\Morpher.WebService.V3.Client.UnitTests.csproj
 artifacts:
 - path: '*.nupkg'
   name: Nuget

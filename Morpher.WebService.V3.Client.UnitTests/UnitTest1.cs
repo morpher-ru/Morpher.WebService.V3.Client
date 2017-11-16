@@ -31,5 +31,11 @@
             Assert.Throws<InvalidServerResponseException>(() =>
                 MockClientHelpers.ExceptionClient("Any", (HttpStatusCode)401).Russian.UserDict.GetAll());
         }
+
+        [Test]
+        public void Test()
+        {
+            Assert.AreEqual(1,0);
+        }
     }
 }
