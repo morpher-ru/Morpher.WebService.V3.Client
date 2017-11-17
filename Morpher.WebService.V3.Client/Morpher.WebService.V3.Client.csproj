@@ -5,7 +5,7 @@
     <PackageId>Morpher.WebService.V3.Client</PackageId>
     <PackageVersion>$(version)</PackageVersion>
     <Authors>Morpher.ru</Authors>
-    <Title>Russian and Ukrainian declension web serice client.</Title>
+    <Title>Russian and Ukrainian declension web service client.</Title>
     <Copyright>Copyright 2017 morpher.ru</Copyright>
     <PackageTags>declension pluralization russian ukrainian grammar morphology</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
