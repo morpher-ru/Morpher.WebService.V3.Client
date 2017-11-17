@@ -55,6 +55,15 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
+        public string AddStressMarks(string text)
+        {
+            using (var client = _newClient())
+            {
+                client.AddHeader(HttpRequestHeader.ContentType, "text/plain");
+                return client.UploadString<string>("/russian/addstressmarks", text);
+            }
+        }
+
         public NumberSpellingResult Spell(decimal number, string unit)
         {
             using (var client = _newClient())
