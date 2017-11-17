@@ -1,11 +1,12 @@
 version: 2.0.{build}
+image: Visual Studio 2017
 configuration: Release
 before_build:
 - cmd: nuget restore
 build:
   verbosity: minimal
 after_build:
-- cmd: nuget pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.nuspec -Version %appveyor_build_version%
+- cmd: dotnet pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.csproj --no-build -c Release /p:PackageVersion=%APPVEYOR_BUILD_VERSION%
 artifacts:
-- path: '*.nupkg'
+- path: '**\*.nupkg'
   name: Nuget
