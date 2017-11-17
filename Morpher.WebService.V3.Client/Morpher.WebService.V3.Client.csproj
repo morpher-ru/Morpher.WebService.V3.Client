@@ -5,10 +5,13 @@
     <PackageId>Morpher.WebService.V3.Client</PackageId>
     <PackageVersion>$(version)</PackageVersion>
     <Authors>Morpher.ru</Authors>
-    <Description>Simple wrapper for Morpher.ru web service.</Description>
+    <Title>Russian and Ukrainian declension web serice client.</Title>
     <Copyright>Copyright 2017 morpher.ru</Copyright>
     <PackageTags>declension pluralization russian ukrainian grammar morphology</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
+    <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
+    <PackageReleaseNotes>Support for .NET Standard 2.0 + new function client.Russian.AddStressMarks(string text).</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

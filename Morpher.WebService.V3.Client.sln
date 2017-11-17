@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client", "Morpher.WebService.V3.Client\Morpher.WebService.V3.Client.csproj", "{5389FE48-3877-4433-A34B-D70C9826587C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Morpher.WebService.V3.Client", "Morpher.WebService.V3.Client\Morpher.WebService.V3.Client.csproj", "{D491BE95-0588-4943-8654-1AFF69CB0B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.Samples", "Morpher.WebService.V3.Client.Samples\Morpher.WebService.V3.Client.Samples.csproj", "{99BA153D-E970-4BF2-8093-0357328B48C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.Samples", "Morpher.WebService.V3.Client.Samples\Morpher.WebService.V3.Client.Samples.csproj", "{5839B8D0-94B5-4BD5-BCC3-83233910383A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.UnitTests", "Morpher.WebService.V3.Client.UnitTests\Morpher.WebService.V3.Client.UnitTests.csproj", "{89964337-10FB-40B6-8DCC-0ECFE60B8E53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpher.WebService.V3.Client.UnitTests", "Morpher.WebService.V3.Client.UnitTests\Morpher.WebService.V3.Client.UnitTests.csproj", "{7AD242E6-8ED3-488F-BD69-088AC232F25F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,23 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5389FE48-3877-4433-A34B-D70C9826587C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5389FE48-3877-4433-A34B-D70C9826587C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5389FE48-3877-4433-A34B-D70C9826587C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5389FE48-3877-4433-A34B-D70C9826587C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99BA153D-E970-4BF2-8093-0357328B48C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99BA153D-E970-4BF2-8093-0357328B48C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99BA153D-E970-4BF2-8093-0357328B48C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99BA153D-E970-4BF2-8093-0357328B48C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89964337-10FB-40B6-8DCC-0ECFE60B8E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89964337-10FB-40B6-8DCC-0ECFE60B8E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89964337-10FB-40B6-8DCC-0ECFE60B8E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89964337-10FB-40B6-8DCC-0ECFE60B8E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D491BE95-0588-4943-8654-1AFF69CB0B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D491BE95-0588-4943-8654-1AFF69CB0B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D491BE95-0588-4943-8654-1AFF69CB0B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D491BE95-0588-4943-8654-1AFF69CB0B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5839B8D0-94B5-4BD5-BCC3-83233910383A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5839B8D0-94B5-4BD5-BCC3-83233910383A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5839B8D0-94B5-4BD5-BCC3-83233910383A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5839B8D0-94B5-4BD5-BCC3-83233910383A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD242E6-8ED3-488F-BD69-088AC232F25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD242E6-8ED3-488F-BD69-088AC232F25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD242E6-8ED3-488F-BD69-088AC232F25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD242E6-8ED3-488F-BD69-088AC232F25F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {383E885A-ACA7-4A26-BA24-C21D7B43AB55}
+		SolutionGuid = {7D4DE19D-F9F1-49F9-BC92-4290D39EF1E6}
 	EndGlobalSection
 EndGlobal
