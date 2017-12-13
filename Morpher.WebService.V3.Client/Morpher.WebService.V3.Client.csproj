@@ -12,6 +12,8 @@
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
     <PackageReleaseNotes>Support for .NET Standard 2.0 + new function client.Russian.AddStressMarks(string text).</PackageReleaseNotes>
+	
+	<AssemblyVersion>2.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
