@@ -72,7 +72,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                var response = WebClient.UploadString(_baseUrl + relativeUrl, data);
+                string response = WebClient.UploadString(_baseUrl + relativeUrl, data);
                 
                 return Deserialize<T>(response);
             }
@@ -87,7 +87,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                var response = WebClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
+                byte[] response = WebClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
                 return Deserialize<T>(response);
             }
             catch (WebException exc)
@@ -99,7 +99,7 @@ namespace Morpher.WebService.V3
 
         static T Deserialize<T>(byte[] response)
         {
-            using (MemoryStream memoryStream = new MemoryStream(response))
+            using (var memoryStream = new MemoryStream(response))
             {
                 try
                 {
@@ -121,11 +121,9 @@ namespace Morpher.WebService.V3
             return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
-        private void TryToThrowMorpherException(WebException exc)
+        static void TryToThrowMorpherException(WebException exc)
         {
-            var httpWebResponse = exc.Response as HttpWebResponse;
-           
-            if (httpWebResponse != null 
+            if (exc.Response is HttpWebResponse httpWebResponse 
                 && (int)httpWebResponse.StatusCode >= 400 
                 && (int)httpWebResponse.StatusCode < 500)
             {
