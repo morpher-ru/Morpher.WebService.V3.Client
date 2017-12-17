@@ -1,7 +1,6 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
@@ -15,7 +14,7 @@
     [TestFixture]
     public class Russian
     {
-        public string DeclensionResultText { get; } = @"
+        string DeclensionResultText { get; } = @"
 {
     ""Р"": ""теста"",
     ""Д"": ""тесту"",
@@ -38,7 +37,7 @@
     ""откуда"": ""из теста""
 }";
 
-        public string SpellResultText { get; } = @"
+        string SpellResultText { get; } = @"
 {
     ""n"": {
         ""И"": ""десять"",
@@ -58,7 +57,7 @@
     }
 }";
 
-        public string FioSplit { get; } = @"
+        string FioSplit { get; } = @"
 {
   ""Р"": ""Александра Пушкина"",
   ""Д"": ""Александру Пушкину"",
@@ -72,20 +71,20 @@
   }
 }";
 
-        public string GendersResultText { get; } = @"
+        string GendersResultText { get; } = @"
 {
   ""feminine"": ""уважаемая"",
   ""neuter"": ""уважаемое"",
   ""plural"": ""уважаемые""
 }";
 
-        public string AdjectivizeResultText { get; } = @"
+        string AdjectivizeResultText { get; } = @"
 [
   ""мытищинский"",
   ""мытищенский""
 ]";
 
-        public string UserDictGetAllText { get; } = @"
+        string UserDictGetAllText { get; } = @"
 [
     {
         ""singular"": {
@@ -108,9 +107,6 @@
         }
     }
 ]";
-
-
-        
 
         [Test]
         public void Parse_Success()
@@ -226,7 +222,6 @@
         [Test]
         public void Adjectivize_Success()
         {
-
             Mock<IWebClient> webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(AdjectivizeResultText);
@@ -349,15 +344,15 @@
         [Test]
         public void UserDictGetAll_Exception()
         {
-            Assert.Throws<ArgumentEmptyException>(() => 
-            MockClientHelpers.ExceptionClient().Russian.UserDict.GetAll());
+            MorpherClient client = MockClientHelpers.ExceptionClient();
+            Assert.Throws<ArgumentEmptyException>(() => client.Russian.UserDict.GetAll());
         }
 
         [Test]
         public void InternalServerError()
         {
-            Assert.Throws<WebException>(() => 
-            MockClientHelpers.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError).Russian.UserDict.GetAll());
+            MorpherClient client = MockClientHelpers.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError);
+            Assert.Throws<WebException>(() => client.Russian.UserDict.GetAll());
         }
 
         /// <summary>
@@ -366,8 +361,8 @@
         [Test]
         public void ArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => 
-            MockClientHelpers.ExceptionClient(new ArgumentNullException()).Russian.UserDict.GetAll());
+            MorpherClient client = MockClientHelpers.ExceptionClient(new ArgumentNullException());
+            Assert.Throws<ArgumentNullException>(() => client.Russian.UserDict.GetAll());
         }
 
         [Test]
@@ -380,7 +375,6 @@
             string genitive = morpher.Russian.Parse("теля").Genitive;
             Assert.IsNull(genitive);
         }
-
 
         [Test]
         public void DeclensionList()
@@ -443,6 +437,9 @@
             Assert.NotNull(result[0].Result);
             Assert.NotNull(result[1].Error);
             Assert.NotNull(result[2].Result);
+            Assert.Null(result[0].Error);
+            Assert.Null(result[1].Result);
+            Assert.Null(result[2].Error);
         }
     }
 }

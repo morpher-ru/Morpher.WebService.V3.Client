@@ -182,16 +182,16 @@ namespace Morpher.WebService.V3.Client.UnitTests
         [Test]
         public void UserDictGetAll_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(UserDictGetAllText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
             };
 
-            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Ukrainian.UserDict.GetAll();
+            IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Ukrainian.UserDict.GetAll().ToList();
 
             Assert.IsNotNull(correctionEntries);
             Assert.AreEqual(1, correctionEntries.Count());
