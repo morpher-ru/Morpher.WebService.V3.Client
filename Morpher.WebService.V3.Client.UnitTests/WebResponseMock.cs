@@ -4,7 +4,7 @@
     using System.Net;
     using System.Net.Sockets;
 
-    internal class WebResponseMock
+    internal static class WebResponseMock
     {
         public static WebResponse CreateWebResponse(HttpStatusCode httpStatus, MemoryStream responseObject)
         {

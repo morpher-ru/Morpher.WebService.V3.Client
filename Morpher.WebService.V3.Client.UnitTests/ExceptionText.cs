@@ -1,6 +1,6 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
-    internal class ExceptionText
+    internal static class ExceptionText
     {
         public const string UseSpell = @"
 {

@@ -1,7 +1,7 @@
 ﻿namespace Morpher.WebService.V3.Russian
 {
     /// <summary>
-    /// Возникает, если в метод <see cref="Client.Parse"/> передать числительное, например, "три поросенка".
+    /// Возникает, если в метод <see cref="Client.Parse(string, DeclensionFlags?)"/> передать числительное, например, "три поросенка".
     /// </summary>
     public class NumeralsDeclensionNotSupportedException : InvalidArgumentException
     {

@@ -433,7 +433,7 @@
             List<ResultOrError> result = morpher.Russian.Parse(new[] { "some vals" }).ToList();
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(3, result.Count);
             Assert.NotNull(result[0].Result);
             Assert.NotNull(result[1].Error);
             Assert.NotNull(result[2].Result);

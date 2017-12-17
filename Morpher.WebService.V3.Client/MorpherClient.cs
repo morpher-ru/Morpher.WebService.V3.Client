@@ -18,16 +18,8 @@
 
         public Func<MyWebClient> NewClient
         {
-            get { return _newClient ?? (_newClient = () => new MyWebClient(Token, Url)); }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _newClient = value;
-            }
+            get => _newClient ?? (_newClient = () => new MyWebClient(Token, Url));
+            set => _newClient = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         public Russian.Client Russian => _russian ?? (_russian = new Russian.Client(NewClient));

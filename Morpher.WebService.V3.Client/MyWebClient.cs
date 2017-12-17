@@ -27,16 +27,8 @@ namespace Morpher.WebService.V3
 
         public IWebClient WebClient
         {
-            get { return _webClient ?? (_webClient = new MorpherWebClient() {Encoding = Encoding.UTF8}); }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _webClient = value;
-            }
+            get => _webClient ?? (_webClient = new MorpherWebClient {Encoding = Encoding.UTF8});
+            set => _webClient = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         public void AddParam(string name, string value)
