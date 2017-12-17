@@ -111,10 +111,10 @@
         [Test]
         public void Parse_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(DeclensionResultText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -149,10 +149,10 @@
         [Test]
         public void SplitFio_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(FioSplit);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -169,10 +169,10 @@
         [Test]
         public void Spell_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellResultText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -202,10 +202,10 @@
         [Test]
         public void Genders_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(GendersResultText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -222,10 +222,10 @@
         [Test]
         public void Adjectivize_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(AdjectivizeResultText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -268,12 +268,12 @@
         [Test]
         public void UserDictRemove_Success()
         {
-            NameValueCollection @params = new NameValueCollection();
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var @params = new NameValueCollection();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(@params);
             webClient.Setup(client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
                 .Returns(Encoding.UTF8.GetBytes("true"));
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -288,16 +288,16 @@
         [Test]
         public void UserDictRemove_Exception()
         {
-            NameValueCollection @params = new NameValueCollection();
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var @params = new NameValueCollection();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(@params);
-            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
+            var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)400,
                     new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
             webClient.Setup(
                     client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
                 .Throws(exception);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -309,10 +309,10 @@
         [Test]
         public void UserDictGetAll_Success()
         {
-            Mock<IWebClient> webClient = new Mock<IWebClient>();
+            var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(UserDictGetAllText);
-            MorpherClient morpherClient = new MorpherClient();
+            var morpherClient = new MorpherClient();
             morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
             {
                 WebClient = webClient.Object
@@ -371,7 +371,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(wc => wc.QueryString).Returns(new NameValueCollection());
             webClient.Setup(wc => wc.DownloadString(It.IsAny<string>())).Returns("{\"Д\": \"теляти\",\"В\": \"теля\"}");
-            var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
+            MorpherClient morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
             string genitive = morpher.Russian.Parse("теля").Genitive;
             Assert.IsNull(genitive);
         }
@@ -429,7 +429,7 @@
             webClient.Setup(wc => wc.QueryString).Returns(new NameValueCollection());
             webClient.Setup(wc => wc.UploadString(It.IsAny<string>(), It.IsAny<string>())).Returns(jsonResult);
             webClient.Setup(wc => wc.Headers).Returns(new WebHeaderCollection());
-            var morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
+            MorpherClient morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
             List<ResultOrError> result = morpher.Russian.Parse(new[] { "some vals" }).ToList();
 
             Assert.IsNotNull(result);

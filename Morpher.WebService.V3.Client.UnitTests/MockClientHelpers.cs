@@ -11,7 +11,7 @@
     {
         public static MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
         {
-            WebException exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
+            var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse(statusCode,
                     new MemoryStream(Encoding.UTF8.GetBytes(exceptionText))));
             return ExceptionClient(exception);
@@ -24,7 +24,7 @@
             return NewMorpherClientInject(webClient);
         }
 
-        public static IWebClient BuildWebClientThatThrows(Exception exception)
+        static IWebClient BuildWebClientThatThrows(Exception exception)
         {
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());

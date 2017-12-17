@@ -117,7 +117,7 @@
             // Для local сервиса токен не нужен.
             // Русский язык
             // Добавляем новое пользовательское исправление
-            Russian.CorrectionEntry entry = new Russian.CorrectionEntry()
+            var entry = new Russian.CorrectionEntry()
             {
                 Singular = new Russian.CorrectionForms()
                 {
@@ -141,7 +141,7 @@
             Console.WriteLine("Получаем список всех исправлений:");
             IEnumerable<Russian.CorrectionEntry> corrections = russian.UserDict.GetAll();
 
-            foreach (var correctionEntry in corrections)
+            foreach (Russian.CorrectionEntry correctionEntry in corrections)
             {
                 Console.WriteLine(correctionEntry.Singular.Nominative);
             }
@@ -195,7 +195,7 @@
             // Для local сервиса токен не нужен.
             // Украинский язык
             // Добавляем новое пользовательское исправление
-            Ukrainian.CorrectionEntry entry = new Ukrainian.CorrectionEntry()
+            var entry = new Ukrainian.CorrectionEntry()
             {
                 Singular = new Ukrainian.CorrectionForms()
                 {
@@ -214,7 +214,7 @@
             Console.WriteLine("Получаем список всех исправлений:");
             IEnumerable<Ukrainian.CorrectionEntry> corrections = ukrainian.UserDict.GetAll();
 
-            foreach (var correctionEntry in corrections)
+            foreach (Ukrainian.CorrectionEntry correctionEntry in corrections)
             {
                 Console.WriteLine(correctionEntry.Singular.Nominative);
             }

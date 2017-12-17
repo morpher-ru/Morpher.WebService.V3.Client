@@ -8,14 +8,14 @@
     {
         public static WebResponse CreateWebResponse(HttpStatusCode httpStatus, MemoryStream responseObject)
         {
-            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
+            var l = new TcpListener(IPAddress.Loopback, 0);
             l.Start();
             int port = ((IPEndPoint)l.LocalEndpoint).Port;
             l.Stop();
 
             // Create a listener.
             string prefix = "http://localhost:" + port + "/";
-            HttpListener listener = new HttpListener();
+            var listener = new HttpListener();
             listener.Prefixes.Add(prefix);
             listener.Start();
             try

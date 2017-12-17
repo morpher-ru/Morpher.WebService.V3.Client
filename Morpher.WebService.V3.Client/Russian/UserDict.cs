@@ -1,4 +1,6 @@
-﻿namespace Morpher.WebService.V3.Russian
+﻿using System.Collections.Specialized;
+
+namespace Morpher.WebService.V3.Russian
 {
     using System;
     using System.Collections.Generic;
@@ -16,17 +18,16 @@
         {
             if (string.IsNullOrWhiteSpace(entry.Singular.Nominative))
             {
-                throw new ArgumentException("Нужно указать именительную форму единственного числа.", nameof(entry.Singular.Nominative));
+                throw new ArgumentException("Нужно указать форму именительного падежа единственного числа.", nameof(entry.Singular.Nominative));
             }
 
-            var collection = entry.ToNameValueCollection();
+            NameValueCollection collection = entry.ToNameValueCollection();
             if (collection.Count <= 1)
             {
                 throw new ArgumentException("Нужно указать как минимум одну форму кроме именительного падежа.", nameof(entry));
-
             }
 
-            using (var client = _newClient())
+            using (MyWebClient client = _newClient())
             {
                 client.UploadValues("/russian/userdict", collection);
             }
@@ -34,7 +35,7 @@
 
         public bool Remove(string nominativeForm)
         {
-            using (var client = _newClient())
+            using (MyWebClient client = _newClient())
             {
                 client.AddParam("s", nominativeForm);
                 return client.DeleteRequest<bool>("/russian/userdict");
@@ -43,7 +44,7 @@
 
         public IEnumerable<CorrectionEntry> GetAll()
         {
-            using (var client = _newClient())
+            using (MyWebClient client = _newClient())
             {
                 return client.GetObject<IEnumerable<CorrectionEntry>>("/russian/userdict");
             }
