@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
+    <TargetFrameworskProfile>Client</TargetFrameworskProfile>
     <PackageId>Morpher.WebService.V3.Client</PackageId>
     <RootNamespace>Morpher.WebService.V3</RootNamespace>
     <PackageVersion>$(version)</PackageVersion>
