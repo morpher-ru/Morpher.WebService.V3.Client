@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using static System.Console;
 
     public static class Program
     {
@@ -28,23 +29,23 @@
                 RussianDemo(russian);
                 UkrainianDemo(ukrainian);
 
-                Console.WriteLine("Остаток запросов на сегодня: " + morpherClient.QueriesLeftForToday());
-                Console.WriteLine();
+                WriteLine("Остаток запросов на сегодня: " + morpherClient.QueriesLeftForToday());
+                WriteLine();
 
-                Console.WriteLine("Провоцируем ошибку:");
+                WriteLine("Провоцируем ошибку:");
                 russian.Parse("wuf");
             }
             catch (InvalidArgumentException ex)
             {
-                Console.WriteLine("Ошибка: {0}", ex.Message);
+                WriteLine("Ошибка: {0}", ex.Message);
             }
             catch (AccessDeniedException ex)
             {
-                Console.WriteLine("Ошибка: {0}", ex.Message);
+                WriteLine("Ошибка: {0}", ex.Message);
             }
             catch (System.Net.WebException ex)
             {
-                Console.WriteLine("Ошибка: {0}", ex.Message);
+                WriteLine("Ошибка: {0}", ex.Message);
             }
             // На этом список исключений, которые стоит обрабатывать, исчерпывается.
             // InvalidArgumentException имеет подтипы:
@@ -57,8 +58,8 @@
             // - IpBlockedException
             // - TokenNotFoundException
 
-            Console.WriteLine();
-            Console.WriteLine(premium + " означает, что функция доступна на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
+            WriteLine();
+            WriteLine(premium + " означает, что функция доступна на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
         }
 
         static readonly decimal number = 2513;
@@ -66,52 +67,52 @@
 
         static void RussianDemo(Russian.Client russian)
         {
-            Console.WriteLine("Склонение на русском языке:");
+            WriteLine("Склонение на русском языке:");
             Russian.DeclensionResult declensionResult = russian.Parse("Соединенное королевство");
-            Console.WriteLine("Именительный падеж: {0}", declensionResult.Nominative);
-            Console.WriteLine(" Родительный падеж: {0}", declensionResult.Genitive);
-            Console.WriteLine("   Дательный падеж: {0}", declensionResult.Dative);
-            Console.WriteLine(" Винительный падеж: {0}", declensionResult.Accusative);
-            Console.WriteLine("Творительный падеж: {0}", declensionResult.Instrumental);
-            Console.WriteLine("  Предложный падеж: {0}", declensionResult.Prepositional);
-            Console.WriteLine("Предложный с предлогом: {0}", declensionResult.PrepositionalWithO ?? premium);
-            Console.WriteLine("               Где? {0}", declensionResult.Where ?? premium);
-            Console.WriteLine("              Куда? {0}", declensionResult.To ?? premium);
-            Console.WriteLine("            Откуда? {0}", declensionResult.From ?? premium);
+            WriteLine("Именительный падеж: {0}", declensionResult.Nominative);
+            WriteLine(" Родительный падеж: {0}", declensionResult.Genitive);
+            WriteLine("   Дательный падеж: {0}", declensionResult.Dative);
+            WriteLine(" Винительный падеж: {0}", declensionResult.Accusative);
+            WriteLine("Творительный падеж: {0}", declensionResult.Instrumental);
+            WriteLine("  Предложный падеж: {0}", declensionResult.Prepositional);
+            WriteLine("Предложный с предлогом: {0}", declensionResult.PrepositionalWithO ?? premium);
+            WriteLine("               Где? {0}", declensionResult.Where ?? premium);
+            WriteLine("              Куда? {0}", declensionResult.To ?? premium);
+            WriteLine("            Откуда? {0}", declensionResult.From ?? premium);
             if (declensionResult.Plural != null)
             {
-                Console.WriteLine("Именительный падеж: {0}", declensionResult.Plural.Nominative);
-                Console.WriteLine(" Родительный падеж: {0}", declensionResult.Plural.Genitive);
-                Console.WriteLine("   Дательный падеж: {0}", declensionResult.Plural.Dative);
-                Console.WriteLine(" Винительный падеж: {0}", declensionResult.Plural.Accusative);
-                Console.WriteLine("Творительный падеж: {0}", declensionResult.Plural.Instrumental);
-                Console.WriteLine("  Предложный падеж: {0}", declensionResult.Plural.Prepositional);
-                Console.WriteLine("Предложный с предлогом: {0}", declensionResult.Plural.PrepositionalWithO ?? premium);
+                WriteLine("Именительный падеж: {0}", declensionResult.Plural.Nominative);
+                WriteLine(" Родительный падеж: {0}", declensionResult.Plural.Genitive);
+                WriteLine("   Дательный падеж: {0}", declensionResult.Plural.Dative);
+                WriteLine(" Винительный падеж: {0}", declensionResult.Plural.Accusative);
+                WriteLine("Творительный падеж: {0}", declensionResult.Plural.Instrumental);
+                WriteLine("  Предложный падеж: {0}", declensionResult.Plural.Prepositional);
+                WriteLine("Предложный с предлогом: {0}", declensionResult.Plural.PrepositionalWithO ?? premium);
             }
-            Console.WriteLine();
+            WriteLine();
 
-            Console.WriteLine("Определение рода на русском языке:");
-            Console.WriteLine("Род: {0}", declensionResult.Gender?.ToString() ?? premium);
-            Console.WriteLine();
+            WriteLine("Определение рода на русском языке:");
+            WriteLine("Род: {0}", declensionResult.Gender?.ToString() ?? premium);
+            WriteLine();
 
-            Console.WriteLine("Разделение ФИО на части:");
+            WriteLine("Разделение ФИО на части:");
             Russian.DeclensionResult nameDeclensionResult = russian.Parse("Полад Бюльбюль-оглы Мамедов");
-            Console.WriteLine("Ф: " + nameDeclensionResult.FullName.Surname);
-            Console.WriteLine("И: " + nameDeclensionResult.FullName.Name);
-            Console.WriteLine("О: " + nameDeclensionResult.FullName.Pantronymic);
-            Console.WriteLine();
+            WriteLine("Ф: " + nameDeclensionResult.FullName.Surname);
+            WriteLine("И: " + nameDeclensionResult.FullName.Name);
+            WriteLine("О: " + nameDeclensionResult.FullName.Pantronymic);
+            WriteLine();
 
-            Console.WriteLine("Склонение прилагательных по родам:");
+            WriteLine("Склонение прилагательных по родам:");
             Russian.AdjectiveGenders adjectiveGenders = russian.AdjectiveGenders("уважаемый");
-            Console.WriteLine("Женский род:         " + adjectiveGenders.Feminie);
-            Console.WriteLine("Средний род:         " + adjectiveGenders.Neuter);
-            Console.WriteLine("Множественное число: " + adjectiveGenders.Plural);
-            Console.WriteLine();
+            WriteLine("Женский род:         " + adjectiveGenders.Feminie);
+            WriteLine("Средний род:         " + adjectiveGenders.Neuter);
+            WriteLine("Множественное число: " + adjectiveGenders.Plural);
+            WriteLine();
 
-            Console.WriteLine("Образование прилагательных:");
+            WriteLine("Образование прилагательных:");
             List<string> adjectives = russian.Adjectivize("Мытищи");
-            adjectives.ForEach(Console.WriteLine);
-            Console.WriteLine();
+            adjectives.ForEach(WriteLine);
+            WriteLine();
 
             // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
             // Для local сервиса токен не нужен.
@@ -131,65 +132,65 @@
             };
             russian.UserDict.AddOrUpdate(entry);
 
-            Console.WriteLine("Склонение с исправлением:");
+            WriteLine("Склонение с исправлением:");
             Russian.DeclensionResult spellWithCorrection = russian.Parse("Кошка");
-            Console.WriteLine("            Именительный падеж: {0}", spellWithCorrection.Nominative);
-            Console.WriteLine("               Дательный падеж: {0}", spellWithCorrection.Dative);
-            Console.WriteLine("Дательный падеж множественного: {0}", spellWithCorrection.Plural.Dative);
-            Console.WriteLine();
+            WriteLine("            Именительный падеж: {0}", spellWithCorrection.Nominative);
+            WriteLine("               Дательный падеж: {0}", spellWithCorrection.Dative);
+            WriteLine("Дательный падеж множественного: {0}", spellWithCorrection.Plural.Dative);
+            WriteLine();
 
-            Console.WriteLine("Получаем список всех исправлений:");
+            WriteLine("Получаем список всех исправлений:");
             IEnumerable<Russian.CorrectionEntry> corrections = russian.UserDict.GetAll();
 
             foreach (Russian.CorrectionEntry correctionEntry in corrections)
             {
-                Console.WriteLine(correctionEntry.Singular.Nominative);
+                WriteLine(correctionEntry.Singular.Nominative);
             }
 
-            Console.WriteLine();
+            WriteLine();
 
             // Удаляем исправление.
             // True если исправление было удалено успешно, false если исправление не найдено.
             bool found = russian.UserDict.Remove("Кошка");
-            Console.WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
+            WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
 
-            Console.WriteLine("Склонение после удаления исправления:");
+            WriteLine("Склонение после удаления исправления:");
             Russian.DeclensionResult spellWithoutCorrection = russian.Parse("Кошка");
-            Console.WriteLine("            Именительный падеж: {0}", spellWithoutCorrection.Nominative);
-            Console.WriteLine("               Дательный падеж: {0}", spellWithoutCorrection.Dative);
-            Console.WriteLine("Дательный падеж множественного: {0}", spellWithoutCorrection.Plural.Dative);
-            Console.WriteLine();
+            WriteLine("            Именительный падеж: {0}", spellWithoutCorrection.Nominative);
+            WriteLine("               Дательный падеж: {0}", spellWithoutCorrection.Dative);
+            WriteLine("Дательный падеж множественного: {0}", spellWithoutCorrection.Plural.Dative);
+            WriteLine();
 
-            Console.WriteLine("Сумма прописью:");
+            WriteLine("Сумма прописью:");
             Russian.NumberSpellingResult russianNumberSpellingResult = russian.Spell(number, "рубль");
-            Console.WriteLine("В размере {0} ({1}) {2}", number,
+            WriteLine("В размере {0} ({1}) {2}", number,
                 russianNumberSpellingResult.NumberDeclension.Genitive,
                 russianNumberSpellingResult.UnitDeclension.Genitive);
         }
 
         static void UkrainianDemo(Ukrainian.Client ukrainian)
         {
-            Console.WriteLine("Склонение ФИО на украинском языке:");
+            WriteLine("Склонение ФИО на украинском языке:");
             Ukrainian.DeclensionResult ukrainianDeclensionResult = ukrainian.Parse("Тест");
-            Console.WriteLine(" Називний вiдмiнок: " + ukrainianDeclensionResult.Nominative);
-            Console.WriteLine("  Родовий вiдмiнок: " + ukrainianDeclensionResult.Genitive);
-            Console.WriteLine("Давальний вiдмiнок: " + ukrainianDeclensionResult.Dative);
-            Console.WriteLine("Знахідний вiдмiнок: " + ukrainianDeclensionResult.Accusative);
-            Console.WriteLine("  Орудний вiдмiнок: " + ukrainianDeclensionResult.Instrumental);
-            Console.WriteLine(" Місцевий вiдмiнок: " + ukrainianDeclensionResult.Prepositional);
-            Console.WriteLine("  Кличний вiдмiнок: " + ukrainianDeclensionResult.Vocative);
-            Console.WriteLine();
+            WriteLine(" Називний вiдмiнок: " + ukrainianDeclensionResult.Nominative);
+            WriteLine("  Родовий вiдмiнок: " + ukrainianDeclensionResult.Genitive);
+            WriteLine("Давальний вiдмiнок: " + ukrainianDeclensionResult.Dative);
+            WriteLine("Знахідний вiдмiнок: " + ukrainianDeclensionResult.Accusative);
+            WriteLine("  Орудний вiдмiнок: " + ukrainianDeclensionResult.Instrumental);
+            WriteLine(" Місцевий вiдмiнок: " + ukrainianDeclensionResult.Prepositional);
+            WriteLine("  Кличний вiдмiнок: " + ukrainianDeclensionResult.Vocative);
+            WriteLine();
 
-            Console.WriteLine("Определение рода на украинском языке:");
-            Console.WriteLine("Род: {0}", ukrainianDeclensionResult.Gender?.ToString() ?? premium);
-            Console.WriteLine();
+            WriteLine("Определение рода на украинском языке:");
+            WriteLine("Род: {0}", ukrainianDeclensionResult.Gender?.ToString() ?? premium);
+            WriteLine();
 
-            Console.WriteLine("Сумма прописью на укранинском:");
+            WriteLine("Сумма прописью на укранинском:");
             Ukrainian.NumberSpellingResult ukrainianNumberSpellingResult = ukrainian.Spell(number, "рубль");
-            Console.WriteLine("У розмірі {0} ({1}) {2}", number,
+            WriteLine("У розмірі {0} ({1}) {2}", number,
                 ukrainianNumberSpellingResult.NumberDeclension.Genitive,
                 ukrainianNumberSpellingResult.UnitDeclension.Genitive);
-            Console.WriteLine();
+            WriteLine();
 
             // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
             // Для local сервиса токен не нужен.
@@ -205,32 +206,32 @@
             };
             ukrainian.UserDict.AddOrUpdate(entry);
 
-            Console.WriteLine("Склонение с исправлением:");
+            WriteLine("Склонение с исправлением:");
             Ukrainian.DeclensionResult spellWithCorrection = ukrainian.Parse("Сергій");
-            Console.WriteLine("Називний вiдмiнок: {0}", spellWithCorrection.Nominative);
-            Console.WriteLine("Мiсцевий вiдмiнок: {0}", spellWithCorrection.Prepositional);
-            Console.WriteLine();
+            WriteLine("Називний вiдмiнок: {0}", spellWithCorrection.Nominative);
+            WriteLine("Мiсцевий вiдмiнок: {0}", spellWithCorrection.Prepositional);
+            WriteLine();
 
-            Console.WriteLine("Получаем список всех исправлений:");
+            WriteLine("Получаем список всех исправлений:");
             IEnumerable<Ukrainian.CorrectionEntry> corrections = ukrainian.UserDict.GetAll();
 
             foreach (Ukrainian.CorrectionEntry correctionEntry in corrections)
             {
-                Console.WriteLine(correctionEntry.Singular.Nominative);
+                WriteLine(correctionEntry.Singular.Nominative);
             }
 
-            Console.WriteLine();
+            WriteLine();
 
             // Удаляем исправление.
             // True если исправление было удалено успешно, false если исправление не найдено.
             bool found = ukrainian.UserDict.Remove("Сергій");
-            Console.WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
+            WriteLine("Исправление найдено: {0}", found ? "Да" : "Нет");
 
-            Console.WriteLine("Склонение после удаления исправления:");
+            WriteLine("Склонение после удаления исправления:");
             Ukrainian.DeclensionResult spellWithoutCorrection = ukrainian.Parse("Сергій");
-            Console.WriteLine("Називний вiдмiнок: {0}", spellWithoutCorrection.Nominative);
-            Console.WriteLine("Мiсцевий вiдмiнок: {0}", spellWithoutCorrection.Prepositional);
-            Console.WriteLine();
+            WriteLine("Називний вiдмiнок: {0}", spellWithoutCorrection.Nominative);
+            WriteLine("Мiсцевий вiдмiнок: {0}", spellWithoutCorrection.Prepositional);
+            WriteLine();
         }
     }
 }
