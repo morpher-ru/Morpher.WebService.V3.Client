@@ -1,25 +1,25 @@
-﻿namespace Morpher.WebService.V3.Client.Samples
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using static System.Console;
+﻿using System;
+using System.Collections.Generic;
+using static System.Console;
 
+namespace Morpher.WebService.V3.Client.Samples
+{
     public static class Program
     {
         static void Main()
         {
-            Console.OutputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            // Вы можете передать токен в качестве аргумента конструктора.
-            // Guid token = Guid.Parse("17ce56c3-934f-453a-9ef7-cc1feec4e344");
-            // Если вы используете "Морфер.Сервер" (http://morpher.ru/webservice/local/), 
-            // то вы можете указать в качестве url адрес вашего локального сервера:
-            // string url = "http://ws3.morpher.ru"
-            // MorpherClient morpherClient = new MorpherClient(token, url);
-            // !!! Не используйте этот токен в production !!!
-            Guid token = Guid.Parse("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
-            var morpherClient = new MorpherClient(token);
+            // Адрес веб-сервиса. 
+            // Пользователи "Морфер.Сервера" (http://morpher.ru/webservice/local/), 
+            // могут указать адрес своего локального сервера:
+            string url = "http://ws3.morpher.ru";
+
+            // Это token от демо-аккаунта, он нужен для демонстрации функций работы с пользовательским словарем.
+            // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
+            Guid token = new Guid("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
+
+            var morpherClient = new MorpherClient(token, url); // оба параметра необязательные
 
             Russian.Client russian = morpherClient.Russian;
             Ukrainian.Client ukrainian = morpherClient.Ukrainian;
@@ -59,7 +59,7 @@
             // - TokenNotFoundException
 
             WriteLine();
-            WriteLine(premium + " означает, что функция доступна на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
+            WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
         }
 
         static readonly decimal number = 2513;
