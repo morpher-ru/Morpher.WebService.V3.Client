@@ -136,7 +136,7 @@ namespace Morpher.WebService.V3.Client.UnitTests
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)400,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissingParameter))));
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             var morpherClient = new MorpherClient(null, null, webClient.Object);
 

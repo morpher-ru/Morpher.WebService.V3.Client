@@ -13,7 +13,7 @@ namespace Morpher.WebService.V3
         readonly string _baseUrl;
         readonly IWebClient _webClient;
 
-        public MyWebClient(Guid? token, string baseUrl, IWebClient webClient = null)
+        public MyWebClient(Guid? token, string baseUrl, IWebClient webClient)
         {
             _baseUrl = baseUrl;
             _webClient = webClient ?? new MorpherWebClient { Encoding = Encoding.UTF8 };

@@ -269,7 +269,7 @@
             webClient.Setup(client => client.QueryString).Returns(@params);
             var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse((HttpStatusCode)400,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissedParameter))));
+                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissingParameter))));
             webClient.Setup(
                     client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
                 .Throws(exception);
