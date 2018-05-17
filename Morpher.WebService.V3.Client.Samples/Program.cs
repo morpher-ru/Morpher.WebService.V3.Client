@@ -62,7 +62,7 @@ namespace Morpher.WebService.V3.Client.Samples
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
         }
 
-        static readonly decimal number = 2513;
+        const decimal number = 2513;
         const string premium = "*****";
 
         static void RussianDemo(Russian.Client russian)

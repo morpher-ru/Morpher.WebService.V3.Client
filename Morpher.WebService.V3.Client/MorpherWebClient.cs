@@ -1,8 +1,6 @@
 ﻿namespace Morpher.WebService.V3
 {
-    using System.Net;
-
-    internal class MorpherWebClient : WebClient, IWebClient
+    internal class MorpherWebClient : System.Net.WebClient, IWebClient
     {
     }
 }
