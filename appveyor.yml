@@ -1,12 +1,15 @@
-version: 2.0.{build}
+environment:
+  major_version: 3
+  minor_version: 0
+  patch_version: 0
+version: '$(major_version).$(minor_version).$(patch_version).{build}'
 image: Visual Studio 2017
 configuration: Release
 dotnet_csproj:
   patch: true
   file: 'Morpher.WebService.V3.Client\Morpher.WebService.V3.Client.csproj'
-  version: '{version}'
-  package_version: '{version}'
-  assembly_version: '{version}'
+  package_version: '$(major_version).$(minor_version).$(patch_version)'
+  assembly_version: '$(major_version).0.0'
   file_version: '{version}'
   informational_version: '{version}'
 before_build:
@@ -14,7 +17,7 @@ before_build:
 build:
   verbosity: minimal
 after_build:
-- cmd: dotnet pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.csproj --no-build -c Release /p:PackageVersion=%APPVEYOR_BUILD_VERSION%
+- cmd: dotnet pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.csproj --no-build -c Release
 artifacts:
 - path: '**\*.nupkg'
   name: Nuget

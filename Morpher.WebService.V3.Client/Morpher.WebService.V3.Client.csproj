@@ -4,7 +4,6 @@
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <PackageId>Morpher.WebService.V3.Client</PackageId>
     <RootNamespace>Morpher.WebService.V3</RootNamespace>
-    <PackageVersion>$(version)</PackageVersion>
     <Authors>Morpher.ru</Authors>
     <Title>Russian and Ukrainian declension web service client.</Title>
     <Copyright>Copyright 2017 morpher.ru</Copyright>
@@ -13,10 +12,11 @@
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
     <PackageReleaseNotes>Упрощена инъекция IWebClient. Класс MorpherClient стал полностью readonly и, как следствие, thread-safe. Публичный API поменялся, так что в этом релизе была увеличена мажорная версия.</PackageReleaseNotes>
-	
-	<AssemblyVersion>3.0.0</AssemblyVersion>
-	<FileVersion>3.0.0.</FileVersion>
-	<InformationalVersion>3.0.0</InformationalVersion>
+
+    <PackageVersion>1.0.0</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
