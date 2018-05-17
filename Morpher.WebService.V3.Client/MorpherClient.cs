@@ -4,31 +4,29 @@
 
     public class MorpherClient
     {
-        private Func<MyWebClient> _newClient;
+        private readonly IWebClient _webClient;
 
-        private Russian.Client _russian;
-
-        private Ukrainian.Client _ukrainian;
-
-        public MorpherClient(Guid? token = null, string url = null)
+        public MorpherClient(Guid? token = null, string url = null, IWebClient webClient = null)
         {
+            _webClient = webClient;
             this.Token = token;
             this.Url = url ?? "http://ws3.morpher.ru";
+            Russian = new Russian.Client(NewClient);
+            Ukrainian = new Ukrainian.Client(NewClient);
         }
 
-        public Func<MyWebClient> NewClient
+        MyWebClient NewClient()
         {
-            get => _newClient ?? (_newClient = () => new MyWebClient(Token, Url));
-            set => _newClient = value ?? throw new ArgumentNullException(nameof(value));
+            return new MyWebClient(Token, Url, _webClient);
         }
 
-        public Russian.Client Russian => _russian ?? (_russian = new Russian.Client(NewClient));
+        public Russian.Client Russian { get; }
 
-        public Ukrainian.Client Ukrainian => _ukrainian ?? (_ukrainian = new Ukrainian.Client(NewClient));
+        public Ukrainian.Client Ukrainian { get; }
 
-        public string Url { get; }
+        string Url { get; }
 
-        public Guid? Token { get; }
+        Guid? Token { get; }
 
         public int QueriesLeftForToday(Guid? guid = null)
         {

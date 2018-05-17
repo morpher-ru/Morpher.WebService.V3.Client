@@ -114,11 +114,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(DeclensionResultText);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             DeclensionResult declensionResult = morpherClient.Russian.Parse("тест");
             Assert.IsNotNull(declensionResult);
@@ -152,11 +148,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(FioSplit);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             DeclensionResult declensionResult = morpherClient.Russian.Parse("Александр Пушкин Сергеевич");
             Assert.IsNotNull(declensionResult);
@@ -172,11 +164,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellResultText);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             NumberSpellingResult declensionResult = morpherClient.Russian.Spell(10, "рубль");
             Assert.IsNotNull(declensionResult);
@@ -205,11 +193,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(GendersResultText);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             AdjectiveGenders adjectiveGenders = morpherClient.Russian.AdjectiveGenders("уважаемый");
             Assert.IsNotNull(adjectiveGenders);
@@ -225,11 +209,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(AdjectivizeResultText);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             List<string> adjList = morpherClient.Russian.Adjectivize("мытыщи");
             Assert.IsNotNull(adjList);
@@ -273,11 +253,7 @@
             webClient.Setup(client => client.QueryString).Returns(@params);
             webClient.Setup(client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
                 .Returns(Encoding.UTF8.GetBytes("true"));
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             bool found = morpherClient.Russian.UserDict.Remove("кошка");
 
@@ -297,11 +273,7 @@
             webClient.Setup(
                     client => client.UploadValues(It.IsAny<string>(), "DELETE", It.IsAny<NameValueCollection>()))
                 .Throws(exception);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             Assert.Throws<ArgumentEmptyException>(() => morpherClient.Russian.UserDict.Remove("exception here"));
         }
@@ -312,11 +284,7 @@
             var webClient = new Mock<IWebClient>();
             webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
             webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(UserDictGetAllText);
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient.Object
-            };
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
 
             IEnumerable<CorrectionEntry> correctionEntries = morpherClient.Russian.UserDict.GetAll()?.ToList();
 

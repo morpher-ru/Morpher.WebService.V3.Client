@@ -34,12 +34,7 @@
 
         public static MorpherClient NewMorpherClientInject(IWebClient webClient)
         {
-            var morpherClient = new MorpherClient();
-            morpherClient.NewClient = () => new MyWebClient(morpherClient.Token, morpherClient.Url)
-            {
-                WebClient = webClient
-            };
-            return morpherClient;
+            return new MorpherClient(null, null, webClient);
         }
     }
 }

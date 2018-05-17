@@ -8,39 +8,33 @@ namespace Morpher.WebService.V3
     using System.Collections.Specialized;
     using Newtonsoft.Json;
 
-    public class MyWebClient : IDisposable
+    internal class MyWebClient : IDisposable
     {
         readonly string _baseUrl;
-        IWebClient _webClient;
+        readonly IWebClient _webClient;
 
-        public MyWebClient(Guid? token, string baseUrl)
+        public MyWebClient(Guid? token, string baseUrl, IWebClient webClient = null)
         {
             _baseUrl = baseUrl;
+            _webClient = webClient ?? new MorpherWebClient { Encoding = Encoding.UTF8 };
             if (token != null)
             {
                 AddParam("token", token.ToString());
             }
 
             AddParam("format", "json");
-
-        }
-
-        public IWebClient WebClient
-        {
-            get => _webClient ?? (_webClient = new MorpherWebClient {Encoding = Encoding.UTF8});
-            set => _webClient = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         public void AddParam(string name, string value)
         {
-            WebClient.QueryString.Add(name, value);
+            _webClient.QueryString.Add(name, value);
         }
 
         public T GetObject<T>(string relativeUrl)
         {
             try
             {
-                string response = WebClient.DownloadString(_baseUrl + relativeUrl);
+                string response = _webClient.DownloadString(_baseUrl + relativeUrl);
                 return Deserialize<T>(response);
             }
             catch (WebException exc)
@@ -54,7 +48,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                WebClient.UploadValues(_baseUrl + relativeUrl, collection);
+                _webClient.UploadValues(_baseUrl + relativeUrl, collection);
             }
             catch (WebException exc)
             {
@@ -65,14 +59,14 @@ namespace Morpher.WebService.V3
 
         public void AddHeader(HttpRequestHeader header, string value)
         {
-            WebClient.Headers.Add(header, value);
+            _webClient.Headers.Add(header, value);
         }
 
         public T UploadString<T>(string relativeUrl, string data)
         {
             try
             {
-                string response = WebClient.UploadString(_baseUrl + relativeUrl, data);
+                string response = _webClient.UploadString(_baseUrl + relativeUrl, data);
                 
                 return Deserialize<T>(response);
             }
@@ -87,7 +81,7 @@ namespace Morpher.WebService.V3
         {
             try
             {
-                byte[] response = WebClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
+                byte[] response = _webClient.UploadValues(_baseUrl + relativeUrl, "DELETE", new NameValueCollection());
                 return Deserialize<T>(response);
             }
             catch (WebException exc)
@@ -147,7 +141,7 @@ namespace Morpher.WebService.V3
  
         public void Dispose()
         {
-            WebClient.Dispose();
+            _webClient.Dispose();
         }
     }
 }
