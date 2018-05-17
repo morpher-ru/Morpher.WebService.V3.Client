@@ -9,7 +9,7 @@
 
     public static class MockClientHelpers
     {
-        public static MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissedParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
+        public static MorpherClient ExceptionClient(string exceptionText = ExceptionText.MissingParameter, HttpStatusCode statusCode = (HttpStatusCode)400)
         {
             var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
                 WebResponseMock.CreateWebResponse(statusCode,

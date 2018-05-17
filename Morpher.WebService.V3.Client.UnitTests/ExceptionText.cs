@@ -8,7 +8,7 @@
   ""message"": ""Склонение числительных в declension не поддерживается. Используйте метод spell.""
 }";
 
-        public const string MissedParameter = @"
+        public const string MissingParameter = @"
 {
   ""code"": 6,
   ""message"": ""Не указан обязательный параметр:""

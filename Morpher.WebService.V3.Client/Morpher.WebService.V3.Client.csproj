@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
@@ -12,11 +12,11 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
-    <PackageReleaseNotes>Support for .NET Standard 2.0 + new function client.Russian.AddStressMarks(string text).</PackageReleaseNotes>
+    <PackageReleaseNotes>Упрощена инъекция IWebClient. Класс MorpherClient стал полностью readonly и, как следствие, thread-safe. Публичный API поменялся, так что в этом релизе была увеличена мажорная версия.</PackageReleaseNotes>
 	
-	<AssemblyVersion>2.0.0</AssemblyVersion>
-	<FileVersion>2.0.0.</FileVersion>
-	<InformationalVersion>2.0.0</InformationalVersion>
+	<AssemblyVersion>3.0.0</AssemblyVersion>
+	<FileVersion>3.0.0.</FileVersion>
+	<InformationalVersion>3.0.0</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
