@@ -23,6 +23,8 @@
 
         public Ukrainian.Client Ukrainian { get; }
 
+        public Qazaq.Client Qazaq { get;  }
+
         public int QueriesLeftForToday(Guid? guid = null)
         {
             using (var client = NewClient())

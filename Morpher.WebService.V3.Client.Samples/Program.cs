@@ -19,7 +19,7 @@ namespace Morpher.WebService.V3.Client.Samples
             // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
             Guid token = new Guid("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
 
-            var morpherClient = new MorpherClient(token, url); // оба параметра необязательные
+            var morpherClient = new MorpherClient(); // оба параметра необязательные
 
             Russian.Client russian = morpherClient.Russian;
             Ukrainian.Client ukrainian = morpherClient.Ukrainian;
@@ -60,6 +60,7 @@ namespace Morpher.WebService.V3.Client.Samples
 
             WriteLine();
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
+            ReadLine();
         }
 
         const decimal number = 2513;
@@ -68,7 +69,7 @@ namespace Morpher.WebService.V3.Client.Samples
         static void RussianDemo(Russian.Client russian)
         {
             WriteLine("Склонение на русском языке:");
-            Russian.DeclensionResult declensionResult = russian.Parse("Соединенное королевство");
+            Russian.DeclensionResult declensionResult = russian.Parse("Девять");
             WriteLine("Именительный падеж: {0}", declensionResult.Nominative);
             WriteLine(" Родительный падеж: {0}", declensionResult.Genitive);
             WriteLine("   Дательный падеж: {0}", declensionResult.Dative);
