@@ -13,7 +13,6 @@ dotnet_csproj:
   file_version: '{version}'
   informational_version: '{version}'
 before_build:
-- cmd: nuget source add -Name Morpher.WebService.V3.Client -Source https://ci.appveyor.com/nuget/morpher-webservice-v3-client-vbq0561vrls4
 - cmd: nuget restore
 build:
   verbosity: minimal
