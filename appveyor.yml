@@ -18,7 +18,7 @@ build:
   verbosity: minimal
 after_build:
 - cmd: dotnet pack Morpher.WebService.V3.Client/Morpher.WebService.V3.Client.csproj --no-build -c Release
-- cmd: dotnet nuget push
+- cmd: dotnet nuget push .\bin\Release\Morpher.WebService.V3.Client.3.1.0.nupkg
 artifacts:
 - path: '**\*.nupkg'
   name: Nuget
