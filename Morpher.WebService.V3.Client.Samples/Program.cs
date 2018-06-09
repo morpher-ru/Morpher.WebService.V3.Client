@@ -69,7 +69,7 @@ namespace Morpher.WebService.V3.Client.Samples
         static void RussianDemo(Russian.Client russian)
         {
             WriteLine("Склонение на русском языке:");
-            Russian.DeclensionResult declensionResult = russian.Parse("Девять");
+            Russian.DeclensionResult declensionResult = russian.Parse("Соединенное королевство");
             WriteLine("Именительный падеж: {0}", declensionResult.Nominative);
             WriteLine(" Родительный падеж: {0}", declensionResult.Genitive);
             WriteLine("   Дательный падеж: {0}", declensionResult.Dative);
