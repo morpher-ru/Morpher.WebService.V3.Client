@@ -19,7 +19,7 @@ namespace Morpher.WebService.V3.Client.Samples
             // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
             Guid token = new Guid("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
 
-            var morpherClient = new MorpherClient(); // оба параметра необязательные
+            var morpherClient = new MorpherClient(token, url); // оба параметра необязательные
 
             Russian.Client russian = morpherClient.Russian;
             Ukrainian.Client ukrainian = morpherClient.Ukrainian;
