@@ -60,7 +60,6 @@ namespace Morpher.WebService.V3.Client.Samples
 
             WriteLine();
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
-            ReadLine();
         }
 
         const decimal number = 2513;
