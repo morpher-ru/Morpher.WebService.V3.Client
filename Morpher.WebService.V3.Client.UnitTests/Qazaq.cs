@@ -54,5 +54,18 @@
             Assert.AreEqual("тесттерте", declensionResult.Plural.Prepositional);
             Assert.AreEqual("тесттерпен", declensionResult.Plural.Vocative);
         }
+
+        [Test]
+        public void ArgumentNotQazaqException()
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(new Morpher.WebService.V3.Qazaq.ArgumentNotQazaqException());
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
+
+            Assert.Throws<Morpher.WebService.V3.Qazaq.ArgumentNotQazaqException>(() =>
+                morpherClient.Qazaq.Parse("NotQazaq"));            
+        }
+        
     }
 }
