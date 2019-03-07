@@ -1,6 +1,7 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {    
     using System.Collections.Specialized;
+    using System.Net;
     using Moq;
     using NUnit.Framework;
     using V3.Qazaq;
@@ -55,16 +56,17 @@
             Assert.AreEqual("тесттерпен", declensionResult.Plural.Vocative);
         }
 
-        [Test]
-        public void ArgumentNotQazaqException()
+        public const string ArgumentNotQazaqError = @"
         {
-            var webClient = new Mock<IWebClient>();
-            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
-            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(new Morpher.WebService.V3.Qazaq.ArgumentNotQazaqException());
-            var morpherClient = new MorpherClient(null, null, webClient.Object);
+          ""code"": 5,
+          ""message"": ""Не найдено казахских слов.""
+        }";
 
-            Assert.Throws<Morpher.WebService.V3.Qazaq.ArgumentNotQazaqException>(() =>
-                morpherClient.Qazaq.Parse("NotQazaq"));            
+        [Test]
+        public void ArgumentNotQazaq_Exception()
+        {
+            MorpherClient client = MockClientHelpers.ExceptionClient(ArgumentNotQazaqError, (HttpStatusCode)496);
+            Assert.Throws<ArgumentNotQazaqException>(() => client.Qazaq.Parse("NotQazaq"));
         }
         
     }
