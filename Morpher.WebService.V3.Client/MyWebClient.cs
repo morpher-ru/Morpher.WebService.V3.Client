@@ -115,7 +115,7 @@ namespace Morpher.WebService.V3
             return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
-        static void TryToThrowMorpherException(WebException exc)
+        void TryToThrowMorpherException(WebException exc)
         {
             if (exc.Response is HttpWebResponse httpWebResponse 
                 && (int)httpWebResponse.StatusCode >= 400 
@@ -126,7 +126,7 @@ namespace Morpher.WebService.V3
                     case 402: throw new DailyLimitExceededException();
                     case 403: throw new IpBlockedException();
                     case 495: throw new Russian.NumeralsDeclensionNotSupportedException();
-                    case 496: throw new Russian.ArgumentNotRussianException();
+                    case 496: throwArgumentWrongLanguageException(); break;
                     case 400: throw new ArgumentEmptyException();
                     case 498: throw new TokenNotFoundException();
                     case 497: // "Неправильный формат токена". 
@@ -138,7 +138,12 @@ namespace Morpher.WebService.V3
                 }
             }
         }
- 
+
+        protected virtual void throwArgumentWrongLanguageException()
+        {
+            throw new Russian.ArgumentNotRussianException();
+        }
+
         public void Dispose()
         {
             _webClient.Dispose();
