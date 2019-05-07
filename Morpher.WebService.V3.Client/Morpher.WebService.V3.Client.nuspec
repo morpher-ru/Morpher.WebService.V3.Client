@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Morpher.WebService.V3.Client</id>
-    <version>$version$</version>
+    <version>3.1.0</version>
     <title>Morpher.WebService.V3.Client</title>
     <authors>Sergey Slepov</authors>
     <owners>Morpher.ru</owners>
