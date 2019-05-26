@@ -43,17 +43,17 @@
             Assert.AreEqual("тесттің", declensionResult.Genitive);
             Assert.AreEqual("тестке", declensionResult.Dative);
             Assert.AreEqual("тестті", declensionResult.Accusative);
-            Assert.AreEqual("тесттен", declensionResult.Instrumental);
-            Assert.AreEqual("тестте", declensionResult.Prepositional);
-            Assert.AreEqual("тестпен", declensionResult.Vocative);
+            Assert.AreEqual("тесттен", declensionResult.Ablative);
+            Assert.AreEqual("тестте", declensionResult.Locative);
+            Assert.AreEqual("тестпен", declensionResult.Instrumental);
 
             Assert.AreEqual("тесттер", declensionResult.Plural.Nominative);
             Assert.AreEqual("тесттертің", declensionResult.Plural.Genitive);
             Assert.AreEqual("тесттерке", declensionResult.Plural.Dative);
             Assert.AreEqual("тесттерті", declensionResult.Plural.Accusative);
-            Assert.AreEqual("тесттертен", declensionResult.Plural.Instrumental);
-            Assert.AreEqual("тесттерте", declensionResult.Plural.Prepositional);
-            Assert.AreEqual("тесттерпен", declensionResult.Plural.Vocative);
+            Assert.AreEqual("тесттертен", declensionResult.Plural.Ablative);
+            Assert.AreEqual("тесттерте", declensionResult.Plural.Locative);
+            Assert.AreEqual("тесттерпен", declensionResult.Plural.Instrumental);
         }
 
         public const string ArgumentNotQazaqError = @"
@@ -68,6 +68,5 @@
             MorpherClient client = MockClientHelpers.ExceptionClient(ArgumentNotQazaqError, (HttpStatusCode)496);
             Assert.Throws<ArgumentNotQazaqException>(() => client.Qazaq.Parse("NotQazaq"));
         }
-        
     }
 }
