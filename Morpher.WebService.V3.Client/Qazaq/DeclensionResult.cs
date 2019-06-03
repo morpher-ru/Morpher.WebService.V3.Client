@@ -2,7 +2,7 @@
 
 namespace Morpher.WebService.V3.Qazaq
 {
-    [DataContract(Name = "QazaqDeclensionResult", Namespace = "http://schemas.datacontract.org/2004/07/Morpher.WebApi.Models")]
+    [DataContract(Name = "qazaqXml", Namespace = "http://schemas.datacontract.org/2004/07/Morpher.WebApi.Models")]
     public class DeclensionResult : SameNumberForms
     {
         [DataMember(Name = "көпше")]
