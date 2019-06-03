@@ -31,11 +31,4 @@ namespace Morpher.WebService.V3.Qazaq
         [DataMember(Name = "олардың")]
         public DeclensionForms ThirdPersonPlural { get; set; }
     }
-
-    [DataContract(Name = "QazaqDeclensionResult", Namespace = "http://schemas.datacontract.org/2004/07/Morpher.WebApi.Models")]
-    public class DeclensionResult : SameNumberForms
-    {
-        [DataMember(Name = "көпше")]
-        public SameNumberForms Plural { get; set; }
-    }
 }
