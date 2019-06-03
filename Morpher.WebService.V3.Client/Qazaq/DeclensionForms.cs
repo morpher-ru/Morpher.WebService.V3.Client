@@ -9,8 +9,8 @@ namespace Morpher.WebService.V3.Qazaq
         [DataMember(Name = "І")] public string Genitive { get; set; }
         [DataMember(Name = "Б")] public string Dative { get; set; }
         [DataMember(Name = "Т")] public string Accusative { get; set; }
-        [DataMember(Name = "Ш")] public string Instrumental { get; set; }
-        [DataMember(Name = "Ж")] public string Prepositional { get; set; }
-        [DataMember(Name = "К")] public string Vocative { get; set; }
+        [DataMember(Name = "Ш")] public string Ablative { get; set; }
+        [DataMember(Name = "Ж")] public string Locative { get; set; }
+        [DataMember(Name = "К")] public string Instrumental { get; set; }
     }
 }

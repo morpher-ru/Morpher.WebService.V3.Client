@@ -18,7 +18,7 @@ namespace Morpher.WebService.V3.Qazaq
                 client.AddParam("s", lemma);
 
                 var declensionResult = client.GetObject<DeclensionResult>("/qazaq/declension");
-
+                
                 declensionResult.Nominative = lemma;
 
                 return declensionResult;
