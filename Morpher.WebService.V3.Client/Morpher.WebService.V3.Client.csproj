@@ -11,7 +11,7 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
-    <PackageReleaseNotes>Упрощена инъекция IWebClient. Класс MorpherClient стал полностью readonly и, как следствие, thread-safe. Публичный API поменялся, так что в этом релизе была увеличена мажорная версия.</PackageReleaseNotes>
+    <PackageReleaseNotes>Добавлена функция склонения по лицам на казахском.</PackageReleaseNotes>
 
     <PackageVersion>3.2.0</PackageVersion>
     <AssemblyVersion>3.2.0</AssemblyVersion>
