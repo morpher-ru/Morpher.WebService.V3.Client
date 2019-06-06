@@ -13,10 +13,10 @@
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
     <PackageReleaseNotes>Добавлена функция склонения по лицам на казахском.</PackageReleaseNotes>
 
-    <PackageVersion>3.2.0</PackageVersion>
-    <AssemblyVersion>3.2.0</AssemblyVersion>
-    <FileVersion>3.2.0</FileVersion>
-    <InformationalVersion>3.2.0</InformationalVersion>
+    <PackageVersion>1.0.0</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
