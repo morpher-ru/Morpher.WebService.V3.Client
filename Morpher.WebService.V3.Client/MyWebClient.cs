@@ -27,7 +27,7 @@ namespace Morpher.WebService.V3
 
         public void AddParam(string name, string value)
         {
-            _webClient.QueryString.Add(name, value);
+            _webClient.QueryString.Add(name, value.Replace("+", "%2B"));
         }
 
         public T GetObject<T>(string relativeUrl)
