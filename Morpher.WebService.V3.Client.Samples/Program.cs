@@ -19,21 +19,33 @@ namespace Morpher.WebService.V3.Client.Samples
             // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
             Guid token = new Guid("a8dab5fe-7a47-4c17-84ea-46facb7d19fe");
 
-            var morpherClient = new MorpherClient(token, url); // оба параметра необязательные
+            var morpherClient = new MorpherClient(null, url); // оба параметра необязательные
 
             Russian.Client russian = morpherClient.Russian;
             Ukrainian.Client ukrainian = morpherClient.Ukrainian;
 
             try
             {
-                RussianDemo(russian);
-                UkrainianDemo(ukrainian);
+                Russian.DeclensionResult declensionResult = russian.Parse("Консультант+");
+                WriteLine("Именительный падеж: {0}", declensionResult.Nominative);
+                WriteLine(" Родительный падеж: {0}", declensionResult.Genitive);
+                WriteLine("   Дательный падеж: {0}", declensionResult.Dative);
+                WriteLine(" Винительный падеж: {0}", declensionResult.Accusative);
+                WriteLine("Творительный падеж: {0}", declensionResult.Instrumental);
+                WriteLine("  Предложный падеж: {0}", declensionResult.Prepositional);
+                WriteLine("Предложный с предлогом: {0}", declensionResult.PrepositionalWithO ?? premium);
+                WriteLine("               Где? {0}", declensionResult.Where ?? premium);
+                WriteLine("              Куда? {0}", declensionResult.To ?? premium);
+                WriteLine("            Откуда? {0}", declensionResult.From ?? premium);
 
-                WriteLine("Остаток запросов на сегодня: " + morpherClient.QueriesLeftForToday());
-                WriteLine();
+                //RussianDemo(russian);
+                //UkrainianDemo(ukrainian);
 
-                WriteLine("Провоцируем ошибку:");
-                russian.Parse("wuf");
+                //WriteLine("Остаток запросов на сегодня: " + morpherClient.QueriesLeftForToday());
+                //WriteLine();
+
+                //WriteLine("Провоцируем ошибку:");
+                //russian.Parse("wuf");
             }
             catch (InvalidArgumentException ex)
             {
@@ -60,6 +72,7 @@ namespace Morpher.WebService.V3.Client.Samples
 
             WriteLine();
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
+            ReadKey();
         }
 
         const decimal number = 2513;
