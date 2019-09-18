@@ -10,7 +10,7 @@ namespace Morpher.WebService.V3.Qazaq
         [DataMember(Name = "менің")]
         public DeclensionForms FirstPerson { get; set; }
 
-        [DataMember(Name = "cенің")]
+        [DataMember(Name = "сенің")]
         public DeclensionForms SecondPerson { get; set; }
 
         [DataMember(Name = "сіздің")]
@@ -22,7 +22,7 @@ namespace Morpher.WebService.V3.Qazaq
         [DataMember(Name = "біздің")]
         public DeclensionForms FirstPersonPlural { get; set; }
 
-        [DataMember(Name = "cендердің")]
+        [DataMember(Name = "сендердің")]
         public DeclensionForms SecondPersonPlural { get; set; }
 
         [DataMember(Name = "сіздердің")]
