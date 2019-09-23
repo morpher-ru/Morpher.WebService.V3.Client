@@ -13,7 +13,7 @@ namespace Morpher.WebService.V3.Client.Samples
             // Адрес веб-сервиса. 
             // Пользователи "Морфер.Сервера" (http://morpher.ru/webservice/local/), 
             // могут указать адрес своего локального сервера:
-            string url = "http://ws3.morpher.ru";
+            string url = "http://localhost:61414";
 
             // Это token от демо-аккаунта, он нужен для демонстрации функций работы с пользовательским словарем.
             // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
@@ -60,6 +60,7 @@ namespace Morpher.WebService.V3.Client.Samples
 
             WriteLine();
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
+            ReadKey();
         }
 
         const decimal number = 2513;
@@ -166,6 +167,27 @@ namespace Morpher.WebService.V3.Client.Samples
             WriteLine("В размере {0} ({1}) {2}", number,
                 russianNumberSpellingResult.NumberDeclension.Genitive,
                 russianNumberSpellingResult.UnitDeclension.Genitive);
+            WriteLine();
+
+            WriteLine("Пропись порядковых числительных:");
+            var spellOrdinalResult = russian.SpellOrdinal(7518, "попугай");
+            WriteLine("Именительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Nominative, spellOrdinalResult.UnitDeclension.Nominative);
+            WriteLine("Родительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Genitive, spellOrdinalResult.UnitDeclension.Genitive);
+            WriteLine("Дательный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Dative, spellOrdinalResult.UnitDeclension.Dative);
+            WriteLine("Винительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Accusative, spellOrdinalResult.UnitDeclension.Accusative);
+            WriteLine("Творительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Instrumental, spellOrdinalResult.UnitDeclension.Instrumental);
+            WriteLine("Предложный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Prepositional, spellOrdinalResult.UnitDeclension.Prepositional);
+            WriteLine();
+
+            WriteLine("Пропись даты 2019-10-11:");
+            var spellDateResult = russian.SpellDate(new DateTime(2019, 10, 11));
+            WriteLine("Именительный падеж: {0}", spellDateResult.Nominative);
+            WriteLine("Родительный падеж: {0}", spellDateResult.Genitive);
+            WriteLine("Дательный падеж: {0}", spellDateResult.Dative);
+            WriteLine("Винительный падеж: {0}", spellDateResult.Accusative);
+            WriteLine("Творительный падеж: {0}", spellDateResult.Instrumental);
+            WriteLine("Предложный падеж: {0}", spellDateResult.Prepositional);
+            WriteLine();
         }
 
         static void UkrainianDemo(Ukrainian.Client ukrainian)
