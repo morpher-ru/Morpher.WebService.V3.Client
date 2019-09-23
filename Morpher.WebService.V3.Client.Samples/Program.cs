@@ -13,7 +13,7 @@ namespace Morpher.WebService.V3.Client.Samples
             // Адрес веб-сервиса. 
             // Пользователи "Морфер.Сервера" (http://morpher.ru/webservice/local/), 
             // могут указать адрес своего локального сервера:
-            string url = "http://localhost:61414";
+            string url = "http://ws3.morpher.ru";
 
             // Это token от демо-аккаунта, он нужен для демонстрации функций работы с пользовательским словарем.
             // Зарегистрируйтесь и получите свой token: http://morpher.ru/Register.aspx
@@ -60,7 +60,6 @@ namespace Morpher.WebService.V3.Client.Samples
 
             WriteLine();
             WriteLine(premium + " означает, что функция доступна только на платных тарифах. Подробнее http://morpher.ru/ws3#premium");
-            ReadKey();
         }
 
         const decimal number = 2513;
