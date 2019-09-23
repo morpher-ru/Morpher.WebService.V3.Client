@@ -89,7 +89,7 @@ namespace Morpher.WebService.V3.Russian
         {
             using (var client = _newClient())
             {
-                string dateString = date.ToString("ГГГГ-ММ-ДД", new CultureInfo("ru-RU"));
+                string dateString = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 client.AddParam("date", dateString);
                 return client.GetObject<DateSpellingResult>("/russian/spell-date");
             }
