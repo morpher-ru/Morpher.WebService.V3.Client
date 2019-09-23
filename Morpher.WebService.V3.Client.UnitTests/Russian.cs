@@ -80,22 +80,12 @@
 
         string SpellDateResultText { get; } = @"
 {
-    ""n"": {
         ""И"": ""десять"",
         ""Р"": ""десяти"",
         ""Д"": ""десяти"",
         ""В"": ""десять"",
         ""Т"": ""десятью"",
         ""П"": ""десяти""
-    },
-    ""unit"": {
-        ""И"": ""рублей"",
-        ""Р"": ""рублей"",
-        ""Д"": ""рублям"",
-        ""В"": ""рублей"",
-        ""Т"": ""рублями"",
-        ""П"": ""рублях""
-    }
 }";
 
         string FioSplit { get; } = @"
@@ -260,11 +250,13 @@
         [Test]
         public void SpellDate_Success()
         {
-            DateTime date1 = DateTime.ParseExact("2018-05-01", "ГГГГ-ММ-ДД", new CultureInfo("ru-RU"), DateTimeStyles.None);
+            DateTime date1 = DateTime.ParseExact("2018-05-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);            
             AssertSpellDate(date1);
 
             var date2 = new DateTime(2018, 5, 1);
-            AssertSpellDate(date1);
+            AssertSpellDate(date2);
+
+            Assert.AreEqual(date1, date2);
         }
 
         private void AssertSpellDate(DateTime dateTime)
