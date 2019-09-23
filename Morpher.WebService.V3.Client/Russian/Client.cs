@@ -74,11 +74,11 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
-        public NumberSpellingResult SpellOrdinal(decimal number, string unit)
+        public NumberSpellingResult SpellOrdinal(long number, string unit)
         {
             using (var client = _newClient())
             {
-                client.AddParam("n", number.ToString(new CultureInfo("en-US")));
+                client.AddParam("n", number.ToString());
                 client.AddParam("unit", unit);
 
                 return client.GetObject<NumberSpellingResult>("/russian/spell-ordinal");

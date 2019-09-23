@@ -169,7 +169,7 @@ namespace Morpher.WebService.V3.Client.Samples
             WriteLine();
 
             WriteLine("Пропись порядковых числительных");
-            var spellOrdinalResult = russian.SpellOrdinal(number, "попугай"); ;
+            var spellOrdinalResult = russian.SpellOrdinal(7518, "попугай");
             WriteLine("Именительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Nominative, spellOrdinalResult.UnitDeclension.Nominative);
             WriteLine("Родительный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Genitive, spellOrdinalResult.UnitDeclension.Genitive);
             WriteLine("Дательный падеж: {0} {1}", spellOrdinalResult.NumberDeclension.Dative, spellOrdinalResult.UnitDeclension.Dative);
