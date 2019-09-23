@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -38,6 +39,46 @@
 }";
 
         string SpellResultText { get; } = @"
+{
+    ""n"": {
+        ""И"": ""десять"",
+        ""Р"": ""десяти"",
+        ""Д"": ""десяти"",
+        ""В"": ""десять"",
+        ""Т"": ""десятью"",
+        ""П"": ""десяти""
+    },
+    ""unit"": {
+        ""И"": ""рублей"",
+        ""Р"": ""рублей"",
+        ""Д"": ""рублям"",
+        ""В"": ""рублей"",
+        ""Т"": ""рублями"",
+        ""П"": ""рублях""
+    }
+}";
+
+        string SpellOrdinalResultText { get; } = @"
+{
+    ""n"": {
+        ""И"": ""десять"",
+        ""Р"": ""десяти"",
+        ""Д"": ""десяти"",
+        ""В"": ""десять"",
+        ""Т"": ""десятью"",
+        ""П"": ""десяти""
+    },
+    ""unit"": {
+        ""И"": ""рублей"",
+        ""Р"": ""рублей"",
+        ""Д"": ""рублям"",
+        ""В"": ""рублей"",
+        ""Т"": ""рублями"",
+        ""П"": ""рублях""
+    }
+}";
+
+        string SpellDateResultText { get; } = @"
 {
     ""n"": {
         ""И"": ""десять"",
@@ -188,6 +229,65 @@
         }
 
         [Test]
+        public void SpellOrdinal_Success()
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellResultText);
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
+
+            NumberSpellingResult declensionResult = morpherClient.Russian.SpellOrdinal(10, "рубль");
+            Assert.IsNotNull(declensionResult);
+
+            // number
+            Assert.AreEqual("десять", declensionResult.NumberDeclension.Nominative);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Genitive);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Dative);
+            Assert.AreEqual("десять", declensionResult.NumberDeclension.Accusative);
+            Assert.AreEqual("десятью", declensionResult.NumberDeclension.Instrumental);
+            Assert.AreEqual("десяти", declensionResult.NumberDeclension.Prepositional);
+
+
+            // unit
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Nominative);
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Genitive);
+            Assert.AreEqual("рублям", declensionResult.UnitDeclension.Dative);
+            Assert.AreEqual("рублей", declensionResult.UnitDeclension.Accusative);
+            Assert.AreEqual("рублями", declensionResult.UnitDeclension.Instrumental);
+            Assert.AreEqual("рублях", declensionResult.UnitDeclension.Prepositional);
+        }
+
+        [Test]
+        public void SpellDate_Success()
+        {
+            DateTime date1 = DateTime.ParseExact("2018-05-01", "ГГГГ-ММ-ДД", new CultureInfo("ru-RU"), DateTimeStyles.None);
+            AssertSpellDate(date1);
+
+            var date2 = new DateTime(2018, 5, 1);
+            AssertSpellDate(date1);
+        }
+
+        private void AssertSpellDate(DateTime dateTime)
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellDateResultText);
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
+
+            DateSpellingResult dateSpellingResult = morpherClient.Russian.SpellDate(dateTime);
+
+            Assert.IsNotNull(dateSpellingResult);
+
+            // number
+            Assert.AreEqual("десять", dateSpellingResult.Nominative);
+            Assert.AreEqual("десяти", dateSpellingResult.Genitive);
+            Assert.AreEqual("десяти", dateSpellingResult.Dative);
+            Assert.AreEqual("десять", dateSpellingResult.Accusative);
+            Assert.AreEqual("десятью", dateSpellingResult.Instrumental);
+            Assert.AreEqual("десяти", dateSpellingResult.Prepositional);
+        }
+
+        [Test]
         public void Genders_Success()
         {
             var webClient = new Mock<IWebClient>();
@@ -229,6 +329,20 @@
         {
             Assert.Throws<ArgumentEmptyException>(() => 
             MockClientHelpers.ExceptionClient().Russian.Spell(1, "exception here"));
+        }
+
+        [Test]
+        public void SpellOrdinal_Exception()
+        {
+            Assert.Throws<ArgumentEmptyException>(() =>
+            MockClientHelpers.ExceptionClient().Russian.SpellOrdinal(1, "exception here"));
+        }
+
+        [Test]
+        public void SpellDate_Exception()
+        {
+            Assert.Throws<ArgumentEmptyException>(() =>
+            MockClientHelpers.ExceptionClient().Russian.SpellDate(new DateTime()));
         }
 
         [Test]

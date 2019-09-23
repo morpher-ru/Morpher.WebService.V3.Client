@@ -74,6 +74,27 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
+        public NumberSpellingResult SpellOrdinal(decimal number, string unit)
+        {
+            using (var client = _newClient())
+            {
+                client.AddParam("n", number.ToString(new CultureInfo("en-US")));
+                client.AddParam("unit", unit);
+
+                return client.GetObject<NumberSpellingResult>("/russian/spell-ordinal");
+            }
+        }
+
+        public DateSpellingResult SpellDate(DateTime date)
+        {
+            using (var client = _newClient())
+            {
+                string dateString = date.ToString("ГГГГ-ММ-ДД", new CultureInfo("ru-RU"));
+                client.AddParam("date", dateString);
+                return client.GetObject<DateSpellingResult>("/russian/spell-date");
+            }
+        }
+
         public AdjectiveGenders AdjectiveGenders(string lemma)
         {
             using (var client = _newClient())
