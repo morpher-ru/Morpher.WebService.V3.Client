@@ -11,7 +11,7 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
     <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
-    <PackageReleaseNotes>Исправленно экранирование символа '+'.</PackageReleaseNotes>
+    <PackageReleaseNotes>Добавлена поддержка функций SpellOrdinal и SpellDate</PackageReleaseNotes>
 
     <PackageVersion>1.0.0</PackageVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
