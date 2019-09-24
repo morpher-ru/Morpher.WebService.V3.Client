@@ -1,7 +1,9 @@
 ﻿namespace Morpher.WebService.V3.Client.UnitTests
 {
+    using System;
     using System.Collections.Specialized;
     using System.Net;
+    using System.Web;
     using Moq;
     using NUnit.Framework;
 
@@ -31,5 +33,13 @@
             MorpherClient client = MockClientHelpers.ExceptionClient("Any", (HttpStatusCode)401);
             Assert.Throws<InvalidServerResponseException>(() => client.Russian.UserDict.GetAll());
         }
+
+        [Test]
+        public void UrlEncodeRoutines()
+        {            
+            Assert.AreEqual("%D0%9A%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D0%BD%D1%82%2B", HttpUtility.UrlEncode("Консультант+").ToUpper());
+            Assert.AreEqual("%D0%9A%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D0%BD%D1%82%2B", Uri.EscapeDataString("Консультант+").ToUpper());
+        }
+
     }
 }

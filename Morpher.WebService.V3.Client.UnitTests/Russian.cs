@@ -362,7 +362,7 @@
             bool found = morpherClient.Russian.UserDict.Remove("кошка");
 
             Assert.IsTrue(found);
-            Assert.AreEqual("кошка", @params.Get("s"));
+            Assert.AreEqual(Uri.EscapeDataString("кошка"), @params.Get("s"));
         }
 
         [Test]
