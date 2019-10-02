@@ -26,5 +26,14 @@ namespace Morpher.WebService.V3.Russian
 
         [DataMember(Name = "откуда")]
         public string From { get; set; }
+        
+        [DataMember(Name = "одушевленное")]
+        public bool IsAnimate { get; set; }
+
+        [DataMember(Name = "счетнаяформа")]
+        public string Paucal { get; set; }
+
+        [DataMember(Name = "М")]
+        public string Locative { get; set; }
     }
 }
