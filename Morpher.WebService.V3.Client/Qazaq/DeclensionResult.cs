@@ -7,8 +7,5 @@ namespace Morpher.WebService.V3.Qazaq
     {
         [DataMember(Name = "көпше")]
         public SameNumberForms Plural { get; set; }
-
-        [DataMember(Name = "IsPlural")]
-        public bool IsPlural { get; set; }
     }
 }
