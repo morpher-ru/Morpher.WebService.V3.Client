@@ -25,7 +25,7 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public StringResult Cardinal(int n)
+        public StringResult GetCardinal(int n)
         {
             using (var client = _newClient())
             {
@@ -37,7 +37,7 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public StringResult Ordinal(string cardinal)
+        public StringResult GetOrdinal(string cardinal)
         {
             using (var client = _newClient())
             {
@@ -49,7 +49,7 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public StringResult Date(string date)
+        public StringResult GetDate(string date)
         {
             using (var client = _newClient())
             {
@@ -61,7 +61,7 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public StringResult DayOfMonth(int day, int month)
+        public StringResult GetDayOfMonth(int day, int month)
         {
             using (var client = _newClient())
             {
