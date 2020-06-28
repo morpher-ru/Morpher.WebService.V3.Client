@@ -25,50 +25,50 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public StringResult GetCardinal(int n)
+        public string GetCardinal(int n)
         {
             using (var client = _newClient())
             {
                 client.AddParam("n", n.ToString());
 
-                var stringResult = client.GetObject<StringResult>("/qazaq/cardinal");
+                var stringResult = client.GetObject<string>("/qazaq/cardinal");
 
                 return stringResult;
             }
         }
 
-        public StringResult GetOrdinal(string cardinal)
+        public string GetOrdinal(string cardinal)
         {
             using (var client = _newClient())
             {
                 client.AddParam("cardinal", cardinal);
 
-                var stringResult = client.GetObject<StringResult>("/qazaq/ordinal");
+                var stringResult = client.GetObject<string>("/qazaq/ordinal");
 
                 return stringResult;
             }
         }
 
-        public StringResult GetDate(string date)
+        public string GetDate(string date)
         {
             using (var client = _newClient())
             {
                 client.AddParam("date", date);
 
-                var stringResult = client.GetObject<StringResult>("/qazaq/date");
+                var stringResult = client.GetObject<string>("/qazaq/date");
 
                 return stringResult;
             }
         }
 
-        public StringResult GetDayOfMonth(int day, int month)
+        public string GetDayOfMonth(int day, int month)
         {
             using (var client = _newClient())
             {
                 client.AddParam("day", day.ToString());
                 client.AddParam("month", month.ToString());
 
-                var stringResult = client.GetObject<StringResult>("/qazaq/day-of-month");
+                var stringResult = client.GetObject<string>("/qazaq/day-of-month");
 
                 return stringResult;
             }
