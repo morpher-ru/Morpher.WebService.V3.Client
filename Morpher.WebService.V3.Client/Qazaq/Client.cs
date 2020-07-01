@@ -25,12 +25,12 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public string GetCardinal(int n, bool useOne)
+        public string GetCardinal(long n, bool useOne)
         {
             using (var client = _newClient())
             {
                 client.AddParam("n", n.ToString());
-                client.AddParam("useOne", useOne.ToString());
+                client.AddParam("use-one", useOne.ToString());
 
                 var stringResult = client.GetObject<string>("/qazaq/cardinal");
 
@@ -55,7 +55,7 @@ namespace Morpher.WebService.V3.Qazaq
             using (var client = _newClient())
             {
                 client.AddParam("date", date);
-                client.AddParam("useOne", useOne.ToString());
+                client.AddParam("use-one", useOne.ToString());
                 var stringResult = client.GetObject<string>("/qazaq/date");
 
                 return stringResult;
