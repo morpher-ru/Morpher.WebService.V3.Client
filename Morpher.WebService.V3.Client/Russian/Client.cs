@@ -20,6 +20,11 @@ namespace Morpher.WebService.V3.Russian
 
         public DeclensionResult Parse(string lemma, DeclensionFlags? flags = null)
         {
+            if (string.IsNullOrWhiteSpace(lemma))
+            {
+                throw new ArgumentEmptyException(nameof(lemma));
+            }
+            
             using (var client = _newClient())
             {
                 if (flags != null)
@@ -29,11 +34,25 @@ namespace Morpher.WebService.V3.Russian
 
                 client.AddParam("s", lemma);
 
-                var declensionResult = client.GetObject<DeclensionResult>("/russian/declension");
+                try
+                {
+                    var declensionResult = client.GetObject<DeclensionResult>("/russian/declension");
 
-                declensionResult.Nominative = lemma;
+                    declensionResult.Nominative = lemma;
 
-                return declensionResult;
+                    return declensionResult;
+                }
+                catch (BadRequestException e)
+                {
+                    switch (e.Status)
+                    {
+                        case 495: throw new NumeralsDeclensionNotSupportedException(nameof(lemma));
+                        case 496: throw new ArgumentNotRussianException(nameof(lemma));
+                        case 494: throw new InvalidFlagsException(nameof(flags));
+                    }
+
+                    throw;
+                }
             }
         }
 
@@ -65,6 +84,11 @@ namespace Morpher.WebService.V3.Russian
 
         public NumberSpellingResult Spell(decimal number, string unit)
         {
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                throw new ArgumentEmptyException(nameof(unit));
+            }
+            
             using (var client = _newClient())
             {
                 client.AddParam("n", number.ToString(new CultureInfo("en-US")));
@@ -76,6 +100,11 @@ namespace Morpher.WebService.V3.Russian
 
         public NumberSpellingResult SpellOrdinal(long number, string unit)
         {
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                throw new ArgumentEmptyException(nameof(unit));
+            }
+            
             using (var client = _newClient())
             {
                 client.AddParam("n", number.ToString());
@@ -91,12 +120,17 @@ namespace Morpher.WebService.V3.Russian
             {
                 string dateString = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 client.AddParam("date", dateString);
-                return client.GetObject<DateSpellingResult>("/russian/spell-date");
+                    return client.GetObject<DateSpellingResult>("/russian/spell-date");
             }
         }
 
         public AdjectiveGenders AdjectiveGenders(string lemma)
         {
+            if (string.IsNullOrWhiteSpace(lemma))
+            {
+                throw new ArgumentEmptyException(nameof(lemma));
+            }
+            
             using (var client = _newClient())
             {
                 client.AddParam("s", lemma);
@@ -107,6 +141,11 @@ namespace Morpher.WebService.V3.Russian
 
         public List<string> Adjectivize(string lemma)
         {
+            if (string.IsNullOrWhiteSpace(lemma))
+            {
+                throw new ArgumentEmptyException(nameof(lemma));
+            }
+            
             using (var client = _newClient())
             {
                 client.AddParam("s", lemma);

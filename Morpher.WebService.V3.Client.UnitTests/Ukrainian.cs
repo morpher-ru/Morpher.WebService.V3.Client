@@ -115,7 +115,7 @@ namespace Morpher.WebService.V3.Client.UnitTests
             Assert.AreEqual("рублів", declensionResult.UnitDeclension.Vocative);
         }
 
-
+        [Ignore("ukrainian/declension never returns 495. Will repurpose this test later for 496.")]
         [Test]
         public void Parse_MorpherWebServiceException()
         {
@@ -134,14 +134,9 @@ namespace Morpher.WebService.V3.Client.UnitTests
         public void Spell_MorpherWebServiceException()
         {
             var webClient = new Mock<IWebClient>();
-            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
-            var exception = new WebException("Exception", null, WebExceptionStatus.ReceiveFailure,
-                WebResponseMock.CreateWebResponse((HttpStatusCode)400,
-                    new MemoryStream(Encoding.UTF8.GetBytes(ExceptionText.MissingParameter))));
-            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Throws(exception);
             var morpherClient = new MorpherClient(null, null, webClient.Object);
 
-            Assert.Throws<ArgumentEmptyException>(() => morpherClient.Ukrainian.Parse("exception here"));
+            Assert.Throws<ArgumentEmptyException>(() => morpherClient.Ukrainian.Parse(""));
         }
 
         [Test]

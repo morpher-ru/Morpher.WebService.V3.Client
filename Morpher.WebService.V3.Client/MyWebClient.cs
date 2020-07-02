@@ -103,9 +103,9 @@ namespace Morpher.WebService.V3
                         return (T) serializer.Deserialize(reader, typeof(T));
                     }
                 }
-                catch (JsonReaderException)
+                catch (JsonReaderException e)
                 {
-                    throw new InvalidServerResponseException();
+                    throw new InvalidServerResponseException(e);
                 }
             }
         }
@@ -115,33 +115,28 @@ namespace Morpher.WebService.V3
             return Deserialize<T>(Encoding.UTF8.GetBytes(response));
         }
 
-        void TryToThrowMorpherException(WebException exc)
+        static void TryToThrowMorpherException(WebException exc)
         {
-            if (exc.Response is HttpWebResponse httpWebResponse 
-                && (int)httpWebResponse.StatusCode >= 400 
-                && (int)httpWebResponse.StatusCode < 500)
+            if (exc.Response is HttpWebResponse httpWebResponse)
             {
-                switch ((int)httpWebResponse.StatusCode)
+                int status = (int)httpWebResponse.StatusCode;
+                
+                if (status >= 400 && status < 500)
                 {
-                    case 402: throw new DailyLimitExceededException();
-                    case 403: throw new IpBlockedException();
-                    case 495: throw new Russian.NumeralsDeclensionNotSupportedException();
-                    case 496: throwArgumentWrongLanguageException(); break;
-                    case 400: throw new ArgumentEmptyException();
-                    case 498: throw new TokenNotFoundException();
-                    case 497: // "Неправильный формат токена". 
-                        // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
-                        // но никак не ошибка пользователя.
-                        throw new InvalidServerResponseException();
-                    case 494: throw new InvalidFlagsException();
-                    default: throw new InvalidServerResponseException();
+                    switch (status)
+                    {
+                        case 402: throw new DailyLimitExceededException();
+                        case 403: throw new IpBlockedException();
+                        case 498: throw new TokenNotFoundException();
+                        case 497: // "Неправильный формат токена". 
+                            // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
+                            // но никак не ошибка пользователя.
+                            throw new InvalidServerResponseException(exc);
+                    }
+
+                    throw new BadRequestException(status);
                 }
             }
-        }
-
-        protected virtual void throwArgumentWrongLanguageException()
-        {
-            throw new Russian.ArgumentNotRussianException();
         }
 
         public void Dispose()
