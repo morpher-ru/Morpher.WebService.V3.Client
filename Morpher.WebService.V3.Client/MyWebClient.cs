@@ -125,6 +125,8 @@ namespace Morpher.WebService.V3
                 {
                     switch (status)
                     {
+                        // Здесь обрабатываются только ошибки, общие для всех методов.
+                        // Специфичные ошибки обрабатываются в самих методах.
                         case 402: throw new DailyLimitExceededException();
                         case 403: throw new IpBlockedException();
                         case 498: throw new TokenNotFoundException();
