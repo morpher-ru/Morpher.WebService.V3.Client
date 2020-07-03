@@ -3,6 +3,11 @@
     public class ArgumentEmptyException : InvalidArgumentException
     {
         public override string Message =>
-            "Сервису передана пустая строка.";
+            $"В качестве параметра '{ParameterName}' передана пустая строка.";
+
+        public ArgumentEmptyException(string parameterName)
+            : base (parameterName)
+        {
+        }
     }
 }

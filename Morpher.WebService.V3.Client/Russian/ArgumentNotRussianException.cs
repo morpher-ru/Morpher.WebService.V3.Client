@@ -4,5 +4,10 @@
     {
         public override string Message =>
             "Не найдено русских слов.";
+
+        public ArgumentNotRussianException(string parameterName)
+            : base(parameterName)
+        {
+        }
     }
 }

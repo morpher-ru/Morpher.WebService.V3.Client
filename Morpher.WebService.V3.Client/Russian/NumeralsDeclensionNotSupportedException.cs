@@ -7,5 +7,10 @@
     {
         public override string Message => 
             "Склонение числительных методом parse не поддерживается. Используйте метод spell.";
+
+        public NumeralsDeclensionNotSupportedException(string parameterName)
+            : base(parameterName)
+        {
+        }
     }
 }
