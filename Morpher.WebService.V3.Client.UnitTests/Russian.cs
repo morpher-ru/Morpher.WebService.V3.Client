@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -55,6 +56,36 @@
         ""Т"": ""рублями"",
         ""П"": ""рублях""
     }
+}";
+
+        string SpellOrdinalResultText { get; } = @"
+{
+  ""n"": {
+    ""И"": ""семь тысяч пятьсот восемнадцатое"",
+    ""Р"": ""семь тысяч пятьсот восемнадцатого"",
+    ""Д"": ""семь тысяч пятьсот восемнадцатому"",
+    ""В"": ""семь тысяч пятьсот восемнадцатое"",
+    ""Т"": ""семь тысяч пятьсот восемнадцатым"",
+    ""П"": ""семь тысяч пятьсот восемнадцатом""
+  },
+  ""unit"": {
+    ""И"": ""колесо"",
+    ""Р"": ""колеса"",
+    ""Д"": ""колесу"",
+    ""В"": ""колесо"",
+    ""Т"": ""колесом"",
+    ""П"": ""колесе""
+  }
+}";
+
+        string SpellDateResultText { get; } = @"
+{
+        ""И"": ""двадцать девятое июня две тысячи девятнадцатого года"",
+        ""Р"": ""двадцать девятого июня две тысячи девятнадцатого года"",
+        ""Д"": ""двадцать девятому июня две тысячи девятнадцатого года"",
+        ""В"": ""двадцать девятое июня две тысячи девятнадцатого года"",
+        ""Т"": ""двадцать девятым июня две тысячи девятнадцатого года"",
+        ""П"": ""двадцать девятом июня две тысячи девятнадцатого года""
 }";
 
         string FioSplit { get; } = @"
@@ -188,6 +219,65 @@
         }
 
         [Test]
+        public void SpellOrdinal_Success()
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellOrdinalResultText);
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
+
+            NumberSpellingResult declensionResult = morpherClient.Russian.SpellOrdinal(7518, "колесо");
+            Assert.IsNotNull(declensionResult);
+
+            // number
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатое", declensionResult.NumberDeclension.Nominative);
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатого", declensionResult.NumberDeclension.Genitive);
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатому", declensionResult.NumberDeclension.Dative);
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатое", declensionResult.NumberDeclension.Accusative);
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатым", declensionResult.NumberDeclension.Instrumental);
+            Assert.AreEqual("семь тысяч пятьсот восемнадцатом", declensionResult.NumberDeclension.Prepositional);
+
+
+            // unit
+            Assert.AreEqual("колесо", declensionResult.UnitDeclension.Nominative);
+            Assert.AreEqual("колеса", declensionResult.UnitDeclension.Genitive);
+            Assert.AreEqual("колесу", declensionResult.UnitDeclension.Dative);
+            Assert.AreEqual("колесо", declensionResult.UnitDeclension.Accusative);
+            Assert.AreEqual("колесом", declensionResult.UnitDeclension.Instrumental);
+            Assert.AreEqual("колесе", declensionResult.UnitDeclension.Prepositional);
+        }
+
+        [Test]
+        public void SpellDate_Success()
+        {
+            DateTime date1 = DateTime.ParseExact("2019-06-29", "yyyy-MM-dd", CultureInfo.InvariantCulture);            
+            AssertSpellDate(date1);
+
+            var date2 = new DateTime(2019, 6, 29);
+            AssertSpellDate(date2);
+        }
+
+        private void AssertSpellDate(DateTime dateTime)
+        {
+            var webClient = new Mock<IWebClient>();
+            webClient.Setup(client => client.QueryString).Returns(new NameValueCollection());
+            webClient.Setup(client => client.DownloadString(It.IsAny<string>())).Returns(SpellDateResultText);
+            var morpherClient = new MorpherClient(null, null, webClient.Object);
+
+            DateSpellingResult dateSpellingResult = morpherClient.Russian.SpellDate(dateTime);
+
+            Assert.IsNotNull(dateSpellingResult);
+
+            // number
+            Assert.AreEqual("двадцать девятое июня две тысячи девятнадцатого года", dateSpellingResult.Nominative);
+            Assert.AreEqual("двадцать девятого июня две тысячи девятнадцатого года", dateSpellingResult.Genitive);
+            Assert.AreEqual("двадцать девятому июня две тысячи девятнадцатого года", dateSpellingResult.Dative);
+            Assert.AreEqual("двадцать девятое июня две тысячи девятнадцатого года", dateSpellingResult.Accusative);
+            Assert.AreEqual("двадцать девятым июня две тысячи девятнадцатого года", dateSpellingResult.Instrumental);
+            Assert.AreEqual("двадцать девятом июня две тысячи девятнадцатого года", dateSpellingResult.Prepositional);
+        }
+
+        [Test]
         public void Genders_Success()
         {
             var webClient = new Mock<IWebClient>();
@@ -232,6 +322,20 @@
         }
 
         [Test]
+        public void SpellOrdinal_Exception()
+        {
+            Assert.Throws<ArgumentEmptyException>(() =>
+            MockClientHelpers.ExceptionClient().Russian.SpellOrdinal(1, "exception here"));
+        }
+
+        [Test]
+        public void SpellDate_Exception()
+        {
+            Assert.Throws<ArgumentEmptyException>(() =>
+            MockClientHelpers.ExceptionClient().Russian.SpellDate(new DateTime()));
+        }
+
+        [Test]
         public void Genders_Exception()
         {
             Assert.Throws<ArgumentEmptyException>(() => 
@@ -258,7 +362,7 @@
             bool found = morpherClient.Russian.UserDict.Remove("кошка");
 
             Assert.IsTrue(found);
-            Assert.AreEqual("кошка", @params.Get("s"));
+            Assert.AreEqual(Uri.EscapeDataString("кошка"), @params.Get("s"));
         }
 
         [Test]

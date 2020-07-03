@@ -2,6 +2,7 @@
 
 namespace Morpher.WebService.V3.Client.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
@@ -156,7 +157,7 @@ namespace Morpher.WebService.V3.Client.UnitTests
             bool found = morpherClient.Ukrainian.UserDict.Remove("тест");
 
             Assert.IsTrue(found);
-            Assert.AreEqual("тест", @params.Get("s"));
+            Assert.AreEqual(Uri.EscapeDataString("тест"), @params.Get("s"));
         }
 
         [Test]
