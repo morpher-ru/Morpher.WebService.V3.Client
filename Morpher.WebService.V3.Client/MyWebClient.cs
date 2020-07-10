@@ -138,6 +138,33 @@ namespace Morpher.WebService.V3
 
                     throw new BadRequestException(status);
                 }
+
+                if (status >= 500)
+                {
+                    Stream responseStream = httpWebResponse.GetResponseStream();
+                
+                    string body = GetBody(responseStream);
+
+                    string message = $"Got a response with status code {status} {httpWebResponse.StatusDescription}."
+                                     + $"Status: {exc.Status}. Body:\n{body}";
+                                         
+                    throw new Exception(message, exc);
+                }
+            }
+        }
+
+        private static string GetBody(Stream responseStream)
+        {
+            if (responseStream == null)
+                return "<empty>";
+            
+            try
+            {
+                return new StreamReader(responseStream).ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                return "Failed to read the response stream: " + e.Message;
             }
         }
 

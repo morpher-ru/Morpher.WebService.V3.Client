@@ -412,7 +412,7 @@
         public void InternalServerError()
         {
             MorpherClient client = MockClientHelpers.ExceptionClient(ExceptionText.ServerError, HttpStatusCode.InternalServerError);
-            Assert.Throws<WebException>(() => client.Russian.UserDict.GetAll());
+            Assert.Throws<Exception>(() => client.Russian.UserDict.GetAll());
         }
 
         /// <summary>
