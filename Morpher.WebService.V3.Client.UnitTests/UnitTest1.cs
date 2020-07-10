@@ -31,7 +31,7 @@
         public void InvalidServerResponseException()
         {
             MorpherClient client = MockClientHelpers.ExceptionClient("Any", (HttpStatusCode)401);
-            Assert.Throws<InvalidServerResponseException>(() => client.Russian.UserDict.GetAll());
+            Assert.That(() => client.Russian.UserDict.GetAll(), Throws.Exception);
         }
 
         [Test]

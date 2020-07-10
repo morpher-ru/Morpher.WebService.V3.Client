@@ -4,5 +4,10 @@
     {
         public override string Message =>
             "Не найдено казахских слов.";
+
+        public ArgumentNotQazaqException(string parameterName)
+            : base(parameterName)
+        {
+        }
     }
 }

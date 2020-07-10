@@ -35,6 +35,11 @@ namespace Morpher.WebService.V3.Russian
 
         public bool Remove(string nominativeForm)
         {
+            if (string.IsNullOrWhiteSpace(nominativeForm))
+            {
+                throw new ArgumentEmptyException(nameof(nominativeForm));
+            }
+            
             using (MyWebClient client = _newClient())
             {
                 client.AddParam("s", nominativeForm);

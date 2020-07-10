@@ -4,5 +4,10 @@
     {
         public override string Message =>
             "Указаны неправильные флаги.";
+
+        public InvalidFlagsException(string parameterName)
+            : base(parameterName)
+        {
+        }
     }
 }

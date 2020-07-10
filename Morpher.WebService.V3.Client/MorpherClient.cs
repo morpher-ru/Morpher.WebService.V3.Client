@@ -15,11 +15,10 @@
             _url = url ?? "http://ws3.morpher.ru";
             Russian = new Russian.Client(NewClient);
             Ukrainian = new Ukrainian.Client(NewClient);
-            Qazaq = new Qazaq.Client(NewQazaqClient);
+            Qazaq = new Qazaq.Client(NewClient);
         }
 
         MyWebClient NewClient() => new MyWebClient(_token, _url, _webClient);
-        MyWebClient NewQazaqClient() => new Qazaq.QazaqWebClient(_token, _url, _webClient);       
 
         public Russian.Client Russian { get; }
 
