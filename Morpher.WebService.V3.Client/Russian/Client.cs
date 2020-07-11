@@ -153,5 +153,26 @@ namespace Morpher.WebService.V3.Russian
                 return client.GetObject<List<string>>("/russian/adjectivize");
             }
         }
+
+        public SummaPropisResult SpellSum(decimal n, string currency,
+            string padeg, string capitals, string nbsp, string delim)
+        {
+            if (string.IsNullOrWhiteSpace(currency))
+            {
+                throw new ArgumentEmptyException(nameof(currency));
+            }
+
+            using (var client = _newClient())
+            {
+                client.AddParam("n", n.ToString());
+                client.AddParam("currency", currency);
+                client.AddParam("case", padeg);
+                client.AddParam("capitals", capitals);
+                client.AddParam("nbsp", nbsp);
+                client.AddParam("delim", delim);
+
+                return client.GetObject<SummaPropisResult>("/russian/propis");
+            }
+        }
     }
 }
