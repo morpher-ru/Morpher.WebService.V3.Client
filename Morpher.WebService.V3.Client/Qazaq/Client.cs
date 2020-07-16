@@ -62,11 +62,11 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
-        public string GetDate(string date, bool useOne)
+        public string GetDate(DateTime dateTime, bool useOne)
         {
             using (var client = _newClient())
             {
-                client.AddParam("date", date);
+                client.AddParam("date", dateTime.ToString());
                 client.AddParam("use-one", useOne.ToString());
                 var stringResult = client.GetObject<string>("/qazaq/date");
 
