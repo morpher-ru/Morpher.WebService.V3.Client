@@ -154,7 +154,7 @@ namespace Morpher.WebService.V3.Russian
             }
         }
 
-        public SummaPropisResult SpellSum(decimal n, string currency,
+        public Propis GetPropis(decimal n, string currency,
             string padeg, string capitals, string nbsp, string delim)
         {
             if (string.IsNullOrWhiteSpace(currency))
@@ -164,14 +164,14 @@ namespace Morpher.WebService.V3.Russian
 
             using (var client = _newClient())
             {
-                client.AddParam("n", n.ToString());
+                client.AddParam("n", n.ToString(CultureInfo.InvariantCulture));
                 client.AddParam("currency", currency);
                 client.AddParam("case", padeg);
                 client.AddParam("capitals", capitals);
                 client.AddParam("nbsp", nbsp);
                 client.AddParam("delim", delim);
 
-                return client.GetObject<SummaPropisResult>("/russian/propis");
+                return client.GetObject<Propis>("/russian/propis");
             }
         }
     }
