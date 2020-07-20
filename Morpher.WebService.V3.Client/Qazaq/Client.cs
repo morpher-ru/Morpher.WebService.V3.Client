@@ -43,10 +43,14 @@ namespace Morpher.WebService.V3.Qazaq
             {
                 client.AddParam("n", n.ToString());
                 client.AddParam("use-one", useOne.ToString());
-
-                var stringResult = client.GetObject<string>("/qazaq/cardinal");
-
-                return stringResult;
+                try
+                {
+                    return client.GetObject<string>("/qazaq/cardinal");
+                }
+                catch (BadRequestException e) when (e.ErrorCode == 19)
+                {
+                    throw new OutOfRangeException(nameof(n));
+                }
             }
         }
 
@@ -56,9 +60,14 @@ namespace Morpher.WebService.V3.Qazaq
             {
                 client.AddParam("cardinal", cardinal);
 
-                var stringResult = client.GetObject<string>("/qazaq/ordinal");
-
-                return stringResult;
+                try
+                {
+                    return client.GetObject<string>("/qazaq/ordinal");
+                }
+                catch (BadRequestException e) when (e.ErrorCode == 15)
+                {
+                    throw new ArgumentNotQazaqException(nameof(cardinal));
+                }
             }
         }
 
@@ -80,9 +89,14 @@ namespace Morpher.WebService.V3.Qazaq
             {
                 client.AddParam("date", dateTime.ToString("yyyy-MM-dd"));
                 client.AddParam("use-one", useOne.ToString());
-                var stringResult = client.GetObject<string>("/qazaq/date");
-
-                return stringResult;
+                try
+                {
+                    return client.GetObject<string>("/qazaq/date");
+                }
+                catch (BadRequestException e) when (e.ErrorCode == 16)
+                {
+                    throw new QazaqWrongDateException(nameof(dateTime));
+                }
             }
         }
 
@@ -92,10 +106,19 @@ namespace Morpher.WebService.V3.Qazaq
             {
                 client.AddParam("day", day.ToString());
                 client.AddParam("month", month.ToString());
-
-                var stringResult = client.GetObject<string>("/qazaq/day-of-month");
-
-                return stringResult;
+                try
+                {
+                    return client.GetObject<string>("/qazaq/day-of-month");
+                }
+                catch (BadRequestException e)
+                {
+                    switch (e.ErrorCode)
+                    {
+                        case 17: throw new QazaqWrongDayOfMonthException(nameof(day));
+                        case 18: throw new QazaqWrongMonthException(nameof(month));
+                    }
+                    throw;
+                }
             }
         }
     }
