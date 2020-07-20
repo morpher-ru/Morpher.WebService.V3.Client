@@ -78,8 +78,14 @@ namespace Morpher.WebService.V3.Qazaq
                 client.AddParam("date", date);
                 client.AddParam("use-one", useOne.ToString());
                 var stringResult = client.GetObject<string>("/qazaq/date");
-
-                return stringResult;
+                try
+                {
+                    return client.GetObject<string>("/qazaq/date");
+                }
+                catch (BadRequestException e) when (e.ErrorCode == 16)
+                {
+                    throw new QazaqWrongDateException(nameof(date));
+                }
             }
         }
 
