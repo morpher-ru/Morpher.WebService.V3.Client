@@ -94,7 +94,14 @@ namespace Morpher.WebService.V3.Russian
                 client.AddParam("n", number.ToString(new CultureInfo("en-US")));
                 client.AddParam("unit", unit);
 
-                return client.GetObject<NumberSpellingResult>("/russian/spell");
+                try
+                {
+                    return client.GetObject<NumberSpellingResult>("/russian/spell");
+                }
+                catch (BadRequestException e) when (e.Status == 496)
+                {
+                    throw new ArgumentNotRussianException(nameof(unit));
+                }
             }
         }
 
@@ -110,7 +117,14 @@ namespace Morpher.WebService.V3.Russian
                 client.AddParam("n", number.ToString());
                 client.AddParam("unit", unit);
 
-                return client.GetObject<NumberSpellingResult>("/russian/spell-ordinal");
+                try
+                {
+                    return client.GetObject<NumberSpellingResult>("/russian/spell-ordinal");
+                }
+                catch (BadRequestException e) when (e.Status == 496)
+                {
+                    throw new ArgumentNotRussianException(nameof(unit));
+                }
             }
         }
 
