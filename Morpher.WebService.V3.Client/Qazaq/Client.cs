@@ -54,6 +54,14 @@ namespace Morpher.WebService.V3.Qazaq
             }
         }
 
+        /// <summary>
+        /// Строит порядковое числительное из данного количественного числительного.
+        /// </summary>
+        /// <param name="cardinal">Количественное числительное, например, "жыирма бес".</param>
+        /// <returns>Порядковое числительное, например, "жыирма бесінші"</returns>
+        /// <exception cref="ArgumentNotQazaqException">
+        /// Если <paramref name="cardinal"/> не является казахским словом.
+        /// </exception>
         public string GetOrdinal(string cardinal)
         {
             using (var client = _newClient())
