@@ -2,25 +2,25 @@
 
 namespace Morpher.WebService.V3.Russian
 {
-    [DataContract(Name = "SummaPropisResult")]
+    [DataContract]
     public class Propis
     {
-        [DataMember(Name = "propis1")]
+        [DataMember]
         public string propis1 { get; set; }
 
-        [DataMember(Name = "propis2")]
+        [DataMember]
         public string propis2 { get; set; }
 
-        [DataMember(Name = "propis3")]
+        [DataMember]
         public string propis3 { get; set; }
 
-        [DataMember(Name = "amount")]
+        [DataMember]
         public string amount { get; set; }
 
-        [DataMember(Name = "currency")]
+        [DataMember]
         public string currency { get; set; }
 
-        [DataMember(Name = "cents")]
+        [DataMember]
         public string cents { get; set; }
     }
 }
