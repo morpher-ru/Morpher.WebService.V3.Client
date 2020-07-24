@@ -2,7 +2,7 @@
 
 namespace Morpher.WebService.V3.Russian
 {
-    [DataContract(Name = "SummaPropisResult", Namespace = "http://schemas.datacontract.org/2004/07/Morpher.WebApi.Models")]
+    [DataContract(Name = "SummaPropisResult")]
     public class Propis
     {
         [DataMember(Name = "propis1")]
