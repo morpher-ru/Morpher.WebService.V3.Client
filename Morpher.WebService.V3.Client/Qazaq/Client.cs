@@ -43,14 +43,7 @@ namespace Morpher.WebService.V3.Qazaq
             {
                 client.AddParam("n", n.ToString());
                 client.AddParam("use-one", useOne.ToString());
-                try
-                {
-                    return client.GetObject<string>("/qazaq/cardinal");
-                }
-                catch (BadRequestException e) when (e.ErrorCode == 19)
-                {
-                    throw new OutOfRangeException(nameof(n));
-                }
+                return client.GetObject<string>("/qazaq/cardinal");
             }
         }
 
