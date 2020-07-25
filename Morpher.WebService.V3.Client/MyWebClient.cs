@@ -120,6 +120,7 @@ namespace Morpher.WebService.V3
             if (exc.Response is HttpWebResponse httpWebResponse)
             {
                 int status = (int)httpWebResponse.StatusCode;
+                int errorCode = int.Parse(httpWebResponse.Headers.Get("Error-Code"));
                 
                 if (status >= 400 && status < 500)
                 {
@@ -136,7 +137,7 @@ namespace Morpher.WebService.V3
                             throw new InvalidServerResponseException(exc);
                     }
 
-                    throw new BadRequestException(status);
+                    throw new BadRequestException(status, errorCode);
                 }
 
                 if (status >= 500)
