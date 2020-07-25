@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Morpher.WebService.V3
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using Newtonsoft.Json;
 
@@ -120,8 +121,7 @@ namespace Morpher.WebService.V3
             if (exc.Response is HttpWebResponse httpWebResponse)
             {
                 int status = (int)httpWebResponse.StatusCode;
-                int errorCode = int.Parse(httpWebResponse.Headers.Get("Error-Code"));
-                
+
                 if (status >= 400 && status < 500)
                 {
                     switch (status)
@@ -136,8 +136,14 @@ namespace Morpher.WebService.V3
                             // но никак не ошибка пользователя.
                             throw new InvalidServerResponseException(exc);
                     }
+                    var jsonResponse = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
 
-                    throw new BadRequestException(status, errorCode);
+                    var resp = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResponse);
+                    string errorCode = "";
+                    if(resp.TryGetValue("code", out errorCode))
+                        throw new BadRequestException(status, int.Parse(errorCode));
+                    else
+                        throw new BadRequestException(status);
                 }
 
                 if (status >= 500)
