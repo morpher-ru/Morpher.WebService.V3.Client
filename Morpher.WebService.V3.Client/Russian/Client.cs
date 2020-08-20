@@ -164,14 +164,31 @@ namespace Morpher.WebService.V3.Russian
 
             using (var client = _newClient())
             {
-                client.AddParam("n", n.ToString(CultureInfo.InvariantCulture));
-                client.AddParam("currency", currency);
-                client.AddParam("case", padeg);
-                client.AddParam("capitals", capitals);
-                client.AddParam("nbsp", nbsp);
-                client.AddParam("delim", delim);
 
-                return client.GetObject<Propis>("/russian/propis");
+                try
+                {
+                    client.AddParam("n", n.ToString(CultureInfo.InvariantCulture));
+                    client.AddParam("currency", currency);
+                    client.AddParam("case", padeg);
+                    client.AddParam("capitals", capitals);
+                    client.AddParam("nbsp", nbsp);
+                    client.AddParam("delim", delim);
+
+                    return client.GetObject<Propis>("/russian/propis");
+                }
+                catch (BadRequestException e)
+                {
+                    switch (e.ErrorCode)
+                    {
+                        case 20: throw new WrongCurrencyException(nameof(currency));
+                        case 21: throw new InvalidCapitalsValueException(nameof(capitals));
+                        case 22: throw new InvalidCaseValueException("case");
+                        case 23: throw new InvalidDelimValueException(nameof(delim));
+                        case 24: throw new InvalidNbspValueException(nameof(nbsp));
+                    }
+
+                    throw;
+                }
             }
         }
     }
