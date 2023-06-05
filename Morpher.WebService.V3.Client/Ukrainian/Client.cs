@@ -37,13 +37,13 @@ namespace Morpher.WebService.V3.Ukrainian
 
                     return declensionResult;
                 }
-                catch (BadRequestException e) when (e.Status == 494)
+                catch (UnknownResponseException e) when (e.Status == 494)
                 {
                     // Флаги пока не поддерживаются.
                     // TODO throw new InvalidFlagsException(nameof(flags));
                     throw; 
                 }
-                catch (BadRequestException e) when (e.Status == 496)
+                catch (UnknownResponseException e) when (e.Status == 496)
                 {
                     throw new ArgumentNotUkrainianException(nameof(lemma));
                 }

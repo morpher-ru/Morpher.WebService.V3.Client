@@ -42,7 +42,7 @@ namespace Morpher.WebService.V3.Russian
 
                     return declensionResult;
                 }
-                catch (BadRequestException e)
+                catch (UnknownResponseException e)
                 {
                     switch (e.Status)
                     {
@@ -98,7 +98,7 @@ namespace Morpher.WebService.V3.Russian
                 {
                     return client.GetObject<NumberSpellingResult>("/russian/spell");
                 }
-                catch (BadRequestException e) when (e.Status == 496)
+                catch (UnknownResponseException e) when (e.Status == 496)
                 {
                     throw new ArgumentNotRussianException(nameof(unit));
                 }
@@ -121,7 +121,7 @@ namespace Morpher.WebService.V3.Russian
                 {
                     return client.GetObject<NumberSpellingResult>("/russian/spell-ordinal");
                 }
-                catch (BadRequestException e) when (e.Status == 496)
+                catch (UnknownResponseException e) when (e.Status == 496)
                 {
                     throw new ArgumentNotRussianException(nameof(unit));
                 }

@@ -6,12 +6,12 @@
     <RootNamespace>Morpher.WebService.V3</RootNamespace>
     <Authors>Morpher.ru</Authors>
     <Title>Russian and Ukrainian declension web service client.</Title>
-    <Copyright>Copyright 2017 morpher.ru</Copyright>
+    <Copyright>Copyright 2017-2023 morpher.ru</Copyright>
     <PackageTags>declension pluralization russian ukrainian grammar morphology</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/morpher-ru/Morpher.WebService.V3.Client</RepositoryUrl>
-    <PackageProjectUrl>http://morpher.ru/ws3</PackageProjectUrl>
-    <PackageReleaseNotes>Spell and SpellOrdinal now return ArgumentNotRussianException.</PackageReleaseNotes>
+    <PackageProjectUrl>https://morpher.ru/ws3</PackageProjectUrl>
+    <PackageReleaseNotes>UnknownResponseException.</PackageReleaseNotes>
 
     <PackageVersion>1.0.0</PackageVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>

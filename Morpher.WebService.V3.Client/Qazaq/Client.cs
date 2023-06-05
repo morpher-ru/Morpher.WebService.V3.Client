@@ -30,7 +30,7 @@ namespace Morpher.WebService.V3.Qazaq
 
                     return declensionResult;
                 }
-                catch (BadRequestException e) when (e.Status == 496)
+                catch (UnknownResponseException e) when (e.Status == 496)
                 {
                     throw new ArgumentNotQazaqException(nameof(lemma));
                 }

@@ -121,35 +121,24 @@ namespace Morpher.WebService.V3
             {
                 int status = (int)httpWebResponse.StatusCode;
                 
-                if (status >= 400 && status < 500)
+                switch (status)
                 {
-                    switch (status)
-                    {
-                        // Здесь обрабатываются только ошибки, общие для всех методов.
-                        // Специфичные ошибки обрабатываются в самих методах.
-                        case 402: throw new DailyLimitExceededException();
-                        case 403: throw new IpBlockedException();
-                        case 498: throw new TokenNotFoundException();
-                        case 497: // "Неправильный формат токена". 
-                            // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
-                            // но никак не ошибка пользователя.
-                            throw new InvalidServerResponseException(exc);
-                    }
-
-                    throw new BadRequestException(status);
+                    // Здесь обрабатываются только ошибки, общие для всех методов.
+                    // Специфичные ошибки обрабатываются в самих методах.
+                    case 402: throw new DailyLimitExceededException();
+                    case 403: throw new IpBlockedException();
+                    case 498: throw new TokenNotFoundException();
+                    case 497: // "Неправильный формат токена". 
+                        // Если мы такое получили, значит, ошибка в коде клиента или сервиса,
+                        // но никак не ошибка пользователя.
+                        throw new InvalidServerResponseException(exc);
                 }
 
-                if (status >= 500)
-                {
-                    Stream responseStream = httpWebResponse.GetResponseStream();
-                
-                    string body = GetBody(responseStream);
+                Stream responseStream = httpWebResponse.GetResponseStream();
+            
+                string body = GetBody(responseStream);
 
-                    string message = $"Got a response with status code {status} {httpWebResponse.StatusDescription}."
-                                     + $"Status: {exc.Status}. Body:\n{body}";
-                                         
-                    throw new Exception(message, exc);
-                }
+                throw new UnknownResponseException(status, body);
             }
         }
 
