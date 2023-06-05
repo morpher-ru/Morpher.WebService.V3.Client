@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://morpher.ru/ws3</PackageProjectUrl>
     <PackageReleaseNotes>UnknownResponseException.</PackageReleaseNotes>
 
+    <!-- These are set in appveyor.yml -->
     <PackageVersion>1.0.0</PackageVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
@@ -20,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.*" />
   </ItemGroup>
 
 </Project>
