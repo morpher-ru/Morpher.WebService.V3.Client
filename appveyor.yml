@@ -1,9 +1,9 @@
 environment:
   major_version: 3
   minor_version: 5
-  patch_version: 1
+  patch_version: 2
 version: '$(major_version).$(minor_version).$(patch_version).{build}'
-image: Visual Studio 2017
+image: Visual Studio 2022
 configuration: Release
 dotnet_csproj:
   patch: true
