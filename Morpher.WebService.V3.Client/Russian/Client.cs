@@ -78,8 +78,8 @@ namespace Morpher.WebService.V3.Russian
             using (var client = _newClient())
             {
                 client.AddHeader(HttpRequestHeader.ContentType, "text/plain");
-                string uri = "/russian/addstressmarks?ambiguous-only=" + ambiguousOnly;
-                return client.UploadString<string>(uri, text);
+                client.AddParam("ambiguous-only", ambiguousOnly.ToString().ToLower());
+                return client.UploadString<string>("/russian/addstressmarks", text);
             }
         }
 

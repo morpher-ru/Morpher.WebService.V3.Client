@@ -501,5 +501,26 @@
             Assert.Null(result[1].Result);
             Assert.Null(result[2].Error);
         }
+        
+        [Test]
+        public void AddStressMarksTest()
+        {
+            // Arrange
+            var webClient = new Mock<IWebClient>();
+            var queryParams = new NameValueCollection();
+            webClient.Setup(wc => wc.QueryString).Returns(queryParams);
+            webClient.Setup(wc => wc.UploadString(It.IsAny<string>(), It.IsAny<string>())).Returns("\"Приве́т\"");
+            webClient.Setup(wc => wc.Headers).Returns(new WebHeaderCollection());
+            MorpherClient morpher = MockClientHelpers.NewMorpherClientInject(webClient.Object);
+            
+            // Act
+            var result = morpher.Russian.AddStressMarks("Привет", true);
+            
+            // Assert
+            webClient.Verify(wc => wc.UploadString("http://ws3.morpher.ru/russian/addstressmarks", "Привет"), Times.Once);
+            Assert.AreEqual("Приве́т", result);
+            Assert.AreEqual("json", queryParams["format"]);
+            Assert.AreEqual("true", queryParams["ambiguous-only"]);
+        }
     }
 }
